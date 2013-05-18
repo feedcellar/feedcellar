@@ -48,7 +48,10 @@ module Feedpork
         next unless rss
 
         rss.items.each do |item|
-          puts "#{item.title}: #{item.link}"
+          puts item.title
+          puts "  #{item.link}"
+          puts "    #{item.description}" if item.respond_to?(:description)
+          puts
         end
       end
     end
