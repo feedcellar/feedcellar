@@ -21,5 +21,16 @@ module Feedpork
         YAML.dump(feeds, f)
       end
     end
+
+    desc "add URL", "Add a feed url to config file."
+    def add(feed_url)
+      feeds = YAML.load_file(SAVE_FILE)
+
+      feeds[feed_url] = {}
+
+      File.open(SAVE_FILE, "w") do |f|
+        YAML.dump(feeds, f)
+      end
+    end
   end
 end
