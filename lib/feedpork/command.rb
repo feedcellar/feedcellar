@@ -1,5 +1,6 @@
 require "thor"
 require "yaml"
+require "rss"
 
 module Feedpork
   class Command < Thor
@@ -30,6 +31,25 @@ module Feedpork
 
       File.open(SAVE_FILE, "w") do |f|
         YAML.dump(feeds, f)
+      end
+    end
+
+    desc "read", "Read a feed titles."
+    def read
+      feeds = YAML.load_file(SAVE_FILE)
+
+      feeds.keys.each do |feed_url|
+        begin
+          rss = RSS::Parser.parse(feed_url)
+        rescue RSS::InvalidRSSError
+          rss = RSS::Parser.parse(feed_url, false)
+        end
+
+        next unless rss
+
+        rss.items.each do |item|
+          puts "#{item.title}: #{item.link}"
+        end
       end
     end
   end
