@@ -1,6 +1,6 @@
 # Feedpork
 
-TODO: Write a gem description
+RSS feed reader.
 
 ## Installation
 
