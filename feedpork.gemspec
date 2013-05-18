@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Feedpork::VERSION
   spec.authors       = ["Masafumi Yokoyama"]
   spec.email         = ["myokoym@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{A feed cellar and reader.}
+  spec.summary       = %q{A feed cellar and reader.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
