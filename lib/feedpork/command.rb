@@ -62,7 +62,7 @@ module Feedpork
     end
 
     def work_dir
-      work_dir = File.join(File.expand_path("~"), ".feedpork")
+      @work_dir ||= File.join(File.expand_path("~"), ".feedpork")
     end
   end
 end
