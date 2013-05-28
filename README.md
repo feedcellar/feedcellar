@@ -1,6 +1,6 @@
 # Feedpork
 
-RSS feed reader.
+RSS feed reader. Powered by groonga.
 
 ## Installation
 
