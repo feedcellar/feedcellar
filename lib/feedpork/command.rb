@@ -1,6 +1,7 @@
 require "thor"
 require "yaml"
 require "rss"
+require "feedpork/groonga_database"
 
 module Feedpork
   class Command < Thor
@@ -10,39 +11,32 @@ module Feedpork
       super
     end
 
-    desc "init", "Initialize a config file."
-    def init
-      unless Dir.exist?(work_dir)
-        Dir.mkdir(work_dir)
-      end
-
-      if File.exist?(save_file)
-        puts "Already exist. See #{save_file}"
-        exit(false)
-      end
-
-      feeds = {}
-      File.open(save_file, "w") do |f|
-        YAML.dump(feeds, f)
-      end
+    desc "add URL", "Add a feed url."
+    def add(feed_url)
+      @database = GroongaDatabase.new
+      @database.open(work_dir)
+      @database.regist(feed_url)
+      @database.close
     end
 
-    desc "add URL", "Add a feed url to config file."
-    def add(feed_url)
-      feeds = YAML.load_file(save_file)
-
-      feeds[feed_url] = {}
-
-      File.open(save_file, "w") do |f|
-        YAML.dump(feeds, f)
+    desc "list", "Show feed url list."
+    def list
+      @database = GroongaDatabase.new
+      @database.open(work_dir)
+      @database.resources.each do |record|
+        puts record.key
       end
+      @database.close
     end
 
     desc "read", "Read a feed titles."
     def read
-      feeds = YAML.load_file(save_file)
+      @database = GroongaDatabase.new
+      @database.open(work_dir)
+      resources = @database.resources
 
-      feeds.keys.each do |feed_url|
+      resources.each do |record|
+        feed_url = record.key
         begin
           rss = RSS::Parser.parse(feed_url)
         rescue RSS::InvalidRSSError
@@ -58,6 +52,8 @@ module Feedpork
           puts
         end
       end
+
+      @database.close
     end
 
     private
