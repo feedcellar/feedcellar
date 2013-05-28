@@ -29,8 +29,8 @@ module Feedpork
       @database.close
     end
 
-    desc "read", "Read a feed titles."
-    def read
+    desc "collect", "Collect feeds."
+    def collect
       @database = GroongaDatabase.new
       @database.open(work_dir)
       resources = @database.resources
@@ -46,11 +46,25 @@ module Feedpork
         next unless rss
 
         rss.items.each do |item|
-          puts item.title
-          puts "  #{item.link}"
-          puts "    #{item.description}" if item.respond_to?(:description)
-          puts
+          description = item.respond_to?(:description) ? item.description : nil
+          @database.add(feed_url, item.title, item.link, description)
         end
+      end
+
+      @database.close
+    end
+
+    desc "read", "Read feeds."
+    def read
+      @database = GroongaDatabase.new
+      @database.open(work_dir)
+      feeds = @database.feeds
+
+      feeds.each do |record|
+        puts record.title
+        puts "  #{record.link}"
+        puts "    #{record.description}"
+        puts
       end
 
       @database.close
