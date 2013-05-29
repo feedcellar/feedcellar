@@ -1,9 +1,9 @@
 require "thor"
 require "yaml"
 require "rss"
-require "feedpork/groonga_database"
+require "feedcellar/groonga_database"
 
-module Feedpork
+module Feedcellar
   class Command < Thor
     SAVE_FILE = "feeds.yaml"
 
@@ -76,7 +76,7 @@ module Feedpork
     end
 
     def work_dir
-      @work_dir ||= File.join(File.expand_path("~"), ".feedpork")
+      @work_dir ||= File.join(File.expand_path("~"), ".feedcellar")
     end
   end
 end

@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'feedpork/version'
+require 'feedcellar/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "feedpork"
-  spec.version       = Feedpork::VERSION
+  spec.name          = "feedcellar"
+  spec.version       = Feedcellar::VERSION
   spec.authors       = ["Masafumi Yokoyama"]
   spec.email         = ["myokoym@gmail.com"]
   spec.description   = %q{RSS feed reader.}
   spec.summary       = %q{RSS Feed Reader}
-  spec.homepage      = "https://github.com/myokoym/feedpork"
+  spec.homepage      = "https://github.com/myokoym/feedcellar"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

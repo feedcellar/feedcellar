@@ -1,4 +1,4 @@
-# Feedpork
+# Feedcellar
 
 RSS feed reader. Powered by groonga.
 
@@ -6,7 +6,7 @@ RSS feed reader. Powered by groonga.
 
 Add this line to your application's Gemfile:
 
-    gem 'feedpork'
+    gem 'feedcellar'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install feedpork
+    $ gem install feedcellar
 
 ## Usage
 

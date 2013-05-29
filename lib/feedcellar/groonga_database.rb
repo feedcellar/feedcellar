@@ -1,6 +1,6 @@
 require 'groonga'
 
-module Feedpork
+module Feedcellar
   class GroongaDatabase
     def initialize
       @database = nil
@@ -13,7 +13,7 @@ module Feedpork
 
     def open(base_path, encoding=:utf8)
       reset_context(encoding)
-      path = File.join(base_path, "feedpork.db")
+      path = File.join(base_path, "feedcellar.db")
       if File.exist?(path)
         @database = Groonga::Database.open(path)
         populate_schema
