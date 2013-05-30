@@ -104,6 +104,11 @@ module Feedcellar
     def populate_schema
       Groonga::Schema.define do |schema|
         schema.create_table("Resources", :type => :hash) do |table|
+          table.text("text")
+          table.text("title")
+          table.text("type")
+          table.text("xmlUrl")
+          table.text("htmlUrl")
         end
 
         schema.create_table("Feeds", :type => :hash) do |table|
