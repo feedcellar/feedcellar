@@ -6,8 +6,6 @@ require "feedcellar/opml"
 
 module Feedcellar
   class Command < Thor
-    SAVE_FILE = "feeds.yaml"
-
     def initialize(*args)
       super
     end
@@ -83,10 +81,6 @@ module Feedcellar
     end
 
     private
-    def save_file
-      File.join(work_dir, SAVE_FILE)
-    end
-
     def work_dir
       @work_dir ||= File.join(File.expand_path("~"), ".feedcellar")
     end
