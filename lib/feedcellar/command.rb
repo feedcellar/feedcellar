@@ -2,6 +2,7 @@ require "thor"
 require "yaml"
 require "rss"
 require "feedcellar/groonga_database"
+require "feedcellar/opml"
 
 module Feedcellar
   class Command < Thor
@@ -16,6 +17,16 @@ module Feedcellar
       @database = GroongaDatabase.new
       @database.open(work_dir)
       @database.regist(feed_url)
+      @database.close
+    end
+
+    desc "add_opml FILE", "Add feeds by OPML format."
+    def add_opml(opml_xml)
+      @database = GroongaDatabase.new
+      @database.open(work_dir)
+      Feedcellar::Opml.parse(opml_xml).each do |resource|
+        @database.regist(resource["title"], resource)
+      end
       @database.close
     end
 
