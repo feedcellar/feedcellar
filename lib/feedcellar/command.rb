@@ -8,12 +8,13 @@ module Feedcellar
   class Command < Thor
     def initialize(*args)
       super
+      @work_dir = File.join(File.expand_path("~"), ".feedcellar")
     end
 
     desc "register URL", "Register a URL."
     def register(url)
       @database = GroongaDatabase.new
-      @database.open(work_dir) do |database|
+      @database.open(@work_dir) do |database|
         database.regist(url)
       end
     end
@@ -21,7 +22,7 @@ module Feedcellar
     desc "import FILE", "Import feeds by OPML format."
     def import(opml_xml)
       @database = GroongaDatabase.new
-      @database.open(work_dir) do |database|
+      @database.open(@work_dir) do |database|
         Feedcellar::Opml.parse(opml_xml).each do |resource|
           database.regist(resource["title"], resource)
         end
@@ -31,7 +32,7 @@ module Feedcellar
     desc "list", "Show feed url list."
     def list
       @database = GroongaDatabase.new
-      @database.open(work_dir) do |database|
+      @database.open(@work_dir) do |database|
         database.resources.each do |record|
           puts record.key
         end
@@ -41,7 +42,7 @@ module Feedcellar
     desc "collect", "Collect feeds."
     def collect
       @database = GroongaDatabase.new
-      @database.open(work_dir) do |database|
+      @database.open(@work_dir) do |database|
         resources = database.resources
 
         resources.each do |record|
@@ -66,7 +67,7 @@ module Feedcellar
     desc "read", "Read feeds."
     def read
       @database = GroongaDatabase.new
-      @database.open(work_dir) do |database|
+      @database.open(@work_dir) do |database|
         feeds = @database.feeds
 
         feeds.each do |record|
@@ -76,11 +77,6 @@ module Feedcellar
           puts
         end
       end
-    end
-
-    private
-    def work_dir
-      @work_dir ||= File.join(File.expand_path("~"), ".feedcellar")
     end
   end
 end
