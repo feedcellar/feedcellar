@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>M の リーダー登録フィード</title>
+    </head>
+    <body>
+        <outline text="I like Ruby too." title="I like Ruby too."
+            type="rss" xmlUrl="http://d.hatena.ne.jp/m_seki/rss2" htmlUrl="http://d.hatena.ne.jp/m_seki/"/>
+        <outline text="Matzにっき" title="Matzにっき" type="rss"
+            xmlUrl="http://www.rubyist.net/~matz/index.rdf" htmlUrl="http://www.rubyist.net/~matz/"/>
+        <outline text="ruby-langの最新ニュース" title="ruby-langの最新ニュース"
+            type="rss"
+            xmlUrl="http://www.ruby-lang.org/ja/feeds/news.rss" htmlUrl="http://www.ruby-lang.org/ja/feeds/news.rss"/>
+        <outline text="rubyco（るびこ）の日記" title="rubyco（るびこ）の日記" type="rss"
+            xmlUrl="http://d.hatena.ne.jp/rubyco/rss" htmlUrl="http://d.hatena.ne.jp/rubyco/"/>
+        <outline text="RubyKaigi Nikki" title="RubyKaigi Nikki"
+            type="rss" xmlUrl="http://rubykaigi.tdiary.net/index.rdf" htmlUrl="http://rubykaigi.tdiary.net/"/>
+        <outline text="t-wadaの日記" title="t-wadaの日記" type="rss"
+            xmlUrl="http://d.hatena.ne.jp/t-wada/rss2" htmlUrl="http://d.hatena.ne.jp/t-wada/"/>
+        <outline text="ククログ" title="ククログ" type="rss"
+            xmlUrl="http://www.clear-code.com/blog/index.rdf" htmlUrl="http://www.clear-code.com/blog/"/>
+        <outline title="shogi" text="shogi">
+            <outline text="妻の小言。" title="妻の小言。" type="rss"
+                xmlUrl="http://inaw.exblog.jp/atom.xml" htmlUrl="http://inaw.exblog.jp"/>
+            <outline text="妻の小言。" title="妻の小言。" type="rss"
+                xmlUrl="http://inaw.exblog.jp/index.xml" htmlUrl="http://inaw.exblog.jp"/>
+            <outline text="渡辺明ブログ" title="渡辺明ブログ" type="rss"
+                xmlUrl="http://blog.goo.ne.jp/kishi-akira/index.rdf" htmlUrl="http://blog.goo.ne.jp/kishi-akira?fm=rss"/>
+        </outline>
+    </body>
+</opml>
