@@ -13,36 +13,36 @@ module Feedcellar
     desc "register URL", "Register a URL."
     def register(url)
       @database = GroongaDatabase.new
-      @database.open(work_dir)
-      @database.regist(url)
-      @database.close
+      @database.open(work_dir) do |database|
+      database.regist(url)
+      end
     end
 
     desc "import FILE", "Import feeds by OPML format."
     def import(opml_xml)
       @database = GroongaDatabase.new
-      @database.open(work_dir)
+      @database.open(work_dir) do |database|
       Feedcellar::Opml.parse(opml_xml).each do |resource|
-        @database.regist(resource["title"], resource)
+        database.regist(resource["title"], resource)
       end
-      @database.close
+      end
     end
 
     desc "list", "Show feed url list."
     def list
       @database = GroongaDatabase.new
-      @database.open(work_dir)
-      @database.resources.each do |record|
+      @database.open(work_dir) do |database|
+      database.resources.each do |record|
         puts record.key
       end
-      @database.close
+      end
     end
 
     desc "collect", "Collect feeds."
     def collect
       @database = GroongaDatabase.new
-      @database.open(work_dir)
-      resources = @database.resources
+      @database.open(work_dir) do |database|
+      resources = database.resources
 
       resources.each do |record|
         feed_url = record["xmlUrl"]
@@ -57,17 +57,16 @@ module Feedcellar
 
         rss.items.each do |item|
           description = item.respond_to?(:description) ? item.description : nil
-          @database.add(feed_url, item.title, item.link, description)
+          database.add(feed_url, item.title, item.link, description)
         end
       end
-
-      @database.close
+      end
     end
 
     desc "read", "Read feeds."
     def read
       @database = GroongaDatabase.new
-      @database.open(work_dir)
+      @database.open(work_dir) do |database|
       feeds = @database.feeds
 
       feeds.each do |record|
@@ -76,8 +75,7 @@ module Feedcellar
         puts "    #{record.description}"
         puts
       end
-
-      @database.close
+      end
     end
 
     private
