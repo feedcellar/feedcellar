@@ -12,11 +12,11 @@ module Feedcellar
       super
     end
 
-    desc "add URL", "Add a feed url."
-    def add(feed_url)
+    desc "register URL", "Register a URL."
+    def register(url)
       @database = GroongaDatabase.new
       @database.open(work_dir)
-      @database.regist(feed_url)
+      @database.regist(url)
       @database.close
     end
 
