@@ -14,7 +14,7 @@ module Feedcellar
     def register(url)
       @database = GroongaDatabase.new
       @database.open(work_dir) do |database|
-      database.regist(url)
+        database.regist(url)
       end
     end
 
@@ -22,9 +22,9 @@ module Feedcellar
     def import(opml_xml)
       @database = GroongaDatabase.new
       @database.open(work_dir) do |database|
-      Feedcellar::Opml.parse(opml_xml).each do |resource|
-        database.regist(resource["title"], resource)
-      end
+        Feedcellar::Opml.parse(opml_xml).each do |resource|
+          database.regist(resource["title"], resource)
+        end
       end
     end
 
@@ -32,9 +32,9 @@ module Feedcellar
     def list
       @database = GroongaDatabase.new
       @database.open(work_dir) do |database|
-      database.resources.each do |record|
-        puts record.key
-      end
+        database.resources.each do |record|
+          puts record.key
+        end
       end
     end
 
@@ -42,24 +42,24 @@ module Feedcellar
     def collect
       @database = GroongaDatabase.new
       @database.open(work_dir) do |database|
-      resources = database.resources
+        resources = database.resources
 
-      resources.each do |record|
-        feed_url = record["xmlUrl"]
-        next unless feed_url
+        resources.each do |record|
+          feed_url = record["xmlUrl"]
+          next unless feed_url
 
-        begin
-          rss = RSS::Parser.parse(feed_url)
-        rescue RSS::InvalidRSSError
-          rss = RSS::Parser.parse(feed_url, false)
+          begin
+            rss = RSS::Parser.parse(feed_url)
+          rescue RSS::InvalidRSSError
+            rss = RSS::Parser.parse(feed_url, false)
+          end
+          next unless rss
+
+          rss.items.each do |item|
+            description = item.respond_to?(:description) ? item.description : nil
+            database.add(feed_url, item.title, item.link, description)
+          end
         end
-        next unless rss
-
-        rss.items.each do |item|
-          description = item.respond_to?(:description) ? item.description : nil
-          database.add(feed_url, item.title, item.link, description)
-        end
-      end
       end
     end
 
@@ -67,14 +67,14 @@ module Feedcellar
     def read
       @database = GroongaDatabase.new
       @database.open(work_dir) do |database|
-      feeds = @database.feeds
+        feeds = @database.feeds
 
-      feeds.each do |record|
-        puts record.title
-        puts "  #{record.link}"
-        puts "    #{record.description}"
-        puts
-      end
+        feeds.each do |record|
+          puts record.title
+          puts "  #{record.link}"
+          puts "    #{record.description}"
+          puts
+        end
       end
     end
 
