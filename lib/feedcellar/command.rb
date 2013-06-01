@@ -47,13 +47,14 @@ module Feedcellar
       resources = @database.resources
 
       resources.each do |record|
-        feed_url = record.key
+        feed_url = record["xmlUrl"]
+        next unless feed_url
+
         begin
           rss = RSS::Parser.parse(feed_url)
         rescue RSS::InvalidRSSError
           rss = RSS::Parser.parse(feed_url, false)
         end
-
         next unless rss
 
         rss.items.each do |item|
