@@ -1,6 +1,6 @@
 # Feedcellar
 
-RSS feed reader. Powered by groonga.
+Storage for feed reader. Powered by rroonga.
 
 ## Installation
 
