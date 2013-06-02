@@ -1,5 +1,17 @@
 # NEWS
 
+## Feedcellar 0.1.0: 2013-06-02
+
+Release to RubyGems.org!
+
+### Changes
+
+  * Improvements
+    * Remove a needless command.
+
+  * Fixes
+    * Rescue invalid feed.
+
 ## Feedcellar 0.0.3: 2013-06-02
 
 ### Changes
