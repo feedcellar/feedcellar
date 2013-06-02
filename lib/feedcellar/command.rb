@@ -15,7 +15,7 @@ module Feedcellar
     def register(url)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
-        database.regist(url)
+        database.register(url)
       end
     end
 
@@ -24,7 +24,7 @@ module Feedcellar
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
         Feedcellar::Opml.parse(opml_xml).each do |resource|
-          database.regist(resource["title"], resource)
+          database.register(resource["title"], resource)
         end
       end
     end
