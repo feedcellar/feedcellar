@@ -1,5 +1,7 @@
 require "feedcellar/version"
+require "feedcellar/groonga_database"
+require "feedcellar/opml"
+require "feedcellar/command"
 
 module Feedcellar
-  # Your code goes here...
 end
