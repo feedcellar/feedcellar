@@ -30,9 +30,9 @@ module Feedcellar
       end
     end
 
-    def register(title, attributes)
+    def register(key, attributes)
       feeds = Groonga["Resources"]
-      feeds.add(title, attributes)
+      feeds.add(key, attributes)
     end
 
     def add(resource, title, link, description)
