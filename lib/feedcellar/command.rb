@@ -15,7 +15,24 @@ module Feedcellar
     def register(url)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
-        database.register(url)
+        begin
+          rss = RSS::Parser.parse(url)
+        rescue RSS::InvalidRSSError
+          rss = RSS::Parser.parse(url, false)
+        end
+
+        unless rss
+          $stderr.puts "Error: Invalid URL"
+          return 1
+        end
+
+        resource = {}
+        resource["xmlUrl"] = url
+        resource["title"] = rss.channel.title
+        resource["htmlUrl"] = rss.channel.link
+        resource["description"] = rss.channel.description
+
+        database.register(rss.channel.title, resource)
       end
     end
 
