@@ -111,7 +111,9 @@ module Feedcellar
 
         feeds.select {|v| (v.title =~ word) |
                           (v.description =~ word) }.each do |record|
-          puts resources.select {|v| v.xmlUrl =~ record.resource }.first.title
+          feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
+          next unless feed_resources
+          puts feed_resources.first.title
           puts "  #{record.title}"
           puts "    #{record.date}"
           puts "      #{record.link}"
