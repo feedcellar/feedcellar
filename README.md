@@ -1,6 +1,6 @@
-# Feedcellar
+# Feedcellar - Storage for Feed Reader
 
-Storage for feed reader. Powered by rroonga.
+A storage for feed reader. Powered by rroonga.
 
 ## Installation
 
