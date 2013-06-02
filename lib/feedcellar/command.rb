@@ -53,7 +53,9 @@ module Feedcellar
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
         database.resources.each do |record|
-          puts record.key
+          puts record.title
+          puts "  #{record.xmlUrl}"
+          puts
         end
       end
     end
