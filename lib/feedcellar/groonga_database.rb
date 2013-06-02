@@ -1,4 +1,4 @@
-require 'groonga'
+require "groonga"
 
 module Feedcellar
   class GroongaDatabase
