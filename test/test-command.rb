@@ -31,6 +31,13 @@ class CommandTest < Test::Unit::TestCase
       assert_equal(4, database.resources.size)
       assert_true(database.feeds.count > 0)
     end
+
+    s = ""
+    io = StringIO.new(s)
+    $stdout = io
+    @command.search("ruby")
+    assert_true(s.size > 500)
+    $stdout = STDOUT
   end
 
   def teardown

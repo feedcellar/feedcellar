@@ -104,5 +104,23 @@ module Feedcellar
         end
       end
     end
+
+    desc "search", "Search feeds."
+    def search(word)
+      @database = GroongaDatabase.new
+      @database.open(@work_dir) do |database|
+        feeds = @database.feeds
+        resources = @database.resources
+
+        feeds.select {|v| (v.title =~ word) |
+                          (v.description =~ word) }.each do |record|
+          puts resources.select {|v| v.xmlUrl =~ record.resource }.first.title
+          puts "  #{record.title}"
+          puts "    #{record.date}"
+          puts "      #{record.link}"
+          puts
+        end
+      end
+    end
   end
 end
