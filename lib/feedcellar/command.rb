@@ -19,7 +19,7 @@ module Feedcellar
         rescue RSS::InvalidRSSError
           rss = RSS::Parser.parse(url, false)
         rescue
-          $stderr.puts "Warnning: #{$!}(#{url})"
+          $stderr.puts "Warnning: #{$!} (#{url})"
           return 1
         end
 
@@ -73,7 +73,7 @@ module Feedcellar
           rescue RSS::InvalidRSSError
             rss = RSS::Parser.parse(feed_url, false)
           rescue
-            $stderr.puts "Warnning: #{$!}(#{feed_url})"
+            $stderr.puts "Warnning: #{$!} (#{feed_url})"
             next
           end
           next unless rss
