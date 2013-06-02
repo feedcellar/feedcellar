@@ -90,21 +90,6 @@ module Feedcellar
       end
     end
 
-    desc "read", "Read feeds."
-    def read
-      @database = GroongaDatabase.new
-      @database.open(@work_dir) do |database|
-        feeds = @database.feeds
-
-        feeds.each do |record|
-          puts record.title
-          puts "  #{record.link}"
-          puts "    #{record.description}"
-          puts
-        end
-      end
-    end
-
     desc "search", "Search feeds."
     def search(word)
       @database = GroongaDatabase.new
