@@ -18,7 +18,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Show help
+
+    $ feedcellar
+
+Register URL
+
+    $ feedcellar register http://example.net/rss
+
+Import URL from OPML
+
+    $ feedcellar import registers.xml
+
+Show registers
+
+    $ feedcellar list
+
+Collect feeds (It takes several minutes)
+
+    $ feedcellar collect
+
+Word search from titles and descriptions
+
+    $ feedcellar search ruby
+
+Delete database
+
+    $ rm -r ~/.feedcellar
 
 ## Contributing
 
