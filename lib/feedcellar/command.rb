@@ -73,10 +73,11 @@ module Feedcellar
           end
           next unless rss
 
+
           rss.items.each do |item|
             description = item.respond_to?(:description) ? item.description : nil
             # FIXME item.link occurred TypeError caused by Atom feed.
-            database.add(feed_url, item.title, item.link, description)
+            database.add(feed_url, item.title, item.link, description, item.date)
           end
         end
       end

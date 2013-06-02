@@ -30,12 +30,13 @@ module Feedcellar
       feeds.add(key, attributes)
     end
 
-    def add(resource, title, link, description)
+    def add(resource, title, link, description, date)
       feeds = Groonga["Feeds"]
       feeds.add(link, :resource    => resource,
                       :title       => title,
                       :link        => link,
-                      :description => description)
+                      :description => description,
+                      :date        => date)
     end
 
     def close
@@ -88,6 +89,7 @@ module Feedcellar
           table.text("title")
           table.text("link")
           table.text("description")
+          table.time("date")
         end
       end
     end
