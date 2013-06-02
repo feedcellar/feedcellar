@@ -1,5 +1,4 @@
 require "thor"
-require "yaml"
 require "rss"
 require "feedcellar/groonga_database"
 require "feedcellar/opml"
