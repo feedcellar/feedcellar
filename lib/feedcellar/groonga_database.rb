@@ -4,11 +4,6 @@ module Feedcellar
   class GroongaDatabase
     def initialize
       @database = nil
-      check_availability
-    end
-
-    def available?
-      @available
     end
 
     def open(base_path, encoding=:utf8)
@@ -43,17 +38,6 @@ module Feedcellar
                       :description => description)
     end
 
-    def purge
-      path = @database.path
-      encoding = @database.encoding
-      @database.remove
-      directory = File.dirname(path)
-      FileUtils.rm_rf(directory)
-      FileUtils.mkdir_p(directory)
-      reset_context(encoding)
-      populate(path)
-    end
-
     def close
       @database.close
       @database = nil
@@ -71,26 +55,7 @@ module Feedcellar
       @feeds ||= Groonga["Feeds"]
     end
 
-    def purge_old_records(base_time)
-      old_entries = entries.select do |record|
-        record.last_modified < base_time
-      end
-      old_entries.each do |record|
-        real_record = record.key
-        real_record.delete
-      end
-    end
-
     private
-    def check_availability
-      begin
-        require 'groonga'
-        @available = true
-      rescue LoadError
-        @available = false
-      end
-    end
-
     def reset_context(encoding)
       Groonga::Context.default_options = {:encoding => encoding}
       Groonga::Context.default = nil
