@@ -90,7 +90,7 @@ module Feedcellar
       end
     end
 
-    desc "search", "Search feeds."
+    desc "search WORD", "Search feeds."
     def search(word)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
