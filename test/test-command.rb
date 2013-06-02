@@ -28,7 +28,7 @@ class CommandTest < Test::Unit::TestCase
     @command.import(file)
     @command.collect
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
-      assert_equal(3, database.resources.size)
+      assert_equal(4, database.resources.size)
       assert_true(database.feeds.count > 0)
     end
   end
