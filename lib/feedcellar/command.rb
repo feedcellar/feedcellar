@@ -81,7 +81,7 @@ module Feedcellar
           rss.items.each do |item|
             if rss.is_a?(RSS::Atom::Feed)
               title = item.title.content
-              link = item.link.href
+              link = item.link.href if item.link
               description = item.dc_description
               date = item.dc_date
             else
@@ -90,6 +90,12 @@ module Feedcellar
               description = item.description
               date = item.date
             end
+
+            unless link
+              $stderr.puts "Warnning: missing link (#{title})"
+              next
+            end
+
             database.add(feed_url, title, link, description, date)
           end
         end
