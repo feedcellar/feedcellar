@@ -1,5 +1,17 @@
 # NEWS
 
+## Feedcellar 0.1.1: 2013-06-03
+
+Add missing index release!
+
+### Changes
+
+  * Improvements
+    * Add desc option to search command
+
+  * Fixes
+    * Add missing index to Feeds table
+
 ## Feedcellar 0.1.0: 2013-06-02
 
 Release to RubyGems.org!
