@@ -91,6 +91,14 @@ module Feedcellar
           table.text("description")
           table.time("date")
         end
+
+        schema.create_table("Terms",
+                            :type => :patricia_trie,
+                            :key_normalize => true,
+                            :default_tokenizer => "TokenBigram") do |table|
+          table.index("Feeds.title")
+          table.index("Feeds.description")
+        end
       end
     end
   end
