@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Feedcellar::VERSION
   spec.authors       = ["Masafumi Yokoyama"]
   spec.email         = ["myokoym@gmail.com"]
-  spec.description   = %q{A storage for feed reader by rroonga.}
-  spec.summary       = %q{Storage for Feed Reader}
+  spec.description   = %q{A searchable storage for RSS feed reader by rroonga.}
+  spec.summary       = %q{Searchable Storage for Feed Reader}
   spec.homepage      = "https://github.com/myokoym/feedcellar"
   spec.license       = "MIT"
 
