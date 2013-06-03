@@ -105,6 +105,7 @@ module Feedcellar
     end
 
     desc "search WORD", "Search feeds."
+    option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
     def search(word)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
@@ -119,6 +120,7 @@ module Feedcellar
           puts "  #{record.title}"
           puts "    #{record.date}"
           puts "      #{record.link}"
+          puts "        #{record.description}" if options[:desc]
           puts
         end
       end
