@@ -6,9 +6,9 @@
     <body>
         <outline text="my_letter" title="my_letter" type="rss"
             xmlUrl="http://myokoym.github.com/entries.rss" htmlUrl="http://myokoym.github.com/"/>
-        <outline text="Rubygems | Latest Versions for shogi-ruby"
-            title="Rubygems | Latest Versions for shogi-ruby" type="rss"
-            xmlUrl="https://rubygems.org/gems/shogi-ruby/versions.atom" htmlUrl="https://rubygems.org/gems"/>
+        <outline text="Rubygems | Latest Versions for mister_fairy"
+            title="Rubygems | Latest Versions for mister_fairy" type="rss"
+            xmlUrl="https://rubygems.org/gems/mister_fairy/versions.atom" htmlUrl="https://rubygems.org/gems"/>
         <outline title="shogi" text="shogi">
             <outline text="函館将棋情報のブログ" title="函館将棋情報のブログ" type="rss"
                 xmlUrl="http://blogs.yahoo.co.jp/mi807258/rss.xml" htmlUrl="http://rd.yahoo.co.jp/rss/l/blog/myblog/rss2/url/*http://blogs.yahoo.co.jp/mi807258"/>

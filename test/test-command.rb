@@ -20,7 +20,7 @@ class CommandTest < Test::Unit::TestCase
     $stderr = STDERR
 
     @command.register("http://myokoym.github.io/entries.rss")
-    @command.register("https://github.com/myokoym.atom")
+    @command.register("https://rubygems.org/gems/mister_fairy/versions.atom")
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
       assert_equal(2, database.resources.size)
     end
@@ -29,7 +29,7 @@ class CommandTest < Test::Unit::TestCase
     @command.import(file)
     @command.collect
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
-      assert_equal(5, database.resources.size)
+      assert_equal(4, database.resources.size)
       assert_true(database.feeds.count > 0)
     end
 
