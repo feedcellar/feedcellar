@@ -29,12 +29,19 @@ module Feedcellar
         end
 
         resource = {}
+        if rss.is_a?(RSS::Atom::Feed)
+          resource["xmlUrl"] = url
+          resource["title"] = rss.title.content
+          resource["htmlUrl"] = rss.link.href
+          resource["description"] = rss.dc_description
+        else
         resource["xmlUrl"] = url
         resource["title"] = rss.channel.title
         resource["htmlUrl"] = rss.channel.link
         resource["description"] = rss.channel.description
+        end
 
-        database.register(rss.channel.title, resource)
+        database.register(resource["title"], resource)
       end
     end
 
