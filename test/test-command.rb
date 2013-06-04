@@ -1,5 +1,6 @@
 require "fileutils"
 require "stringio"
+require "feedcellar/version"
 require "feedcellar/command"
 require "feedcellar/groonga_database"
 
@@ -12,6 +13,13 @@ class CommandTest < Test::Unit::TestCase
   end
 
   def test_command
+    s = ""
+    io = StringIO.new(s)
+    $stdout = io
+    @command.version
+    assert_equal("#{Feedcellar::VERSION}\n", s)
+    $stdout = STDOUT
+
     s = ""
     io = StringIO.new(s)
     $stderr = io

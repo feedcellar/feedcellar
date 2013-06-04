@@ -1,5 +1,6 @@
 require "thor"
 require "rss"
+require "feedcellar/version"
 require "feedcellar/groonga_database"
 require "feedcellar/opml"
 
@@ -8,6 +9,11 @@ module Feedcellar
     def initialize(*args)
       super
       @work_dir = File.join(File.expand_path("~"), ".feedcellar")
+    end
+
+    desc "version", "Show version number."
+    def version
+      puts Feedcellar::VERSION
     end
 
     desc "register URL", "Register a URL."
