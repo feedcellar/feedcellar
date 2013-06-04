@@ -1,5 +1,15 @@
 # NEWS
 
+## 0.1.2: 2013-06-04
+
+Bug fixes release!
+
+### Changes
+
+  * Fixes
+    * Support Atom feed for register command
+    * Rescue HTTPError from invalid RSS
+
 ## 0.1.1: 2013-06-03
 
 Add missing index release!
