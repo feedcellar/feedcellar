@@ -1,6 +1,6 @@
 # NEWS
 
-## Feedcellar 0.1.1: 2013-06-03
+## 0.1.1: 2013-06-03
 
 Add missing index release!
 
@@ -12,7 +12,7 @@ Add missing index release!
   * Fixes
     * Add missing index to Feeds table
 
-## Feedcellar 0.1.0: 2013-06-02
+## 0.1.0: 2013-06-02
 
 Release to RubyGems.org!
 
@@ -24,7 +24,7 @@ Release to RubyGems.org!
   * Fixes
     * Rescue invalid feed.
 
-## Feedcellar 0.0.3: 2013-06-02
+## 0.0.3: 2013-06-02
 
 ### Changes
 
@@ -32,13 +32,13 @@ Release to RubyGems.org!
     * Support Atom feed.
     * Add search command.
 
-## Feedcellar 0.0.2: 2013-06-02
+## 0.0.2: 2013-06-02
 
 ### Changes
 
   * Improvements
     * Support register a URL.
 
-## Feedcellar 0.0.1: 2013-06-01
+## 0.0.1: 2013-06-01
 
 Initial release!
