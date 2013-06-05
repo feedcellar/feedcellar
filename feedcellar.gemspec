@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["myokoym@gmail.com"]
   spec.description   = %q{A searchable storage for RSS feed reader by rroonga.}
   spec.summary       = %q{Searchable Storage for Feed Reader}
-  spec.homepage      = "https://github.com/myokoym/feedcellar"
+  spec.homepage      = "http://myokoym.net/feedcellar/"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
