@@ -1,4 +1,4 @@
-# Feedcellar - Searchable Storage
+# feedcellar - Searchable Storage
 
 A searchable storage for RSS feed reader. Powered by rroonga.
 
