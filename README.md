@@ -1,6 +1,8 @@
 # feedcellar - Searchable Storage
 
-A searchable storage for RSS feed reader. Powered by rroonga.
+Searchable storage for RSS feed reader.
+
+Powered by rroonga with groonga!
 
 ## Installation
 
