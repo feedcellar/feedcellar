@@ -124,6 +124,7 @@ module Feedcellar
 
     desc "search WORD", "Search feeds."
     option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
+    option :simple, :type => :boolean, :desc => "simple format as one liner"
     def search(word)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
@@ -134,12 +135,21 @@ module Feedcellar
                           (v.description =~ word) }.each do |record|
           feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
           next unless feed_resources
+          if options[:simple]
+            # TODO This format will be to default from 0.2.0
+            date = record.date.strftime("%Y/%m/%d")
+            title= record.title
+            resource = feed_resources.first.title
+            link = record.link
+            puts "#{date} #{title} - #{resource} <#{link}>"
+          else
           puts feed_resources.first.title
           puts "  #{record.title}"
           puts "    #{record.date}"
           puts "      #{record.link}"
           puts "        #{record.description}" if options[:desc]
           puts
+          end
         end
       end
     end
