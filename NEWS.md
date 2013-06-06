@@ -1,5 +1,18 @@
 # NEWS
 
+## 0.1.3: 2013-06-06
+
+Experimental functions release!
+
+### Changes
+
+  * Improvements
+    * Add browser option to search command
+    * Improve search order sort by date ascending
+    * Add simple format to search command
+    * gemspec: change homepage to myokoym.net
+    * Add version command
+
 ## 0.1.2: 2013-06-04
 
 Bug fixes release!
