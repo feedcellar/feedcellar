@@ -125,6 +125,7 @@ module Feedcellar
     desc "search WORD", "Search feeds."
     option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
     option :simple, :type => :boolean, :desc => "simple format as one liner"
+    option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     def search(word)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
@@ -152,6 +153,15 @@ module Feedcellar
             puts "      #{record.link}"
             puts "        #{record.description}" if options[:desc]
             puts
+          end
+
+          if options[:browser]
+            begin
+              require "gtk2"
+            rescue LoadError
+              next
+            end
+            Gtk.show_uri(record.link)
           end
         end
       end
