@@ -102,8 +102,8 @@ module Feedcellar
             if rss.is_a?(RSS::Atom::Feed)
               title = item.title.content
               link = item.link.href if item.link
-              description = item.dc_description
-              date = item.dc_date
+              description = item.summary.content if item.summary
+              date = item.updated.content if item.updated
             else
               title = item.title
               link = item.link
