@@ -131,8 +131,11 @@ module Feedcellar
         feeds = @database.feeds
         resources = @database.resources
 
-        feeds.select {|v| (v.title =~ word) |
-                          (v.description =~ word) }.each do |record|
+        records = feeds.select do |v|
+          (v.title =~ word) | (v.description =~ word)
+        end
+
+        records.sort([{:key => "date", :order => "ascending"}]).each do |record|
           feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
           next unless feed_resources
           if options[:simple]
