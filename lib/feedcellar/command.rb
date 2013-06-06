@@ -127,6 +127,17 @@ module Feedcellar
     option :simple, :type => :boolean, :desc => "simple format as one liner"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     def search(word)
+      browser = false
+      if options[:browser]
+        begin
+          require "gtk2"
+        rescue LoadError
+          $stderr.puts "Warnning: Sorry, browser option required \"gtk2\"."
+        else
+          browser = true
+        end
+      end
+
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
         feeds = @database.feeds
@@ -155,12 +166,7 @@ module Feedcellar
             puts
           end
 
-          if options[:browser]
-            begin
-              require "gtk2"
-            rescue LoadError
-              next
-            end
+          if browser
             Gtk.show_uri(record.link)
           end
         end
