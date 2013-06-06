@@ -18,32 +18,32 @@ module Feedcellar
 
     desc "register URL", "Register a URL."
     def register(url)
-        begin
-          rss = RSS::Parser.parse(url)
-        rescue RSS::InvalidRSSError
-          rss = RSS::Parser.parse(url, false)
-        rescue
-          $stderr.puts "WARNNING: #{$!} (#{url})"
-          return 1
-        end
+      begin
+        rss = RSS::Parser.parse(url)
+      rescue RSS::InvalidRSSError
+        rss = RSS::Parser.parse(url, false)
+      rescue
+        $stderr.puts "WARNNING: #{$!} (#{url})"
+        return 1
+      end
 
-        unless rss
-          $stderr.puts "ERROR: Invalid URL"
-          return 1
-        end
+      unless rss
+        $stderr.puts "ERROR: Invalid URL"
+        return 1
+      end
 
-        resource = {}
-        if rss.is_a?(RSS::Atom::Feed)
-          resource["xmlUrl"] = url
-          resource["title"] = rss.title.content
-          resource["htmlUrl"] = rss.link.href
-          resource["description"] = rss.dc_description
-        else
-          resource["xmlUrl"] = url
-          resource["title"] = rss.channel.title
-          resource["htmlUrl"] = rss.channel.link
-          resource["description"] = rss.channel.description
-        end
+      resource = {}
+      if rss.is_a?(RSS::Atom::Feed)
+        resource["xmlUrl"] = url
+        resource["title"] = rss.title.content
+        resource["htmlUrl"] = rss.link.href
+        resource["description"] = rss.dc_description
+      else
+        resource["xmlUrl"] = url
+        resource["title"] = rss.channel.title
+        resource["htmlUrl"] = rss.channel.link
+        resource["description"] = rss.channel.description
+      end
 
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
