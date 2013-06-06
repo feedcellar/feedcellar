@@ -143,12 +143,12 @@ module Feedcellar
             link = record.link
             puts "#{date} #{title} - #{resource} <#{link}>"
           else
-          puts feed_resources.first.title
-          puts "  #{record.title}"
-          puts "    #{record.date}"
-          puts "      #{record.link}"
-          puts "        #{record.description}" if options[:desc]
-          puts
+            puts feed_resources.first.title
+            puts "  #{record.title}"
+            puts "    #{record.date}"
+            puts "      #{record.link}"
+            puts "        #{record.description}" if options[:desc]
+            puts
           end
         end
       end
