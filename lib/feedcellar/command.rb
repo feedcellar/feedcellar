@@ -25,12 +25,12 @@ module Feedcellar
         rescue RSS::InvalidRSSError
           rss = RSS::Parser.parse(url, false)
         rescue
-          $stderr.puts "Warnning: #{$!} (#{url})"
+          $stderr.puts "WARNNING: #{$!} (#{url})"
           return 1
         end
 
         unless rss
-          $stderr.puts "Error: Invalid URL"
+          $stderr.puts "ERROR: Invalid URL"
           return 1
         end
 
@@ -89,11 +89,11 @@ module Feedcellar
             begin
               rss = RSS::Parser.parse(feed_url, false)
             rescue
-              $stderr.puts "Warnning: #{$!} (#{feed_url})"
+              $stderr.puts "WARNNING: #{$!} (#{feed_url})"
               next
             end
           rescue
-            $stderr.puts "Warnning: #{$!} (#{feed_url})"
+            $stderr.puts "WARNNING: #{$!} (#{feed_url})"
             next
           end
           next unless rss
@@ -112,7 +112,7 @@ module Feedcellar
             end
 
             unless link
-              $stderr.puts "Warnning: missing link (#{title})"
+              $stderr.puts "WARNNING: missing link (#{title})"
               next
             end
 
@@ -132,7 +132,7 @@ module Feedcellar
         begin
           require "gtk2"
         rescue LoadError
-          $stderr.puts "Warnning: Sorry, browser option required \"gtk2\"."
+          $stderr.puts "WARNNING: Sorry, browser option required \"gtk2\"."
         else
           browser = true
         end

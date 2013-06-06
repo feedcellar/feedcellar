@@ -24,7 +24,7 @@ class CommandTest < Test::Unit::TestCase
     io = StringIO.new(s)
     $stderr = io
     assert_equal(1, @command.register("hoge"))
-    assert_equal("Error: Invalid URL\n", s)
+    assert_equal("ERROR: Invalid URL\n", s)
     $stderr = STDERR
 
     @command.register("http://myokoym.github.io/entries.rss")
