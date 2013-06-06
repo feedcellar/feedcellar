@@ -144,7 +144,7 @@ module Feedcellar
             title= record.title
             resource = feed_resources.first.title
             link = record.link
-            puts "#{date} #{title} - #{resource} <#{link}>"
+            puts "#{date} #{title} - #{resource}"
           else
             puts feed_resources.first.title
             puts "  #{record.title}"
