@@ -142,6 +142,7 @@ module Feedcellar
         sorted_records.each do |record|
           feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
           next unless feed_resources
+          next unless feed_resources.first # FIXME
           if options[:simple]
             # TODO This format will be to default from 0.2.0
             date = record.date.strftime("%Y/%m/%d")
