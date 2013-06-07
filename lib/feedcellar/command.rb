@@ -126,7 +126,7 @@ module Feedcellar
     option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
     option :simple, :type => :boolean, :desc => "simple format as one liner"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
-    def search(word)
+    def search(word, api=false)
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
         feeds = @database.feeds
@@ -136,7 +136,10 @@ module Feedcellar
           (v.title =~ word) | (v.description =~ word)
         end
 
-        records.sort([{:key => "date", :order => "ascending"}]).each do |record|
+        sorted_records = records.sort([{:key => "date", :order => "ascending"}])
+        return sorted_records if api
+
+        sorted_records.each do |record|
           feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
           next unless feed_resources
           if options[:simple]

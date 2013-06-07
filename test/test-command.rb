@@ -46,6 +46,12 @@ class CommandTest < Test::Unit::TestCase
     $stdout = io
     @command.search("ruby")
     assert_true(s.size > 500)
+
+    s = ""
+    io = StringIO.new(s)
+    ret = @command.search("ruby", true)
+    assert_equal(Groonga::Array, ret.class)
+    assert_equal(0, s.size)
     $stdout = STDOUT
   end
 
