@@ -97,7 +97,7 @@ module Feedcellar
           if options[:simple]
             # TODO This format will be to default from 0.2.0
             date = record.date.strftime("%Y/%m/%d")
-            title= record.title
+            title = record.title
             resource = feed_resources.first.title
             link = record.link
             puts "#{date} #{title} - #{resource}"
