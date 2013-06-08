@@ -8,7 +8,8 @@ module Feedcellar
   class Command < Thor
     def initialize(*args)
       super
-      @work_dir = File.join(File.expand_path("~"), ".feedcellar")
+      @base_dir = File.join(File.expand_path("~"), ".feedcellar")
+      @work_dir = File.join(@base_dir, "db")
     end
 
     desc "version", "Show version number."
