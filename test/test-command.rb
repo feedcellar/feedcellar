@@ -13,6 +13,7 @@ class CommandTest < Test::Unit::TestCase
   end
 
   def test_command
+    # confirm version command
     s = ""
     io = StringIO.new(s)
     $stdout = io
@@ -20,6 +21,7 @@ class CommandTest < Test::Unit::TestCase
     assert_equal("#{Feedcellar::VERSION}\n", s)
     $stdout = STDOUT
 
+    # confirm register command if invalid URL
     s = ""
     io = StringIO.new(s)
     $stderr = io
@@ -27,12 +29,14 @@ class CommandTest < Test::Unit::TestCase
     assert_equal("ERROR: Invalid URL\n", s)
     $stderr = STDERR
 
+    # confirm register command
     @command.register("http://myokoym.github.io/entries.rss")
     @command.register("https://rubygems.org/gems/mister_fairy/versions.atom")
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
       assert_equal(2, database.resources.size)
     end
 
+    # confirm import command
     file = File.join(File.dirname(__FILE__), "fixtures", "subscriptions.xml")
     @command.import(file)
     @command.collect
@@ -41,12 +45,14 @@ class CommandTest < Test::Unit::TestCase
       assert_true(database.feeds.count > 0)
     end
 
+    # confirm search command
     s = ""
     io = StringIO.new(s)
     $stdout = io
     @command.search("ruby")
     assert_true(s.size > 500)
 
+    # confirm search command in case of API
     s = ""
     io = StringIO.new(s)
     ret = @command.search("ruby", true)
