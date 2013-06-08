@@ -52,6 +52,7 @@ class CommandTest < Test::Unit::TestCase
     ret = @command.search("ruby", true)
     assert_equal(Groonga::Array, ret.class)
     assert_equal(0, s.size)
+    assert_not_equal(0, ret.size)
     $stdout = STDOUT
   end
 
