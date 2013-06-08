@@ -39,7 +39,7 @@ module Feedcellar
       end
     end
 
-    desc "list", "Show feed url list."
+    desc "list", "Show feed URL list."
     def list
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
@@ -51,7 +51,7 @@ module Feedcellar
       end
     end
 
-    desc "collect", "Collect feeds."
+    desc "collect", "Collect feeds from WWW."
     def collect
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
@@ -73,7 +73,7 @@ module Feedcellar
       end
     end
 
-    desc "search WORD", "Search feeds."
+    desc "search WORD", "Search feeds from local database."
     option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
     option :simple, :type => :boolean, :desc => "simple format as one liner"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
