@@ -1,8 +1,8 @@
 require "thor"
-require "rss"
 require "feedcellar/version"
 require "feedcellar/groonga_database"
 require "feedcellar/opml"
+require "feedcellar/feed"
 
 module Feedcellar
   class Command < Thor
@@ -84,40 +84,15 @@ module Feedcellar
           feed_url = record["xmlUrl"]
           next unless feed_url
 
-          begin
-            rss = RSS::Parser.parse(feed_url)
-          rescue RSS::InvalidRSSError
-            begin
-              rss = RSS::Parser.parse(feed_url, false)
-            rescue
-              $stderr.puts "WARNNING: #{$!} (#{feed_url})"
-              next
-            end
-          rescue
-            $stderr.puts "WARNNING: #{$!} (#{feed_url})"
-            next
-          end
-          next unless rss
+          items = Feed.parse(feed_url)
+          next unless items
 
-          rss.items.each do |item|
-            if rss.is_a?(RSS::Atom::Feed)
-              title = item.title.content
-              link = item.link.href if item.link
-              description = item.summary.content if item.summary
-              date = item.updated.content if item.updated
-            else
-              title = item.title
-              link = item.link
-              description = item.description
-              date = item.date
-            end
-
-            unless link
-              $stderr.puts "WARNNING: missing link (#{title})"
-              next
-            end
-
-            database.add(feed_url, title, link, description, date)
+          items.each do |item|
+            database.add(feed_url,
+                         item.title,
+                         item.link,
+                         item.description,
+                         item.date)
           end
         end
       end
