@@ -39,7 +39,7 @@ module Feedcellar
       end
     end
 
-    desc "list", "Show feed URL list."
+    desc "list", "Show registered resources list of title and URL."
     def list
       @database = GroongaDatabase.new
       @database.open(@database_dir) do |database|
