@@ -71,23 +71,23 @@ module Feedcellar
       Groonga::Schema.define do |schema|
         schema.create_table("Resources", :type => :hash) do |table|
           table.text("text")
-          table.text("isComment")
-          table.text("isBreakpoint")
-          table.text("created")
-          table.text("category")
+          table.short_text("isComment")
+          table.short_text("isBreakpoint")
+          table.short_text("created")
+          table.short_text("category")
           table.text("description")
-          table.text("url")
-          table.text("htmlUrl")
-          table.text("xmlUrl")
-          table.text("title")
-          table.text("version")
-          table.text("language")
+          table.short_text("url")
+          table.short_text("htmlUrl")
+          table.short_text("xmlUrl")
+          table.short_text("title")
+          table.short_text("version")
+          table.short_text("language")
         end
 
         schema.create_table("Feeds", :type => :hash) do |table|
-          table.text("resource")
-          table.text("title")
-          table.text("link")
+          table.short_text("resource")
+          table.short_text("title")
+          table.short_text("link")
           table.text("description")
           table.time("date")
         end
