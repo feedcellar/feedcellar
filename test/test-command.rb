@@ -54,6 +54,25 @@ class CommandTest < Test::Unit::TestCase
     assert_equal(0, s.size)
     assert_not_equal(0, ret.size)
     $stdout = STDOUT
+
+    # confirm unregister command
+    @command.unregister("my_letter")
+    Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
+      assert_equal(3, database.resources.size)
+    end
+    @command.unregister("https://rubygems.org/gems/mister_fairy/versions.atom")
+    Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
+      assert_equal(2, database.resources.size)
+    end
+
+    # confirm search command after unregister
+    s = ""
+    io = StringIO.new(s)
+    ret = @command.search("ruby", true)
+    assert_equal(Groonga::Array, ret.class)
+    assert_equal(0, s.size)
+    assert_not_equal(0, ret.size)
+    $stdout = STDOUT
   end
 
   def teardown

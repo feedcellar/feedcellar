@@ -29,6 +29,14 @@ module Feedcellar
       end
     end
 
+    desc "unregister TITLE_OR_URL", "Unregister a feed resource."
+    def unregister(title_or_url)
+      @database = GroongaDatabase.new
+      @database.open(@database_dir) do |database|
+        database.unregister(title_or_url)
+      end
+    end
+
     desc "import FILE", "Import feed resources by OPML format."
     def import(opml_xml)
       @database = GroongaDatabase.new

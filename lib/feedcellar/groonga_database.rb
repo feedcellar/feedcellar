@@ -39,6 +39,14 @@ module Feedcellar
                       :date        => date)
     end
 
+    def unregister(title_or_url)
+      feeds = Groonga["Resources"]
+      feeds.delete do |record|
+        (record.title == title_or_url) |
+        (record.xmlUrl == title_or_url)
+      end
+    end
+
     def close
       @database.close
       @database = nil
