@@ -10,7 +10,7 @@ module Feedcellar
     def initialize(*args)
       super
       @base_dir = File.join(File.expand_path("~"), ".feedcellar")
-      @work_dir = File.join(@base_dir, "db")
+      @database_dir = File.join(@base_dir, "db")
     end
 
     desc "version", "Show version number."
@@ -24,7 +24,7 @@ module Feedcellar
       return 1 unless resource
 
       @database = GroongaDatabase.new
-      @database.open(@work_dir) do |database|
+      @database.open(@database_dir) do |database|
         database.register(resource["title"], resource)
       end
     end
@@ -32,7 +32,7 @@ module Feedcellar
     desc "import FILE", "Import feed resources by OPML format."
     def import(opml_xml)
       @database = GroongaDatabase.new
-      @database.open(@work_dir) do |database|
+      @database.open(@database_dir) do |database|
         Feedcellar::Opml.parse(opml_xml).each do |resource|
           database.register(resource["title"], resource)
         end
@@ -42,7 +42,7 @@ module Feedcellar
     desc "list", "Show feed URL list."
     def list
       @database = GroongaDatabase.new
-      @database.open(@work_dir) do |database|
+      @database.open(@database_dir) do |database|
         database.resources.each do |record|
           puts record.title
           puts "  #{record.xmlUrl}"
@@ -54,7 +54,7 @@ module Feedcellar
     desc "collect", "Collect feeds from WWW."
     def collect
       @database = GroongaDatabase.new
-      @database.open(@work_dir) do |database|
+      @database.open(@database_dir) do |database|
         database.resources.each do |record|
           feed_url = record["xmlUrl"]
           next unless feed_url
@@ -79,7 +79,7 @@ module Feedcellar
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     def search(word, api=false)
       @database = GroongaDatabase.new
-      @database.open(@work_dir) do |database|
+      @database.open(@database_dir) do |database|
         feeds = @database.feeds
         resources = @database.resources
 
