@@ -78,9 +78,7 @@ module Feedcellar
     def collect
       @database = GroongaDatabase.new
       @database.open(@work_dir) do |database|
-        resources = database.resources
-
-        resources.each do |record|
+        database.resources.each do |record|
           feed_url = record["xmlUrl"]
           next unless feed_url
 
