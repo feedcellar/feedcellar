@@ -23,24 +23,21 @@ module Feedcellar
       resource = Resource.parse(url)
       return 1 unless resource
 
-      @database = GroongaDatabase.new
-      @database.open(@database_dir) do |database|
+      GroongaDatabase.new.open(@database_dir) do |database|
         database.register(resource["title"], resource)
       end
     end
 
     desc "unregister TITLE_OR_URL", "Unregister a resource of feed."
     def unregister(title_or_url)
-      @database = GroongaDatabase.new
-      @database.open(@database_dir) do |database|
+      GroongaDatabase.new.open(@database_dir) do |database|
         database.unregister(title_or_url)
       end
     end
 
     desc "import FILE", "Import feed resources by OPML format."
     def import(opml_xml)
-      @database = GroongaDatabase.new
-      @database.open(@database_dir) do |database|
+      GroongaDatabase.new.open(@database_dir) do |database|
         Feedcellar::Opml.parse(opml_xml).each do |resource|
           database.register(resource["title"], resource)
         end
@@ -49,8 +46,7 @@ module Feedcellar
 
     desc "list", "Show registered resources list of title and URL."
     def list
-      @database = GroongaDatabase.new
-      @database.open(@database_dir) do |database|
+      GroongaDatabase.new.open(@database_dir) do |database|
         database.resources.each do |record|
           puts record.title
           puts "  #{record.xmlUrl}"
@@ -61,8 +57,7 @@ module Feedcellar
 
     desc "collect", "Collect feeds from WWW."
     def collect
-      @database = GroongaDatabase.new
-      @database.open(@database_dir) do |database|
+      GroongaDatabase.new.open(@database_dir) do |database|
         database.resources.each do |record|
           feed_url = record["xmlUrl"]
           next unless feed_url
@@ -86,10 +81,9 @@ module Feedcellar
     option :simple, :type => :boolean, :desc => "simple format as one liner"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     def search(word, api=false)
-      @database = GroongaDatabase.new
-      @database.open(@database_dir) do |database|
-        feeds = @database.feeds
-        resources = @database.resources
+      GroongaDatabase.new.open(@database_dir) do |database|
+        feeds = database.feeds
+        resources = database.resources
 
         records = feeds.select do |v|
           (v.title =~ word) | (v.description =~ word)
