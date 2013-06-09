@@ -45,6 +45,15 @@ class CommandTest < Test::Unit::TestCase
       assert_true(database.feeds.count > 0)
     end
 
+    # confirm export command
+    s = ""
+    io = StringIO.new(s)
+    $stdout = io
+    @command.export
+    assert_equal(1, s.scan(/<opml/).size)
+    assert_equal(4, s.scan(/<outline/).size)
+    $stdout = STDOUT
+
     # confirm search command
     s = ""
     io = StringIO.new(s)

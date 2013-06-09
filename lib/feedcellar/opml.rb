@@ -31,5 +31,31 @@ module Feedcellar
       end
       outlines
     end
+
+    def self.build(items)
+      document = REXML::Document.new
+
+      xml_decl = REXML::XMLDecl.new
+      xml_decl.version = "1.0"
+      xml_decl.encoding = "UTF-8"
+      document.add(xml_decl)
+
+      root = document.add_element("opml")
+      root.add_attributes("version" => "1.0")
+
+      head = root.add_element("head")
+      title = head.add_element("title")
+      title.add_text("registers in feedcellar")
+
+      body = root.add_element("body")
+      items.each do |item|
+        outline = body.add_element("outline")
+        item.attributes.each do |key, value|
+          outline.add_attributes(key => value)
+        end
+      end
+
+      document.to_s
+    end
   end
 end

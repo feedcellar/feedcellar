@@ -44,6 +44,14 @@ module Feedcellar
       end
     end
 
+    desc "export", "Export feed resources by OPML format."
+    def export
+      GroongaDatabase.new.open(@database_dir) do |database|
+        records = database.resources.records
+        puts Opml.build(records)
+      end
+    end
+
     desc "list", "Show registered resources list of title and URL."
     def list
       GroongaDatabase.new.open(@database_dir) do |database|
