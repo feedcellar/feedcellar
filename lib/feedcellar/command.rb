@@ -84,7 +84,6 @@ module Feedcellar
 
     desc "search WORD", "Search feeds from local database."
     option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
-    option :simple, :type => :boolean, :desc => "simple format as one liner"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     def search(word, api=false)
       GroongaDatabase.new.open(@database_dir) do |database|
@@ -102,8 +101,7 @@ module Feedcellar
           feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
           next unless feed_resources
           next unless feed_resources.first # FIXME
-          if options[:simple]
-            # TODO This format will be to default from 0.2.0
+          unless options[:desc]
             date = record.date.strftime("%Y/%m/%d")
             title = record.title
             resource = feed_resources.first.title
