@@ -3,6 +3,7 @@
 ## Improvements
 
   * Manage TAG outline from OPML format.
+  * Support pager option
 
 ## Fixes
 
