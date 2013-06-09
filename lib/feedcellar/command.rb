@@ -101,6 +101,7 @@ module Feedcellar
           feed_resources = resources.select {|v| v.xmlUrl =~ record.resource }
           next unless feed_resources
           next unless feed_resources.first # FIXME
+
           unless options[:desc]
             date = record.date.strftime("%Y/%m/%d")
             title = record.title
