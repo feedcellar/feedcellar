@@ -1,5 +1,27 @@
 # NEWS
 
+## 0.2.0: 2013-06-09
+
+Improve something to do with output release!
+
+### Changes
+
+  * Improvements
+    * Change default format of search command to one liner
+    * Change registers list format to one liner
+    * Add export command
+    * Add unregister command
+    * Use "short_text" instead of "text"
+    * Support raw object for API access
+
+  * Fixes
+    * Convert line-feed to space in feed title
+    * Extract parse of URL for resource of feed
+    * Extract parse of RSS feed
+    * Fix default database directory
+    * Fix groonga zone
+    * Fix description and date for atom
+
 ## 0.1.3: 2013-06-06
 
 Experimental functions release!
