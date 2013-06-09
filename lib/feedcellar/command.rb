@@ -29,7 +29,7 @@ module Feedcellar
       end
     end
 
-    desc "unregister TITLE_OR_URL", "Unregister a feed resource."
+    desc "unregister TITLE_OR_URL", "Unregister a resource of feed."
     def unregister(title_or_url)
       @database = GroongaDatabase.new
       @database.open(@database_dir) do |database|
