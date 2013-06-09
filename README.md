@@ -32,6 +32,10 @@ Import URL from OPML
 
     $ feedcellar import registers.xml
 
+Export registerd resources to OPML to STDOUT
+
+    $ feedcellar export
+
 Show registers
 
     $ feedcellar list
