@@ -59,7 +59,7 @@ class CommandTest < Test::Unit::TestCase
     io = StringIO.new(s)
     $stdout = io
     @command.search("ruby")
-    assert_true(s.size > 500)
+    assert_true(s.size > 100)
 
     # confirm search command in case of API
     s = ""
