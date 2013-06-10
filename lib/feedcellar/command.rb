@@ -84,6 +84,7 @@ module Feedcellar
     desc "search WORD", "Search feeds from local database."
     option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
+    option :long, :type => :boolean, :aliases => "-l", :desc => "use a long listing format"
     def search(word, api=false)
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
@@ -102,11 +103,15 @@ module Feedcellar
           next unless feed_resources.first # FIXME
 
           unless options[:desc]
-            date = record.date.strftime("%Y/%m/%d")
-            title = record.title
-            resource = feed_resources.first.title
-            link = record.link
-            puts "#{date} #{title.gsub(/\n/, " ")} - #{resource}"
+            title = record.title.gsub(/\n/, " ")
+            if options[:long]
+              date = record.date.strftime("%Y/%m/%d %H:%M")
+              resource = feed_resources.first.title
+              puts "#{date} #{title} - #{resource} / #{record.link}"
+            else
+              date = record.date.strftime("%Y/%m/%d")
+              puts "#{date} #{title}"
+            end
           else
             puts feed_resources.first.title
             puts "  #{record.title}"
