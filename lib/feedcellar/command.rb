@@ -96,7 +96,9 @@ module Feedcellar
         return sorted_records if api
 
         sorted_records.each do |record|
-          feed_resources = database.resources.select {|v| v.xmlUrl == record.resource }
+          feed_resources = database.resources.select do |v|
+            v.xmlUrl == record.resource
+          end
           next unless feed_resources
           next unless feed_resources.first # FIXME
 
