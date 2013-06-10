@@ -82,7 +82,6 @@ module Feedcellar
     end
 
     desc "search WORD", "Search feeds from local database."
-    option :desc, :type => :boolean, :aliases => "-d", :desc => "show description"
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     option :long, :type => :boolean, :aliases => "-l", :desc => "use a long listing format"
     def search(word, api=false)
@@ -102,7 +101,6 @@ module Feedcellar
           next unless feed_resources
           next unless feed_resources.first # FIXME
 
-          unless options[:desc]
             title = record.title.gsub(/\n/, " ")
             if options[:long]
               date = record.date.strftime("%Y/%m/%d %H:%M")
@@ -112,14 +110,6 @@ module Feedcellar
               date = record.date.strftime("%Y/%m/%d")
               puts "#{date} #{title}"
             end
-          else
-            puts feed_resources.first.title
-            puts "  #{record.title}"
-            puts "    #{record.date}"
-            puts "      #{record.link}"
-            puts "        #{record.description}" if options[:desc]
-            puts
-          end
 
           if options[:browser]
             Gtk.show_uri(record.link) if browser_available?
