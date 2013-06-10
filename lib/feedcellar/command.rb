@@ -87,10 +87,7 @@ module Feedcellar
     option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
     def search(word, api=false)
       GroongaDatabase.new.open(@database_dir) do |database|
-        feeds = database.feeds
-        resources = database.resources
-
-        records = feeds.select do |v|
+        records = database.feeds.select do |v|
           (v.title =~ word) | (v.description =~ word)
         end
 
@@ -99,7 +96,7 @@ module Feedcellar
         return sorted_records if api
 
         sorted_records.each do |record|
-          feed_resources = resources.select {|v| v.xmlUrl == record.resource }
+          feed_resources = database.resources.select {|v| v.xmlUrl == record.resource }
           next unless feed_resources
           next unless feed_resources.first # FIXME
 
