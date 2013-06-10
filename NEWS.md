@@ -1,5 +1,19 @@
 # NEWS
 
+## 0.2.1: 2013-06-10
+
+Fix output format of search command.
+
+### Changes
+
+  * Improvements
+    * Add reverse option to search command
+    * Remove desc option from search command
+    * Add long option to search command
+
+  * Fixes
+    * Use "==" instead of "=~" at selecting resources
+
 ## 0.2.0: 2013-06-09
 
 Improve something to do with output release!
