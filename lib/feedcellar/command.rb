@@ -101,15 +101,15 @@ module Feedcellar
           next unless feed_resources
           next unless feed_resources.first # FIXME
 
-            title = record.title.gsub(/\n/, " ")
-            if options[:long]
-              date = record.date.strftime("%Y/%m/%d %H:%M")
-              resource = feed_resources.first.title
-              puts "#{date} #{title} - #{resource} / #{record.link}"
-            else
-              date = record.date.strftime("%Y/%m/%d")
-              puts "#{date} #{title}"
-            end
+          title = record.title.gsub(/\n/, " ")
+          if options[:long]
+            date = record.date.strftime("%Y/%m/%d %H:%M")
+            resource = feed_resources.first.title
+            puts "#{date} #{title} - #{resource} / #{record.link}"
+          else
+            date = record.date.strftime("%Y/%m/%d")
+            puts "#{date} #{title}"
+          end
 
           if options[:browser]
             Gtk.show_uri(record.link) if browser_available?
