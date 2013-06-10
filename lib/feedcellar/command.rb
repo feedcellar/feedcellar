@@ -38,7 +38,7 @@ module Feedcellar
     desc "import FILE", "Import feed resources by OPML format."
     def import(opml_xml)
       GroongaDatabase.new.open(@database_dir) do |database|
-        Feedcellar::Opml.parse(opml_xml).each do |resource|
+        Opml.parse(opml_xml).each do |resource|
           database.register(resource["title"], resource)
         end
       end
