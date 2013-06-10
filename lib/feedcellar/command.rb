@@ -84,6 +84,7 @@ module Feedcellar
     desc "search WORD", "Search feeds from local database."
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     option :long, :type => :boolean, :aliases => "-l", :desc => "use a long listing format"
+    option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
     def search(word, api=false)
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
@@ -93,7 +94,8 @@ module Feedcellar
           (v.title =~ word) | (v.description =~ word)
         end
 
-        sorted_records = records.sort([{:key => "date", :order => "ascending"}])
+        order = options[:reverse] ? "descending" : "ascending"
+        sorted_records = records.sort([{:key => "date", :order => order}])
         return sorted_records if api
 
         sorted_records.each do |record|
