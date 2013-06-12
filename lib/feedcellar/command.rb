@@ -85,10 +85,17 @@ module Feedcellar
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     option :long, :type => :boolean, :aliases => "-l", :desc => "use a long listing format"
     option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
+    option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
     def search(word, api=false)
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds.select do |v|
           (v.title =~ word) | (v.description =~ word)
+        end
+
+        if options[:mtime]
+          feeds = feeds.select do |v|
+            v.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
+          end
         end
 
         order = options[:reverse] ? "descending" : "ascending"
