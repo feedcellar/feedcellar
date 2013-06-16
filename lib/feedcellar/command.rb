@@ -89,19 +89,19 @@ module Feedcellar
     option :resource, :type => :string, :desc => "search of partial match by feed's resource url"
     def search(word, api=false)
       GroongaDatabase.new.open(@database_dir) do |database|
-        feeds = database.feeds.select do |v|
-          (v.title =~ word) | (v.description =~ word)
+        feeds = database.feeds.select do |feed|
+          (feed.title =~ word) | (feed.description =~ word)
         end
 
         if options[:mtime]
-          feeds = feeds.select do |v|
-            v.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
+          feeds = feeds.select do |feed|
+            feed.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
           end
         end
 
         if options[:resource]
-          feeds = feeds.select do |v|
-            v.resource =~ options[:resource]
+          feeds = feeds.select do |feed|
+            feed.resource =~ options[:resource]
           end
         end
 
@@ -109,25 +109,25 @@ module Feedcellar
         sorted_feeds = feeds.sort([{:key => "date", :order => order}])
         return sorted_feeds if api
 
-        sorted_feeds.each do |record|
-          resources = database.resources.select do |v|
-            v.xmlUrl == record.resource
+        sorted_feeds.each do |feed|
+          resources = database.resources.select do |resource|
+            resource.xmlUrl == feed.resource
           end
           next unless resources
           next unless resources.first # FIXME
 
-          title = record.title.gsub(/\n/, " ")
+          title = feed.title.gsub(/\n/, " ")
           if options[:long]
-            date = record.date.strftime("%Y/%m/%d %H:%M")
+            date = feed.date.strftime("%Y/%m/%d %H:%M")
             resource = resources.first.title
-            puts "#{date} #{title} - #{resource} / #{record.link}"
+            puts "#{date} #{title} - #{resource} / #{feed.link}"
           else
-            date = record.date.strftime("%Y/%m/%d")
+            date = feed.date.strftime("%Y/%m/%d")
             puts "#{date} #{title}"
           end
 
           if options[:browser]
-            Gtk.show_uri(record.link) if browser_available?
+            Gtk.show_uri(feed.link) if browser_available?
           end
         end
       end
