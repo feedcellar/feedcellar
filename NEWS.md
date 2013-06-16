@@ -1,5 +1,17 @@
 # NEWS
 
+## 0.2.2: 2013-06-16
+
+Improve search command release!
+
+### Changes
+
+  * Improvements
+    * Support multi word for search command
+    * Remove an API option from search command
+    * Add resource option to search command
+    * Add mtime option to search command
+
 ## 0.2.1: 2013-06-10
 
 Fix output format of search command.
