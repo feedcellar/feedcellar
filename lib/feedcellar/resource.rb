@@ -8,7 +8,7 @@ module Feedcellar
       rescue RSS::InvalidRSSError
         rss = RSS::Parser.parse(url, false)
       rescue
-        $stderr.puts "WARNNING: #{$!} (#{url})"
+        $stderr.puts "WARNING: #{$!} (#{url})"
         return nil
       end
 

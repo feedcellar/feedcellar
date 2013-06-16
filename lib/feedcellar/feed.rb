@@ -19,11 +19,11 @@ module Feedcellar
         begin
           rss = RSS::Parser.parse(feed_url, false)
         rescue
-          $stderr.puts "WARNNING: #{$!} (#{feed_url})"
+          $stderr.puts "WARNING: #{$!} (#{feed_url})"
           return nil
         end
       rescue
-        $stderr.puts "WARNNING: #{$!} (#{feed_url})"
+        $stderr.puts "WARNING: #{$!} (#{feed_url})"
         return nil
       end
       return nil unless rss
