@@ -87,7 +87,7 @@ module Feedcellar
     option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
     option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
     option :resource, :type => :string, :desc => "search of partial match by feed's resource url"
-    def search(word, api=false)
+    def search(word)
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds.select do |feed|
           (feed.title =~ word) | (feed.description =~ word)
@@ -107,7 +107,6 @@ module Feedcellar
 
         order = options[:reverse] ? "descending" : "ascending"
         sorted_feeds = feeds.sort([{:key => "date", :order => order}])
-        return sorted_feeds if api
 
         sorted_feeds.each do |feed|
           resources = database.resources.select do |resource|

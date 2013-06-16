@@ -60,14 +60,6 @@ class CommandTest < Test::Unit::TestCase
     $stdout = io
     @command.search("ruby")
     assert_true(s.size > 100)
-
-    # confirm search command in case of API
-    s = ""
-    io = StringIO.new(s)
-    ret = @command.search("ruby", true)
-    assert_equal(Groonga::Array, ret.class)
-    assert_equal(0, s.size)
-    assert_not_equal(0, ret.size)
     $stdout = STDOUT
 
     # confirm unregister command
