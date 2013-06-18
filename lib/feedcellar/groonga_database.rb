@@ -30,9 +30,9 @@ module Feedcellar
       feeds.add(key, attributes)
     end
 
-    def add(resource, title, link, description, date)
+    def add(resource_key, title, link, description, date)
       feeds = Groonga["Feeds"]
-      feeds.add(link, :resource    => resource,
+      feeds.add(link, :resource    => resources[resource_key],
                       :title       => title,
                       :link        => link,
                       :description => description,
@@ -93,7 +93,7 @@ module Feedcellar
         end
 
         schema.create_table("Feeds", :type => :hash) do |table|
-          table.short_text("resource")
+          table.reference("resource", "Resources")
           table.short_text("title")
           table.short_text("link")
           table.text("description")
