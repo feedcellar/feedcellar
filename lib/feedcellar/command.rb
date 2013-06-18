@@ -85,7 +85,7 @@ module Feedcellar
     def latest
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
-        feeds.group("resource").each do |group|
+        feeds.group("resource.xmlUrl").each do |group|
           feeds_by_resource = feeds.select do |feed|
             feed.resource.xmlUrl == group.key
           end
