@@ -112,16 +112,10 @@ module Feedcellar
         sorted_feeds = feeds.sort([{:key => "date", :order => order}])
 
         sorted_feeds.each do |feed|
-          resources = database.resources.select do |resource|
-            resource.xmlUrl == feed.resource
-          end
-          next unless resources
-          next unless resources.first # FIXME
-
           title = feed.title.gsub(/\n/, " ")
           if options[:long]
             date = feed.date.strftime("%Y/%m/%d %H:%M")
-            resource = resources.first.title
+            resource = feed.resource.title
             puts "#{date} #{title} - #{resource} / #{feed.link}"
           else
             date = feed.date.strftime("%Y/%m/%d")
