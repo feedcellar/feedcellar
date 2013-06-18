@@ -100,7 +100,7 @@ module Feedcellar
           title = latest_feed.title.gsub(/\n/, " ")
           next unless title
           date = latest_feed.date.strftime("%Y/%m/%d")
-          puts "#{date} #{title} - #{feed.resource.title}"
+          puts "#{date} #{title} - #{latest_feed.resource.title}"
         end
       end
     end
