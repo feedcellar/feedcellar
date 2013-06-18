@@ -81,6 +81,30 @@ module Feedcellar
       end
     end
 
+    desc "latest", "Show latest feeds by resources."
+    def latest
+      GroongaDatabase.new.open(@database_dir) do |database|
+        feeds = database.feeds
+        feeds.group("resource").each do |group|
+          feeds_by_resource = feeds.select do |feed|
+            feed.resource.xmlUrl == group.key
+          end
+          next unless feeds_by_resource
+
+          latest_feed = feeds_by_resource.sort([{:key => "date",
+                                                 :order => :descending}],
+                                               :offset => 0,
+                                               :limit => 1).first
+          next unless latest_feed
+
+          title = latest_feed.title.gsub(/\n/, " ")
+          next unless title
+          date = latest_feed.date.strftime("%Y/%m/%d")
+          puts "#{date} #{title} - #{feed.resource.title}"
+        end
+      end
+    end
+
     desc "search WORD", "Search feeds from local database."
     option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     option :long, :type => :boolean, :aliases => "-l", :desc => "use a long listing format"
