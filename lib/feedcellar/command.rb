@@ -91,10 +91,14 @@ module Feedcellar
           end
           next unless feeds_by_resource
 
+          begin
           latest_feed = feeds_by_resource.sort([{:key => "date",
                                                  :order => :descending}],
                                                :offset => 0,
                                                :limit => 1).first
+          rescue Groonga::InvalidArgument
+            next
+          end
           next unless latest_feed
 
           title = latest_feed.title.gsub(/\n/, " ")
