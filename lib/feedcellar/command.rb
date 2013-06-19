@@ -71,12 +71,41 @@ module Feedcellar
           next unless items
 
           items.each do |item|
-            database.add(feed_url,
+            database.add(record["title"],
                          item.title,
                          item.link,
                          item.description,
                          item.date)
           end
+        end
+      end
+    end
+
+    desc "latest", "Show latest feeds by resources."
+    def latest
+      GroongaDatabase.new.open(@database_dir) do |database|
+        feeds = database.feeds
+        feeds.group("resource.xmlUrl").each do |group|
+          # FIXME: not to select in a loop
+          feeds_by_resource = feeds.select do |feed|
+            feed.resource.xmlUrl == group.key
+          end
+          next unless feeds_by_resource
+
+          begin
+            latest_feed = feeds_by_resource.sort([{:key => "date",
+                                                   :order => :descending}],
+                                                 :offset => 0,
+                                                 :limit => 1).first
+          rescue Groonga::InvalidArgument
+            next
+          end
+          next unless latest_feed
+
+          title = latest_feed.title.gsub(/\n/, " ")
+          next unless title
+          date = latest_feed.date.strftime("%Y/%m/%d")
+          puts "#{date} #{title} - #{latest_feed.resource.title}"
         end
       end
     end
@@ -112,16 +141,10 @@ module Feedcellar
         sorted_feeds = feeds.sort([{:key => "date", :order => order}])
 
         sorted_feeds.each do |feed|
-          resources = database.resources.select do |resource|
-            resource.xmlUrl == feed.resource
-          end
-          next unless resources
-          next unless resources.first # FIXME
-
           title = feed.title.gsub(/\n/, " ")
           if options[:long]
             date = feed.date.strftime("%Y/%m/%d %H:%M")
-            resource = resources.first.title
+            resource = feed.resource.title
             puts "#{date} #{title} - #{resource} / #{feed.link}"
           else
             date = feed.date.strftime("%Y/%m/%d")
