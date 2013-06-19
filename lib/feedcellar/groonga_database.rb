@@ -12,7 +12,7 @@ module Feedcellar
       if File.exist?(path)
         @database = Groonga::Database.open(path)
         begin
-        populate_schema
+          populate_schema
         rescue Groonga::Schema::ColumnCreationWithDifferentOptions
           # NOTE: migrate to feedcellar-0.3.0 from 0.2.2 or earlier.
           populate_new_schema
