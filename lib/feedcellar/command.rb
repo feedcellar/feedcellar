@@ -92,10 +92,10 @@ module Feedcellar
           next unless feeds_by_resource
 
           begin
-          latest_feed = feeds_by_resource.sort([{:key => "date",
-                                                 :order => :descending}],
-                                               :offset => 0,
-                                               :limit => 1).first
+            latest_feed = feeds_by_resource.sort([{:key => "date",
+                                                   :order => :descending}],
+                                                 :offset => 0,
+                                                 :limit => 1).first
           rescue Groonga::InvalidArgument
             next
           end
