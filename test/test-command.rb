@@ -71,6 +71,14 @@ class CommandTest < Test::Unit::TestCase
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
       assert_equal(2, database.resources.size)
     end
+
+    # confirm latest command
+    s = ""
+    io = StringIO.new(s)
+    $stdout = io
+    @command.latest
+    assert_true(s.size > 0)
+    $stdout = STDOUT
   end
 
   def teardown
