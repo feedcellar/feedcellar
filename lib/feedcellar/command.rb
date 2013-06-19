@@ -86,6 +86,7 @@ module Feedcellar
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
         feeds.group("resource.xmlUrl").each do |group|
+          # FIXME: not to select in a loop
           feeds_by_resource = feeds.select do |feed|
             feed.resource.xmlUrl == group.key
           end
