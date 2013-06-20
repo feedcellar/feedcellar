@@ -64,14 +64,14 @@ module Feedcellar
     def collect
       GroongaDatabase.new.open(@database_dir) do |database|
         database.resources.each do |record|
-          feed_url = record["xmlUrl"]
+          feed_url = record.xmlUrl
           next unless feed_url
 
           items = Feed.parse(feed_url)
           next unless items
 
           items.each do |item|
-            database.add(record["title"],
+            database.add(record.title,
                          item.title,
                          item.link,
                          item.description,
