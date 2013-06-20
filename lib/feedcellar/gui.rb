@@ -1,6 +1,10 @@
 module Feedcellar
   class GUI
     class << self
+      def available?
+        gui_available?
+      end
+
       def show_uri(uri)
         Gtk.show_uri(uri) if gui_available?
       end
