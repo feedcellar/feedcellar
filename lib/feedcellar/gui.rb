@@ -7,17 +7,17 @@ module Feedcellar
 
       private
       def gui_available?
-        if @browser.nil?
+        if @gtk_available.nil?
           begin
             require "gtk2"
           rescue LoadError
             $stderr.puts "WARNING: Sorry, browser option required \"gtk2\"."
-            @browser = false
+            @gtk_available = false
           else
-            @browser = true
+            @gtk_available = true
           end
         end
-        @browser
+        @gtk_available
       end
     end
   end
