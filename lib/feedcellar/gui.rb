@@ -2,11 +2,11 @@ module Feedcellar
   class GUI
     class << self
       def show_uri(uri)
-        Gtk.show_uri(uri) if browser_available?
+        Gtk.show_uri(uri) if gui_available?
       end
 
       private
-      def browser_available?
+      def gui_available?
         if @browser.nil?
           begin
             require "gtk2"
