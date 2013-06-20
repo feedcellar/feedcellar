@@ -118,6 +118,12 @@ module Feedcellar
     option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
     option :resource, :type => :string, :desc => "search of partial match by feed's resource url"
     def search(*words)
+      if options[:browser]
+        unless GUI.available?
+          $stderr.puts "WARNING: browser option required \"gtk2\"."
+        end
+      end
+
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
         words.each do |word|

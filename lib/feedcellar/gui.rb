@@ -15,7 +15,6 @@ module Feedcellar
           begin
             require "gtk2"
           rescue LoadError
-            $stderr.puts "WARNING: Sorry, browser option required \"gtk2\"."
             @gtk_available = false
           else
             @gtk_available = true
