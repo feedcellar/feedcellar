@@ -7,6 +7,10 @@ module Feedcellar
 
       private
       def gui_available?
+        gtk_available?
+      end
+
+      def gtk_available?
         if @gtk_available.nil?
           begin
             require "gtk2"
