@@ -4,6 +4,7 @@ require "feedcellar/groonga_database"
 require "feedcellar/opml"
 require "feedcellar/feed"
 require "feedcellar/resource"
+require "feedcellar/gui"
 
 module Feedcellar
   class Command < Thor
@@ -152,25 +153,10 @@ module Feedcellar
           end
 
           if options[:browser]
-            Gtk.show_uri(feed.link) if browser_available?
+            GUI.show_uri(feed.link)
           end
         end
       end
-    end
-
-    private
-    def browser_available?
-      if @browser.nil?
-        begin
-          require "gtk2"
-        rescue LoadError
-          $stderr.puts "WARNING: Sorry, browser option required \"gtk2\"."
-          @browser = false
-        else
-          @browser = true
-        end
-      end
-      @browser
     end
   end
 end
