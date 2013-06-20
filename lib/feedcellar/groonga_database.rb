@@ -31,12 +31,10 @@ module Feedcellar
     end
 
     def register(key, attributes)
-      resources = Groonga["Resources"]
       resources.add(key, attributes)
     end
 
     def add(resource_key, title, link, description, date)
-      feeds = Groonga["Feeds"]
       feeds.add(link, :resource    => resources[resource_key],
                       :title       => title,
                       :link        => link,
@@ -45,7 +43,6 @@ module Feedcellar
     end
 
     def unregister(title_or_url)
-      resources = Groonga["Resources"]
       resources.delete do |record|
         (record.title == title_or_url) |
         (record.xmlUrl == title_or_url)
