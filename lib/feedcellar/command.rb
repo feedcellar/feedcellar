@@ -23,9 +23,10 @@ module Feedcellar
     def register(url)
       resource = Resource.parse(url)
       return 1 unless resource
+      return 1 if resource["xmlUrl"].empty?
 
       GroongaDatabase.new.open(@database_dir) do |database|
-        database.register(resource["title"], resource)
+        database.register(resource["xmlUrl"], resource)
       end
     end
 
@@ -40,7 +41,8 @@ module Feedcellar
     def import(opml_xml)
       GroongaDatabase.new.open(@database_dir) do |database|
         Opml.parse(opml_xml).each do |resource|
-          database.register(resource["title"], resource)
+          next if resource["xmlUrl"].empty?
+          database.register(resource["xmlUrl"], resource)
         end
       end
     end

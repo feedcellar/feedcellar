@@ -16,6 +16,7 @@ module Feedcellar
         rescue Groonga::Schema::ColumnCreationWithDifferentOptions
           # NOTE: migrate to feedcellar-0.3.0 from 0.2.2 or earlier.
           populate_new_schema
+          transform_resources_key
         end
       else
         FileUtils.mkdir_p(base_path)
@@ -117,6 +118,17 @@ module Feedcellar
       add_new_column
       migrate_value
       delete_old_column
+    end
+
+    def transform_resources_key
+      resources.each do |resource|
+        next unless resource.xmlUrl
+        values = resource.attributes.reject do |key, value|
+          /^_/ =~ key
+        end
+        resources.add(resource.xmlUrl, values)
+        resources.delete(resource.id)
+      end
     end
 
     def populate_old_schema
