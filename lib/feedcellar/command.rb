@@ -41,6 +41,7 @@ module Feedcellar
     def import(opml_xml)
       GroongaDatabase.new.open(@database_dir) do |database|
         Opml.parse(opml_xml).each do |resource|
+          next unless resource["xmlUrl"] # FIXME: better way
           next if resource["xmlUrl"].empty?
           database.register(resource["xmlUrl"], resource)
         end
