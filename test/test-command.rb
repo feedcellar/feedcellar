@@ -41,7 +41,8 @@ class CommandTest < Test::Unit::TestCase
     @command.import(file)
     @command.collect
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
-      assert_equal(4, database.resources.size)
+      # NOTE: a tag of outline is not register.
+      assert_equal(3, database.resources.size)
       assert_true(database.feeds.count > 0)
     end
 
@@ -51,7 +52,7 @@ class CommandTest < Test::Unit::TestCase
     $stdout = io
     @command.export
     assert_equal(1, s.scan(/<opml/).size)
-    assert_equal(4, s.scan(/<outline/).size)
+    assert_equal(3, s.scan(/<outline/).size)
     $stdout = STDOUT
 
     # confirm search command
@@ -65,11 +66,11 @@ class CommandTest < Test::Unit::TestCase
     # confirm unregister command
     @command.unregister("my_letter")
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
-      assert_equal(3, database.resources.size)
+      assert_equal(2, database.resources.size)
     end
     @command.unregister("https://rubygems.org/gems/mister_fairy/versions.atom")
     Feedcellar::GroongaDatabase.new.open(@tmpdir) do |database|
-      assert_equal(2, database.resources.size)
+      assert_equal(1, database.resources.size)
     end
 
     # confirm latest command

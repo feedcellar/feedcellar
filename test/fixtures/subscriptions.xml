@@ -5,7 +5,7 @@
     </head>
     <body>
         <outline text="my_letter" title="my_letter" type="rss"
-            xmlUrl="http://myokoym.github.com/entries.rss" htmlUrl="http://myokoym.github.com/"/>
+            xmlUrl="http://myokoym.github.io/entries.rss" htmlUrl="http://myokoym.github.com/"/>
         <outline text="Rubygems | Latest Versions for mister_fairy"
             title="Rubygems | Latest Versions for mister_fairy" type="rss"
             xmlUrl="https://rubygems.org/gems/mister_fairy/versions.atom" htmlUrl="https://rubygems.org/gems"/>
