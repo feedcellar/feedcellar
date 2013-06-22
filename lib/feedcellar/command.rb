@@ -152,13 +152,11 @@ module Feedcellar
             expression &= feed.date > base_date
           end
 
-          expression
+        if options[:resource]
+          expression &= feed.resource =~ options[:resource]
         end
 
-        if options[:resource]
-          feeds = feeds.select do |feed|
-            feed.resource =~ options[:resource]
-          end
+          expression
         end
 
         order = options[:reverse] ? "descending" : "ascending"
