@@ -152,9 +152,9 @@ module Feedcellar
             expression &= feed.date > base_date
           end
 
-        if options[:resource]
-          expression &= feed.resource =~ options[:resource]
-        end
+          if options[:resource]
+            expression &= feed.resource =~ options[:resource]
+          end
 
           expression
         end
