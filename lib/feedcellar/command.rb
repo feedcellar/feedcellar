@@ -75,7 +75,7 @@ module Feedcellar
           next unless items
 
           items.each do |item|
-            database.add(record.title,
+            database.add(record.xmlUrl,
                          item.title,
                          item.link,
                          item.description,
