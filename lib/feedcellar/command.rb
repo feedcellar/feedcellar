@@ -147,9 +147,9 @@ module Feedcellar
             end
           end
 
-        if options[:mtime]
-          expression &= feed.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
-        end
+          if options[:mtime]
+            expression &= feed.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
+          end
 
           expression
         end
