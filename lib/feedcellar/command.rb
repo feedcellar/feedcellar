@@ -152,7 +152,7 @@ module Feedcellar
             if expression.nil?
               expression = feed.date > base_date
             else
-            expression &= feed.date > base_date
+              expression &= feed.date > base_date
             end
           end
 
@@ -160,7 +160,7 @@ module Feedcellar
             if expression.nil?
               expression = feed.resource =~ options[:resource]
             else
-            expression &= feed.resource =~ options[:resource]
+              expression &= feed.resource =~ options[:resource]
             end
           end
 
