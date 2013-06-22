@@ -149,11 +149,19 @@ module Feedcellar
 
           if options[:mtime]
             base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
+            if expression.nil?
+              expression = feed.date > base_date
+            else
             expression &= feed.date > base_date
+            end
           end
 
           if options[:resource]
+            if expression.nil?
+              expression = feed.resource =~ options[:resource]
+            else
             expression &= feed.resource =~ options[:resource]
+            end
           end
 
           expression
