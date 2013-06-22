@@ -67,6 +67,10 @@ module Feedcellar
       @feeds ||= Groonga["Feeds"]
     end
 
+    def dump
+      Groonga::DatabaseDumper.dump
+    end
+
     private
     def reset_context(encoding)
       Groonga::Context.default_options = {:encoding => encoding}
