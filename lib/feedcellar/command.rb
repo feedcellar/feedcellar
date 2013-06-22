@@ -146,13 +146,12 @@ module Feedcellar
               expression &= sub_expression
             end
           end
-          expression
-        end
 
         if options[:mtime]
-          feeds = feeds.select do |feed|
-            feed.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
-          end
+          expression &= feed.date > (Time.now - (options[:mtime] * 60 * 60 * 24))
+        end
+
+          expression
         end
 
         if options[:resource]
