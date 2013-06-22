@@ -8,6 +8,8 @@ require "feedcellar/gui"
 
 module Feedcellar
   class Command < Thor
+    map "-v" => :version
+
     def initialize(*args)
       super
       @base_dir = File.join(File.expand_path("~"), ".feedcellar")
