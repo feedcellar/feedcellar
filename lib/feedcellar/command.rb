@@ -135,10 +135,18 @@ module Feedcellar
 
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
-        words.each do |word|
-          feeds = feeds.select do |feed|
-            (feed.title =~ word) | (feed.description =~ word)
+        feeds = feeds.select do |feed|
+          expression = nil
+          words.each do |word|
+            sub_expression = (feed.title =~ word) |
+                             (feed.description =~ word)
+            if expression.nil?
+              expression = sub_expression
+            else
+              expression &= sub_expression
+            end
           end
+          expression
         end
 
         if options[:mtime]
