@@ -93,7 +93,7 @@ module Feedcellar
         feeds = database.feeds
         # TODO: I want to use the groonga method for grouping.
         feeds.group_by {|feed| feed.resource.xmlUrl }.each do |url, group|
-            latest_feed = group.sort_by {|feed| feed.date }.last
+          latest_feed = group.sort_by {|feed| feed.date }.last
           next unless latest_feed
 
           title = latest_feed.title.gsub(/\n/, " ")
