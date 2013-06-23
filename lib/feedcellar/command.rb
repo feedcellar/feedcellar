@@ -91,18 +91,10 @@ module Feedcellar
     def latest
       GroongaDatabase.new.open(@database_dir) do |database|
         feeds = database.feeds
-        feeds.group("resource.xmlUrl").each do |group|
-          # FIXME: not to select in a loop
-          feeds_by_resource = feeds.select do |feed|
-            feed.resource.xmlUrl == group.key
-          end
-          next unless feeds_by_resource
-
+        # TODO: I want to use the groonga method for grouping.
+        feeds.group_by {|feed| feed.resource.xmlUrl }.each do |url, group|
           begin
-            latest_feed = feeds_by_resource.sort([{:key => "date",
-                                                   :order => :descending}],
-                                                 :offset => 0,
-                                                 :limit => 1).first
+            latest_feed = group.sort_by {|feed| feed.date }.last
           rescue Groonga::InvalidArgument
             next
           end
