@@ -1,5 +1,21 @@
 # NEWS
 
+## 0.3.0: 2013-06-23
+
+Database schema improved release!
+
+### Changes
+
+  * Improvements
+    * Added latest command
+    * Added "-v" option as version command
+    * Improved word search that select to groonga at a time
+    * Added a dump method as grndump
+    * Stopped empty word unless resource option for search command
+    * Changed Resources key to "xmlUrl"
+    * Supported for migration to 0.3.0 for existing database
+    * Use "reference" type for resource column of Feeds table
+
 ## 0.2.2: 2013-06-16
 
 Improve search command release!
