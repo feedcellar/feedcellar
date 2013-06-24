@@ -6,16 +6,16 @@ require "feedcellar/groonga_database"
 
 class CommandTest < Test::Unit::TestCase
   class << self
-  def startup
-    @@tmpdir = File.join(File.dirname(__FILE__), "tmp", "database")
-    FileUtils.mkdir_p(@@tmpdir)
-    @@command = Feedcellar::Command.new
-    @@command.instance_variable_set(:@database_dir, @@tmpdir)
-  end
+    def startup
+      @@tmpdir = File.join(File.dirname(__FILE__), "tmp", "database")
+      FileUtils.mkdir_p(@@tmpdir)
+      @@command = Feedcellar::Command.new
+      @@command.instance_variable_set(:@database_dir, @@tmpdir)
+    end
 
-  def shutdown
-    FileUtils.rm_rf(@@tmpdir)
-  end
+    def shutdown
+      FileUtils.rm_rf(@@tmpdir)
+    end
   end
 
   def test_command
