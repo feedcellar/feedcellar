@@ -5,11 +5,17 @@ require "feedcellar/command"
 require "feedcellar/groonga_database"
 
 class CommandTest < Test::Unit::TestCase
-  def self.startup
+  class << self
+  def startup
     @@tmpdir = File.join(File.dirname(__FILE__), "tmp", "database")
     FileUtils.mkdir_p(@@tmpdir)
     @@command = Feedcellar::Command.new
     @@command.instance_variable_set(:@database_dir, @@tmpdir)
+  end
+
+  def shutdown
+    FileUtils.rm_rf(@@tmpdir)
+  end
   end
 
   def test_command
@@ -80,9 +86,5 @@ class CommandTest < Test::Unit::TestCase
     @@command.latest
     assert_true(s.size > 0)
     $stdout = STDOUT
-  end
-
-  def self.shutdown
-    FileUtils.rm_rf(@@tmpdir)
   end
 end
