@@ -18,15 +18,16 @@ class CommandTest < Test::Unit::TestCase
     end
   end
 
-  def test_command
-    # confirm version command
+  def test_version
     s = ""
     io = StringIO.new(s)
     $stdout = io
     @@command.version
     assert_equal("#{Feedcellar::VERSION}\n", s)
     $stdout = STDOUT
+  end
 
+  def test_command
     # confirm register command if invalid URL
     s = ""
     io = StringIO.new(s)
