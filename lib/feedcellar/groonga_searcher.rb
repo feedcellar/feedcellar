@@ -1,5 +1,5 @@
 module Feedcellar
-  class GroongaSercher
+  class GroongaSearcher
     class << self
       def search(database, words, options)
         feeds = database.feeds

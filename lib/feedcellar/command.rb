@@ -125,7 +125,7 @@ module Feedcellar
       end
 
       GroongaDatabase.new.open(@database_dir) do |database|
-        sorted_feeds = GroongaSercher.search(database, words, options)
+        sorted_feeds = GroongaSearcher.search(database, words, options)
 
         sorted_feeds.each do |feed|
           title = feed.title.gsub(/\n/, " ")
