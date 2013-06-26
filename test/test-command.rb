@@ -8,6 +8,7 @@ class CommandTest < Test::Unit::TestCase
   class << self
     def startup
       @@tmpdir = File.join(File.dirname(__FILE__), "tmp", "database")
+      FileUtils.rm_rf(@@tmpdir)
       FileUtils.mkdir_p(@@tmpdir)
       @@command = Feedcellar::Command.new
       @@command.instance_variable_set(:@database_dir, @@tmpdir)
