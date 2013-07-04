@@ -1,5 +1,14 @@
 # NEWS
 
+## 0.3.2: 2013-07-04
+
+A bug fix release of 0.3.1.
+
+### Changes
+
+  * Fixes
+    * Removed needless require.
+
 ## 0.3.1: 2013-07-04
 
 The release that supported a rich view by curses.
