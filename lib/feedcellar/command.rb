@@ -5,7 +5,6 @@ require "feedcellar/groonga_searcher"
 require "feedcellar/opml"
 require "feedcellar/feed"
 require "feedcellar/resource"
-require "feedcellar/gui"
 
 module Feedcellar
   class Command < Thor
