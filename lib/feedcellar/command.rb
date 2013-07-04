@@ -111,6 +111,7 @@ module Feedcellar
     option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
     option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
     option :resource, :type => :string, :desc => "search of partial match by feed's resource url"
+    option :curses, :type => :boolean, :desc => "rich view for easy web browse"
     def search(*words)
       if words.empty? &&
          (options["resource"].nil? || options["resource"].empty?)
@@ -127,6 +128,10 @@ module Feedcellar
       GroongaDatabase.new.open(@database_dir) do |database|
         sorted_feeds = GroongaSearcher.search(database, words, options)
 
+        if options[:curses]
+          require "feedcellar/curses_view"
+          CursesView.run(sorted_feeds)
+        else
         sorted_feeds.each do |feed|
           title = feed.title.gsub(/\n/, " ")
           if options[:long]
@@ -141,6 +146,7 @@ module Feedcellar
           if options[:browser]
             GUI.show_uri(feed.link)
           end
+        end
         end
       end
     end
