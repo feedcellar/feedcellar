@@ -48,6 +48,16 @@ Word search from titles and descriptions
 
     $ feedcellar search ruby
 
+Rich view by curses (set as default since 0.4.0)
+
+    $ feedcellar search ruby --curses
+
+    Keybind:
+      j: down
+      k: up
+      f, ENTER: open link on firefox
+      q: quit
+
 Delete database
 
     $ rm -r ~/.feedcellar
