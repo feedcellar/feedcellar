@@ -106,7 +106,6 @@ module Feedcellar
     end
 
     desc "search WORD", "Search feeds from local database."
-    option :browser, :type => :boolean, :desc => "open *ALL* links in browser"
     option :long, :type => :boolean, :aliases => "-l", :desc => "use a long listing format"
     option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
     option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
@@ -117,12 +116,6 @@ module Feedcellar
          (options["resource"].nil? || options["resource"].empty?)
         $stderr.puts "WARNING: required one of word or resource option."
         return 1
-      end
-
-      if options[:browser]
-        unless GUI.available?
-          $stderr.puts "WARNING: browser option required \"gtk2\"."
-        end
       end
 
       GroongaDatabase.new.open(@database_dir) do |database|
@@ -141,10 +134,6 @@ module Feedcellar
             else
               date = feed.date.strftime("%Y/%m/%d")
               puts "#{date} #{title}"
-            end
-
-            if options[:browser]
-              GUI.show_uri(feed.link)
             end
           end
         end
