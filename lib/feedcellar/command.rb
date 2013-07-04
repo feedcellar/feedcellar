@@ -132,21 +132,21 @@ module Feedcellar
           require "feedcellar/curses_view"
           CursesView.run(sorted_feeds)
         else
-        sorted_feeds.each do |feed|
-          title = feed.title.gsub(/\n/, " ")
-          if options[:long]
-            date = feed.date.strftime("%Y/%m/%d %H:%M")
-            resource = feed.resource.title
-            puts "#{date} #{title} - #{resource} / #{feed.link}"
-          else
-            date = feed.date.strftime("%Y/%m/%d")
-            puts "#{date} #{title}"
-          end
+          sorted_feeds.each do |feed|
+            title = feed.title.gsub(/\n/, " ")
+            if options[:long]
+              date = feed.date.strftime("%Y/%m/%d %H:%M")
+              resource = feed.resource.title
+              puts "#{date} #{title} - #{resource} / #{feed.link}"
+            else
+              date = feed.date.strftime("%Y/%m/%d")
+              puts "#{date} #{title}"
+            end
 
-          if options[:browser]
-            GUI.show_uri(feed.link)
+            if options[:browser]
+              GUI.show_uri(feed.link)
+            end
           end
-        end
         end
       end
     end
