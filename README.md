@@ -55,7 +55,7 @@ Rich view by curses (set as default since 0.4.0)
     Keybind:
       j: down
       k: up
-      f, ENTER: open the link on firefox
+      f, ENTER: open the link on Firefox
       q: quit
 
 Delete database
