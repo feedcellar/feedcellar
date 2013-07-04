@@ -1,5 +1,19 @@
 # NEWS
 
+## 0.3.1: 2013-07-04
+
+The release that supported a rich view by curses.
+
+### Changes
+
+  * Improvements
+    * Removed browser option.
+    * Supported rich view by curses.
+    * Extracted groonga_searcher for use with API.
+
+  * Fixes
+    * Fixed default order.
+
 ## 0.3.0: 2013-06-23
 
 Database schema improved release!
