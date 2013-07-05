@@ -90,14 +90,8 @@ module Feedcellar
     desc "latest", "Show latest feeds by resources."
     def latest
       GroongaDatabase.new.open(@database_dir) do |database|
-        feeds = database.feeds
-        # TODO: I want to use the groonga method for grouping.
-        feeds.group_by {|feed| feed.resource.xmlUrl }.each do |url, group|
-          latest_feed = group.sort_by {|feed| feed.date }.last
-          next unless latest_feed
-
+        GroongaSearcher.latest(database).each do |latest_feed|
           title = latest_feed.title.gsub(/\n/, " ")
-          next unless title
           date = latest_feed.date.strftime("%Y/%m/%d")
           puts "#{date} #{title} - #{latest_feed.resource.title}"
         end

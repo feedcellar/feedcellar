@@ -42,6 +42,21 @@ module Feedcellar
 
         sorted_feeds
       end
+
+      def latest(database)
+        latest_feeds = []
+
+        feeds = database.feeds
+        # TODO: I want to use the groonga method for grouping.
+        feeds.group_by {|feed| feed.resource.xmlUrl }.each do |url, group|
+          latest_feed = group.sort_by {|feed| feed.date }.last
+          next unless latest_feed
+          next unless latest_feed.title
+          latest_feeds << latest_feed
+        end
+
+        latest_feeds
+      end
     end
   end
 end
