@@ -47,9 +47,8 @@ module Feedcellar
         latest_feeds = []
 
         feeds = database.feeds
-        # TODO: I want to use the groonga method for grouping.
-        feeds.group_by {|feed| feed.resource.xmlUrl }.each do |url, group|
-          latest_feed = group.sort_by {|feed| feed.date }.last
+        feeds.group("resource.xmlUrl", :max_n_sub_records => 1).each do |group|
+          latest_feed = group.sub_records[0]
           next unless latest_feed
           next unless latest_feed.title
           latest_feeds << latest_feed
