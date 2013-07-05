@@ -90,10 +90,10 @@ module Feedcellar
     desc "latest", "Show latest feeds by resources."
     def latest
       GroongaDatabase.new.open(@database_dir) do |database|
-        GroongaSearcher.latest(database).each do |latest_feed|
-          title = latest_feed.title.gsub(/\n/, " ")
-          date = latest_feed.date.strftime("%Y/%m/%d")
-          puts "#{date} #{title} - #{latest_feed.resource.title}"
+        GroongaSearcher.latest(database).each do |feed|
+          title = feed.title.gsub(/\n/, " ")
+          date = feed.date.strftime("%Y/%m/%d")
+          puts "#{date} #{title} - #{feed.resource.title}"
         end
       end
     end
