@@ -8,6 +8,9 @@ module Feedcellar
       Curses.noecho
       Curses.nonl
 
+      # TODO
+      feeds.reject! {|feed| feed.title.nil? }
+
       feeds.each_with_index do |feed, i|
         Curses.setpos(i, 0)
         title = feed.title.gsub(/\n/, " ")
@@ -28,7 +31,7 @@ module Feedcellar
             Curses.setpos(pos, 0)
           when "f", 13
             spawn("firefox",
-                  feeds[pos + 1].link,
+                  feeds[pos].link,
                   [:out, :err] => "/dev/null")
           when "q"
             break
