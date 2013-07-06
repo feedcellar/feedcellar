@@ -3,8 +3,8 @@ require "feedcellar/curses_view"
 class CursesViewTest < Test::Unit::TestCase
   def setup
     @feeds = [
-      Feed.new("title", "http://example.net/rss"),
-      Feed.new("title", "http://example.net/rss2"),
+      Feed.new("title", "http://example.net/rss", "desc1"),
+      Feed.new("title", "http://example.net/rss2", "desc2"),
     ]
   end
 
@@ -54,12 +54,30 @@ class CursesViewTest < Test::Unit::TestCase
     end
   end
 
+  def test_run_description
+    mock(Curses).getch { "d" }
+    mock(Curses).getch { "q" }
+    mock(Curses).getch { "q" }
+    assert_nothing_raised do
+      Feedcellar::CursesView.run(@feeds)
+    end
+  end
+
   class Feed
-    attr_reader :title, :link, :date
-    def initialize(title, link)
+    attr_reader :title, :link, :date, :description, :resource
+    def initialize(title, link, description)
       @title = title
       @link = link
       @date = Time.now
+      @description = description
+      @resource = Resource.new("Web Site's Title")
+    end
+
+    class Resource
+      attr_reader :title
+      def initialize(title)
+        @title = title
+      end
     end
   end
 end
