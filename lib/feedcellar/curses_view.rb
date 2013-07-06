@@ -9,7 +9,7 @@ module Feedcellar
       Curses.nonl
 
       # TODO
-      feeds.reject! {|feed| feed.title.nil? }
+      feeds.to_a.reject! {|feed| feed.title.nil? }
 
       feeds.each_with_index do |feed, i|
         Curses.setpos(i, 0)
