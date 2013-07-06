@@ -34,6 +34,27 @@ module Feedcellar
             spawn("firefox",
                   feeds[pos].link,
                   [:out, :err] => "/dev/null")
+          when "d"
+            mainwin = Curses.stdscr
+            mainwin.clear
+            subwin = mainwin.subwin(mainwin.maxy, mainwin.maxx, 0, 0)
+            subwin.setpos(0, 0)
+            subwin.addstr(feeds[pos].title)
+            subwin.setpos(3, 0)
+            subwin.addstr(feeds[pos].resource.title)
+            subwin.setpos(6, 0)
+            subwin.addstr(feeds[pos].description)
+            subwin.refresh
+            Curses.getch
+            subwin.clear
+            subwin.close
+            feeds.each_with_index do |feed, i|
+              Curses.setpos(i, 0)
+              title = feed.title.gsub(/\n/, " ")
+              date = feed.date.strftime("%Y/%m/%d")
+              Curses.addstr("#{date} #{title}")
+            end
+            Curses.setpos(pos, 0)
           when "q"
             break
           end
