@@ -3,8 +3,8 @@ require "feedcellar/curses_view"
 class CursesViewTest < Test::Unit::TestCase
   def setup
     @feeds = [
-      Feed.new("title", "http://example.net/rss", "desc1"),
-      Feed.new("title", "http://example.net/rss2", "desc2"),
+      Feed.new("title", "http://example.net/post1", "desc1"),
+      Feed.new("title", "http://example.net/post2", "desc2"),
     ]
   end
 
