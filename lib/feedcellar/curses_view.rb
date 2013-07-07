@@ -12,12 +12,7 @@ module Feedcellar
       feeds = feeds.to_a
       feeds.reject! {|feed| feed.title.nil? }
 
-      feeds.each_with_index do |feed, i|
-        Curses.setpos(i, 0)
-        title = feed.title.gsub(/\n/, " ")
-        date = feed.date.strftime("%Y/%m/%d")
-        Curses.addstr("#{date} #{title}")
-      end
+      render_feeds(feeds)
       Curses.setpos(0, 0)
 
       pos = 0
@@ -48,12 +43,7 @@ module Feedcellar
             Curses.getch
             subwin.clear
             subwin.close
-            feeds.each_with_index do |feed, i|
-              Curses.setpos(i, 0)
-              title = feed.title.gsub(/\n/, " ")
-              date = feed.date.strftime("%Y/%m/%d")
-              Curses.addstr("#{date} #{title}")
-            end
+            render_feeds(feeds)
             Curses.setpos(pos, 0)
           when "q"
             break
@@ -63,5 +53,17 @@ module Feedcellar
         Curses.close_screen
       end
     end
+
+    module_function
+    def render_feeds(feeds)
+      feeds.each_with_index do |feed, i|
+        Curses.setpos(i, 0)
+        title = feed.title.gsub(/\n/, " ")
+        date = feed.date.strftime("%Y/%m/%d")
+        Curses.addstr("#{date} #{title}")
+      end
+    end
+
+    private_class_method :render_feeds
   end
 end
