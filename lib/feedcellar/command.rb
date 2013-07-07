@@ -104,6 +104,7 @@ module Feedcellar
     option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
     option :resource, :type => :string, :desc => "search of partial match by feed's resource url"
     option :curses, :type => :boolean, :desc => "rich view for easy web browse"
+    option :grouping, :type => :boolean, :desc => "group by resource"
     def search(*words)
       if words.empty? &&
          (options["resource"].nil? || options["resource"].empty?)
@@ -117,6 +118,10 @@ module Feedcellar
         if options[:curses]
           require "feedcellar/curses_view"
           CursesView.run(sorted_feeds)
+        elsif options[:grouping]
+          sorted_feeds.group("resource").each do |group|
+            puts "#{group.key.title} (#{group.n_sub_records})"
+          end
         else
           sorted_feeds.each do |feed|
             title = feed.title.gsub(/\n/, " ")
