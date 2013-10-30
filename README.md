@@ -2,7 +2,7 @@
 
 Searchable storage for RSS feed reader.
 
-Powered by Rroonga with groonga.
+Powered by Rroonga with Groonga.
 
 ## Installation
 
