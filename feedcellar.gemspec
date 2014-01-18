@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Searchable storage for RSS feed reader by Rroonga with Groonga.}
   spec.summary       = %q{Searchable Storage for Feed Reader}
   spec.homepage      = "http://myokoym.net/feedcellar/"
-  spec.license       = "MIT"
+  spec.license       = "LGPLv2.1 or later"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) {|f| File.basename(f) }
