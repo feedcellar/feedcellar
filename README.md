@@ -44,6 +44,10 @@ Collect feeds (It takes several minutes)
 
     $ feedcellar collect
 
+Show feeds on GUI window (experimental)
+
+    $ feedcellar show [--lines=N]
+
 Word search from titles and descriptions
 
     $ feedcellar search ruby

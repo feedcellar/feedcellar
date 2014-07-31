@@ -43,6 +43,10 @@ module Feedcellar
                       :date        => date)
     end
 
+    def delete(id)
+      feeds.delete(id)
+    end
+
     def unregister(title_or_url)
       resources.delete do |record|
         (record.title == title_or_url) |
