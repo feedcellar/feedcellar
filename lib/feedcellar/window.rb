@@ -37,13 +37,18 @@ module Feedcellar
       @vbox = Gtk::VBox.new
       add(@vbox)
 
+      @entry_hbox = Gtk::HBox.new
+      @vbox.pack_start(@entry_hbox, false, false, 0)
+
       @entry = Gtk::Entry.new
-      @entry.signal_connect("activate") do |_entry|
-        # TODO
-        query = ""
-        search(query)
+      @entry_hbox.add(@entry)
+      @search_button = Gtk::Button.new("Search")
+      @search_button.signal_connect("clicked") do
+        words = @entry.text.split(" ")
+        records = search(words, @options)
+        @tree_view.update_model(records)
       end
-      @vbox.pack_start(@entry, false, false, 0)
+      @entry_hbox.add(@search_button)
 
       @scrolled_window = Gtk::ScrolledWindow.new
       @scrolled_window.set_policy(:automatic, :automatic)
@@ -71,17 +76,17 @@ module Feedcellar
     end
 
     private
-    def search
-      # TODO
-    end
-
-    def all_records(options)
-      records = GroongaSearcher.search(@database, nil, options)
+    def search(words, options)
+      records = GroongaSearcher.search(@database, words, options)
       if options[:lines]
         records.take(options[:lines])
       else
         records
       end
+    end
+
+    def all_records(options)
+      search(nil, options)
     end
 
     def define_key_bindings

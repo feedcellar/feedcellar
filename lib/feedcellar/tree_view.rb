@@ -73,6 +73,15 @@ module Feedcellar
       selection.selected
     end
 
+    def update_model(records)
+      model = Gtk::ListStore.new(String, String, String, String, Time, String, String)
+      records.each do |record|
+        load_record(model, record)
+      end
+      set_model(model)
+      @model = model
+    end
+
     private
     def create_tree(model, records)
       set_model(model)
