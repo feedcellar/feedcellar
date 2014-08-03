@@ -76,7 +76,12 @@ module Feedcellar
     end
 
     def all_records(options)
-      GroongaSearcher.search(@database, nil, options)
+      records = GroongaSearcher.search(@database, nil, options)
+      if options[:lines]
+        records.take(options[:lines])
+      else
+        records
+      end
     end
 
     def define_key_bindings
