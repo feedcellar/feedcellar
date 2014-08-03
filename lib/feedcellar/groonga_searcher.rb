@@ -5,39 +5,39 @@ module Feedcellar
         feeds = database.feeds
 
         if !words.nil? && !words.empty?
-        feeds = feeds.select do |feed|
-          expression = nil
-          words.each do |word|
-            sub_expression = (feed.title =~ word) |
-                             (feed.description =~ word)
-            if expression.nil?
-              expression = sub_expression
-            else
-              expression &= sub_expression
+          feeds = feeds.select do |feed|
+            expression = nil
+            words.each do |word|
+              sub_expression = (feed.title =~ word) |
+                               (feed.description =~ word)
+              if expression.nil?
+                expression = sub_expression
+              else
+                expression &= sub_expression
+              end
             end
-          end
 
-          if options[:mtime]
-            base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
-            mtime_expression = feed.date > base_date
-            if expression.nil?
-              expression = mtime_expression
-            else
-              expression &= mtime_expression
+            if options[:mtime]
+              base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
+              mtime_expression = feed.date > base_date
+              if expression.nil?
+                expression = mtime_expression
+              else
+                expression &= mtime_expression
+              end
             end
-          end
 
-          if options[:resource]
-            resource_expression = feed.resource =~ options[:resource]
-            if expression.nil?
-              expression = resource_expression
-            else
-              expression &= resource_expression
+            if options[:resource]
+              resource_expression = feed.resource =~ options[:resource]
+              if expression.nil?
+                expression = resource_expression
+              else
+                expression &= resource_expression
+              end
             end
-          end
 
-          expression
-        end
+            expression
+          end
         end
 
         order = options[:reverse] ? "ascending" : "descending"
