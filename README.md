@@ -52,7 +52,7 @@ Word search from titles and descriptions
 
     $ feedcellar search ruby
 
-Rich view by curses (set as default since 0.4.0)
+Rich view by curses
 
     $ feedcellar search ruby --curses
 
