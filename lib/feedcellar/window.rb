@@ -32,6 +32,14 @@ module Feedcellar
       @vbox = Gtk::VBox.new
       add(@vbox)
 
+      @entry = Gtk::Entry.new
+      @entry.signal_connect("activate") do |_entry|
+        # TODO
+        query = ""
+        search(query)
+      end
+      @vbox.pack_start(@entry, false, false, 0)
+
       @scrolled_window = Gtk::ScrolledWindow.new
       @scrolled_window.set_policy(:automatic, :automatic)
       @vbox.pack_start(@scrolled_window, true, true, 0)
@@ -56,6 +64,10 @@ module Feedcellar
     end
 
     private
+    def search
+      # TODO
+    end
+
     def define_key_bindings
       signal_connect("key-press-event") do |widget, event|
         handled = false
