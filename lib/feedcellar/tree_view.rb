@@ -108,14 +108,14 @@ module Feedcellar
 
     def load_record(model, record)
       iter = model.append
-      iter.set_value(KEY_COLUMN, record[:key])
-      iter.set_value(TITLE_COLUMN, record[:title])
-      iter.set_value(LINK_COLUMN, record[:link])
-      escaped_description = ERB::Util.html_escape(record[:description])
+      iter.set_value(KEY_COLUMN, record._key)
+      iter.set_value(TITLE_COLUMN, record.title)
+      iter.set_value(LINK_COLUMN, record.link)
+      escaped_description = ERB::Util.html_escape(record.description)
       iter.set_value(DESCRIPTION_COLUMN, escaped_description)
-      iter.set_value(DATE_COLUMN, record[:date])
-      iter.set_value(STRFTIME_COLUMN, record[:date].strftime("%Y-%m-%d\n%H:%M:%S"))
-      text = [record[:resource_title], record[:title]].join("\n")
+      iter.set_value(DATE_COLUMN, record.date)
+      iter.set_value(STRFTIME_COLUMN, record.date.strftime("%Y-%m-%d\n%H:%M:%S"))
+      text = [record.resource.title, record.title].join("\n")
       iter.set_value(RESOURCE_AND_TITLE_COLUMN, text)
     end
   end

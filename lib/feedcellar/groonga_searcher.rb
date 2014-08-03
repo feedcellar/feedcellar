@@ -3,6 +3,8 @@ module Feedcellar
     class << self
       def search(database, words, options)
         feeds = database.feeds
+
+        if !words.nil? && !words.empty?
         feeds = feeds.select do |feed|
           expression = nil
           words.each do |word|
@@ -35,6 +37,7 @@ module Feedcellar
           end
 
           expression
+        end
         end
 
         order = options[:reverse] ? "ascending" : "descending"

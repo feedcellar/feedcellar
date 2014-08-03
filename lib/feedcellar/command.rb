@@ -70,30 +70,7 @@ module Feedcellar
         return false
       end
 
-      records = []
-      GroongaDatabase.new.open(@database_dir) do |database|
-        database.feeds.each do |feed|
-          record = {}
-          record[:key] = feed._key
-          record[:title] = feed.title
-          record[:link] = feed.link
-          record[:description] = feed.description
-          record[:date] = feed.date
-          record[:resource_title] = feed.resource.title
-          records << record
-        end
-      end
-
-      records.sort_by! do |record|
-        record[:date]
-      end
-      records.reverse!
-
-      if options[:lines]
-        records = records.take(options[:lines])
-      end
-
-      window = Window.new(records)
+      window = Window.new(@database_dir, options)
       window.run
     end
 

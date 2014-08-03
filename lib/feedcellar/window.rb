@@ -17,15 +17,20 @@
 require "gtk2"
 require "feedcellar/tree_view"
 require "feedcellar/command"
+require "feedcellar/groonga_database"
+require "feedcellar/groonga_searcher"
 
 module Feedcellar
   class Window < Gtk::Window
-    def initialize(records)
+    def initialize(database_dir, options)
       super()
-      @records = records
+      @database = GroongaDatabase.new
+      @database.open(database_dir)
+      @options = options
       self.title = "Feedcellar"
       set_default_size(640, 480)
       signal_connect("destroy") do
+        @database.close unless @database.closed?
         Gtk.main_quit
       end
 
@@ -43,6 +48,8 @@ module Feedcellar
       @scrolled_window = Gtk::ScrolledWindow.new
       @scrolled_window.set_policy(:automatic, :automatic)
       @vbox.pack_start(@scrolled_window, true, true, 0)
+
+      records = all_records(options)
 
       @tree_view = TreeView.new(records)
       @scrolled_window.add(@tree_view)
@@ -66,6 +73,10 @@ module Feedcellar
     private
     def search
       # TODO
+    end
+
+    def all_records(options)
+      GroongaSearcher.search(@database, nil, options)
     end
 
     def define_key_bindings
