@@ -62,6 +62,10 @@ Rich view by curses
       f, ENTER: open the link on Firefox
       q: quit
 
+Show feeds in Web Browser
+
+    $ feedcellar web
+
 Delete database
 
     $ rm -r ~/.feedcellar

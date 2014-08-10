@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %title feedcellar
+  %body
+    %h1 feedcellar
+    %form{:action => url("/search", false, true), :method => :post}
+      %input{:type => "textarea", :name => "word", :size => 20}
+      %input{:type => "submit"}
+    - if @feeds
+      - @feeds.each do |feed|
+        %ul
+          %li
+            %a{:href => feed.link}= "#{feed.title} - #{feed.resource.title}"
