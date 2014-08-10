@@ -156,11 +156,12 @@ module Feedcellar
     end
 
     desc "web", "Show feeds in a web browser"
+    option :silent, :type => :boolean, :desc => "Don't open in browser"
     def web
       require "feedcellar/web"
       require "launchy"
       web_server_thread = Thread.new { Feedcellar::Web.run! }
-      Launchy.open("http://localhost:4567")
+      Launchy.open("http://localhost:4567") unless options[:silent]
       web_server_thread.join
     end
   end

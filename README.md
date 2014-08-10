@@ -64,7 +64,7 @@ Rich view by curses
 
 Show feeds in a web browser
 
-    $ feedcellar web
+    $ feedcellar web [--silent]
 
 Delete database
 
