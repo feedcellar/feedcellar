@@ -1,6 +1,6 @@
-# feedcellar - Searchable Data Store
+# feedcellar - a feed reader
 
-Searchable data store for RSS feed reader.
+Feedcellar is a full-text searchable RSS feed reader.
 
 Powered by Rroonga with Groonga.
 
