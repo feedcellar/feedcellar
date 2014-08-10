@@ -62,7 +62,7 @@ Rich view by curses
       f, ENTER: open the link on Firefox
       q: quit
 
-Show feeds in Web Browser
+Show feeds in a web browser
 
     $ feedcellar web
 

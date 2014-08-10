@@ -155,7 +155,7 @@ module Feedcellar
       end
     end
 
-    desc "web", "Show feeds in a Web Browser"
+    desc "web", "Show feeds in a web browser"
     def web
       require "feedcellar/web"
       require "launchy"
