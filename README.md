@@ -72,7 +72,7 @@ Delete database
 
 ## License
 
-Copyright (c) 2013-2014 Masafumi Yokoyama <myokoym@gmail.com>
+Copyright (c) 2013-2014 Masafumi Yokoyama `<myokoym@gmail.com>`
 
 LGPLv2.1 or later.
 
