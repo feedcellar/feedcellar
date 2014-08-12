@@ -1,6 +1,6 @@
 # feedcellar - a feed reader
 
-Feedcellar is a full-text searchable RSS feed reader.
+Feedcellar is a full-text searchable RSS feed reader and data store.
 
 Powered by [Rroonga][] with [Groonga][].
 
