@@ -2,10 +2,11 @@
 
 Feedcellar is a full-text searchable RSS feed reader and data store.
 
-Powered by [Rroonga][] with [Groonga][].
+Powered by [Groonga][] (via [Rroonga][]) with [Ruby][].
 
-[Rroonga]:http://ranguba.org/#about-rroonga
 [Groonga]:http://groonga.org/
+[Rroonga]:http://ranguba.org/#about-rroonga
+[Ruby]:https://www.ruby-lang.org/
 
 ## Installation
 
