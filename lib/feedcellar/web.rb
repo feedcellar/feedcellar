@@ -8,29 +8,19 @@ module Feedcellar
       haml :index
     end
 
-    get "/find" do
-      resource_id = params[:resource_id]
-      @feeds = find(resource_id)
-      haml :index
-    end
-
     get "/search" do
       words = params[:word].split(" ")
-      @feeds = search(words)
+      options ||= {}
+      options[:resource_id] = params[:resource_id] if params[:resource_id]
+      @feeds = search(words, options)
       haml :index
     end
 
     helpers do
-      def find(resource_id)
+      def search(words, options={})
         database = GroongaDatabase.new
         database.open(Command.new.database_dir)
-        GroongaSearcher.find(database, resource_id)
-      end
-
-      def search(words)
-        database = GroongaDatabase.new
-        database.open(Command.new.database_dir)
-        GroongaSearcher.search(database, words, {})
+        GroongaSearcher.search(database, words, options)
       end
 
       def grouping(table)
@@ -39,7 +29,7 @@ module Feedcellar
       end
 
       def markup_drilled_item(resource)
-        link = url("/find?resource_id=#{resource._id}&word=#{params[:keywords]}")
+        link = url("/search?resource_id=#{resource._id}&word=#{params[:word]}")
         "<a href=#{link}>#{resource.title} (#{resource.n_sub_records})</a>"
       end
 

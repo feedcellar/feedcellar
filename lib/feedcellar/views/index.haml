@@ -1,7 +1,7 @@
 %h1 feedcellar
 %p= "Powered by Groonga #{groonga_version} and Rroonga #{rroonga_version}."
 %form{:action => url("/search", false, true), :method => :get}
-  %input{:type => "textarea", :name => "word", :size => 20}
+  %input{:type => "textarea", :name => "word", :size => 20, :value => params[:word]}
   %input{:type => "submit"}
 - if @feeds
   %p
