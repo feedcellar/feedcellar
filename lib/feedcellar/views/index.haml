@@ -1,5 +1,5 @@
 %h1 feedcellar
-%form{:action => url("/search", false, true), :method => :post}
+%form{:action => url("/search", false, true), :method => :get}
   %input{:type => "textarea", :name => "word", :size => 20}
   %input{:type => "submit"}
 - if @feeds

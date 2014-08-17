@@ -8,7 +8,7 @@ module Feedcellar
       haml :index
     end
 
-    post "/search" do
+    get "/search" do
       words = params[:word].split(" ")
       @feeds = search(words)
       haml :index
