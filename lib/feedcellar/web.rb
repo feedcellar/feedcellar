@@ -9,7 +9,11 @@ module Feedcellar
     end
 
     get "/search" do
+      if params.has_key?(:word)
       words = params[:word].split(" ")
+      else
+        words = []
+      end
       options ||= {}
       options[:resource_id] = params[:resource_id] if params[:resource_id]
       @feeds = search(words, options)
