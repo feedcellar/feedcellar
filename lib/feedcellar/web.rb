@@ -9,7 +9,7 @@ module Feedcellar
     end
 
     get "/search" do
-      if params.has_key?("word")
+      if params[:word]
         words = params[:word].split(" ")
       else
         words = []

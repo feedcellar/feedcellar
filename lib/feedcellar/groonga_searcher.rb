@@ -4,7 +4,7 @@ module Feedcellar
       def search(database, words, options)
         feeds = database.feeds
 
-        if (!words.nil? && !words.empty?) || options.has_key?(:resource_id)
+        if (!words.nil? && !words.empty?) || options[:resource_id]
           feeds = feeds.select do |feed|
             expression = nil
             words.each do |word|
