@@ -42,6 +42,14 @@ module Feedcellar
         link = url("/find?resource_id=#{resource._id}&word=#{params[:keywords]}")
         "<a href=#{link}>#{resource.title} (#{resource.n_sub_records})</a>"
       end
+
+      def groonga_version
+        Groonga::VERSION[0..2].join(".")
+      end
+
+      def rroonga_version
+        Groonga::BINDINGS_VERSION.join(".")
+      end
     end
   end
 end
