@@ -3,6 +3,9 @@
   %input{:type => "textarea", :name => "word", :size => 20}
   %input{:type => "submit"}
 - if @feeds
+  %p
+    - grouping(@feeds).each do |resource|
+      = markup_drilled_item(resource)
   - @feeds.each do |feed|
     %ul
       %li

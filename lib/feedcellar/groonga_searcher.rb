@@ -1,6 +1,13 @@
 module Feedcellar
   class GroongaSearcher
     class << self
+      def find(database, resource_id, options={})
+        feeds = database.feeds
+        feeds.select do |feed|
+          feed.resource._id == resource_id
+        end
+      end
+
       def search(database, words, options)
         feeds = database.feeds
 
