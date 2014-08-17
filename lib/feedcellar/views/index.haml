@@ -6,7 +6,7 @@
   %p
     - grouping(@feeds).each do |resource|
       = markup_drilled_item(resource)
-  - @feeds.each do |feed|
-    %ul
+  %ul
+    - @feeds.each do |feed|
       %li
         %a{:href => feed.link}= "#{feed.title} - #{feed.resource.title}"
