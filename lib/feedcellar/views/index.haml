@@ -2,7 +2,7 @@
 %p= "Powered by Groonga #{groonga_version} and Rroonga #{rroonga_version}."
 %form{:action => url("/search", false, true), :method => :get}
   %input{:type => "textarea", :name => "word", :size => 20, :value => params[:word]}
-  %input{:type => "submit"}
+  %input{:type => "submit", :value => "Search"}
 - if @feeds
   %p
     - grouping(@feeds).each do |resource|
