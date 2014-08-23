@@ -7,11 +7,12 @@ require "feedcellar/groonga_database"
 class CommandTest < Test::Unit::TestCase
   class << self
     def startup
-      @@tmpdir = File.join(File.dirname(__FILE__), "tmp", "database")
+      @@tmpdir = File.join(File.dirname(__FILE__), "tmp")
       FileUtils.rm_rf(@@tmpdir)
       FileUtils.mkdir_p(@@tmpdir)
+      ENV["FEEDCELLAR_HOME"] = @@tmpdir
       @@command = Feedcellar::Command.new
-      @@command.instance_variable_set(:@database_dir, @@tmpdir)
+      @@database_dir = @@command.database_dir
     end
 
     def shutdown
@@ -40,7 +41,7 @@ class CommandTest < Test::Unit::TestCase
     # confirm register command
     @@command.register("http://myokoym.github.io/entries.rss")
     @@command.register("https://rubygems.org/gems/mister_fairy/versions.atom")
-    Feedcellar::GroongaDatabase.new.open(@@tmpdir) do |database|
+    Feedcellar::GroongaDatabase.new.open(@@database_dir) do |database|
       assert_equal(2, database.resources.size)
     end
 
@@ -48,7 +49,7 @@ class CommandTest < Test::Unit::TestCase
     file = File.join(File.dirname(__FILE__), "fixtures", "subscriptions.xml")
     @@command.import(file)
     @@command.collect
-    Feedcellar::GroongaDatabase.new.open(@@tmpdir) do |database|
+    Feedcellar::GroongaDatabase.new.open(@@database_dir) do |database|
       # NOTE: a tag of outline is not register.
       assert_equal(3, database.resources.size)
       assert_true(database.feeds.count > 0)
@@ -73,11 +74,11 @@ class CommandTest < Test::Unit::TestCase
 
     # confirm unregister command
     @@command.unregister("my_letter")
-    Feedcellar::GroongaDatabase.new.open(@@tmpdir) do |database|
+    Feedcellar::GroongaDatabase.new.open(@@database_dir) do |database|
       assert_equal(2, database.resources.size)
     end
     @@command.unregister("https://rubygems.org/gems/mister_fairy/versions.atom")
-    Feedcellar::GroongaDatabase.new.open(@@tmpdir) do |database|
+    Feedcellar::GroongaDatabase.new.open(@@database_dir) do |database|
       assert_equal(1, database.resources.size)
     end
 
