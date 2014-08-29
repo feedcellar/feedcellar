@@ -12,16 +12,6 @@ Powered by [Groonga][] (via [Rroonga][]) with [Ruby][].
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'feedcellar'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
     $ gem install feedcellar
 
 ## Usage
