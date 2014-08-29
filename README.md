@@ -48,23 +48,9 @@ Or install it yourself as:
 
     $ feedcellar collect
 
-### Show feeds on GUI window (experimental)
-
-    $ feedcellar show [--lines=N]
-
 ### Word search from titles and descriptions
 
     $ feedcellar search ruby
-
-### Rich view by curses (experimental)
-
-    $ feedcellar search ruby --curses
-
-    Keybind:
-      j: down
-      k: up
-      f, ENTER: open the link on Firefox
-      q: quit
 
 ### Show feeds in a web browser
 
@@ -77,6 +63,20 @@ Or
 #### Enable cache (using Racknga)
 
     $ FEEDCELLAR_ENABLE_CACHE=true rackup
+
+### Show feeds on GUI window (experimental)
+
+    $ feedcellar show [--lines=N]
+
+### Rich view by curses (experimental)
+
+    $ feedcellar search ruby --curses
+
+    Keybind:
+      j: down
+      k: up
+      f, ENTER: open the link on Firefox
+      q: quit
 
 ### Delete database
 
