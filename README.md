@@ -56,7 +56,7 @@ Or install it yourself as:
 
     $ feedcellar search ruby
 
-### Rich view by curses
+### Rich view by curses (experimental)
 
     $ feedcellar search ruby --curses
 
