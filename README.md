@@ -24,39 +24,39 @@ Or install it yourself as:
 
 ## Usage
 
-Show help
+### Show help
 
     $ feedcellar
 
-Register URL
+### Register URL
 
     $ feedcellar register http://example.net/rss
 
-Import URL from OPML
+### Import URL from OPML
 
     $ feedcellar import registers.xml
 
-Export registerd resources to OPML to STDOUT
+### Export registerd resources to OPML to STDOUT
 
     $ feedcellar export
 
-Show registers
+### Show registers
 
     $ feedcellar list
 
-Collect feeds (It takes several minutes)
+### Collect feeds (It takes several minutes)
 
     $ feedcellar collect
 
-Show feeds on GUI window (experimental)
+### Show feeds on GUI window (experimental)
 
     $ feedcellar show [--lines=N]
 
-Word search from titles and descriptions
+### Word search from titles and descriptions
 
     $ feedcellar search ruby
 
-Rich view by curses
+### Rich view by curses
 
     $ feedcellar search ruby --curses
 
@@ -66,11 +66,11 @@ Rich view by curses
       f, ENTER: open the link on Firefox
       q: quit
 
-Show feeds in a web browser
+### Show feeds in a web browser
 
     $ feedcellar web [--silent]
 
-Delete database
+### Delete database
 
     $ rm -r ~/.feedcellar
 
