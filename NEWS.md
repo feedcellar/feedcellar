@@ -1,5 +1,16 @@
 # NEWS
 
+## 0.4.0: 2014-08-29
+
+Browser and GUI support!
+
+### Changes
+
+  * Improvements
+    * Added an interface for a web browser.
+    * Added show command and GUI window (experimental).
+    * Use LGPLv2.1 or later to license.
+
 ## 0.3.2: 2013-07-04
 
 A bug fix release of 0.3.1.
