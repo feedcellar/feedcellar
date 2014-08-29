@@ -42,7 +42,7 @@ Powered by [Groonga][] (via [Rroonga][]) with [Ruby][].
 
 ### Word search from titles and descriptions
 
-    $ feedcellar search ruby
+    $ feedcellar search WORD1 [WORD2...]
 
 ### Show feeds in a web browser
 
