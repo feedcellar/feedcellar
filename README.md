@@ -70,6 +70,14 @@ Or install it yourself as:
 
     $ feedcellar web [--silent]
 
+Or
+
+    $ rackup
+
+#### Enable cache (using Racknga)
+
+    $ FEEDCELLAR_ENABLE_CACHE=true rackup
+
 ### Delete database
 
     $ rm -r ~/.feedcellar
