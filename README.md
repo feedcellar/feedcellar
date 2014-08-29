@@ -1,5 +1,7 @@
 # feedcellar - a feed reader
 
+[![Build Status](https://secure.travis-ci.org/myokoym/feedcellar.png?branch=master)](http://travis-ci.org/myokoym/feedcellar)
+
 Feedcellar is a full-text searchable RSS feed reader and data store.
 
 Powered by [Groonga][] (via [Rroonga][]) with [Ruby][].
