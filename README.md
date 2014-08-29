@@ -66,10 +66,12 @@ Or
 
 ### Show feeds on GUI window (experimental)
 
+    $ gem install gtk2
     $ feedcellar show [--lines=N]
 
 ### Rich view by curses (experimental)
 
+    $ gem install curses  # for Ruby 2.1
     $ feedcellar search ruby --curses
 
     Keybind:
