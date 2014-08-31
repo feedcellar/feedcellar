@@ -1,3 +1,5 @@
+# class Feedcellar::Window
+#
 # Copyright (C) 2014  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
