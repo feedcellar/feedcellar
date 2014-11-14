@@ -10,4 +10,5 @@
   %ul
     - @feeds.each do |feed|
       %li
-        %a{:href => feed.link}= "#{feed.title} - #{feed.resource.title}"
+        %p
+          %a{:href => feed.link}= "#{feed.title} - #{feed.resource.title}"
