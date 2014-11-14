@@ -38,6 +38,15 @@ module Feedcellar
       haml :index
     end
 
+    get "/registers.opml" do
+      content_type :xml
+      opml = nil
+      GroongaDatabase.new.open(Command.new.database_dir) do |database|
+        opml = Opml.build(database.resources.records)
+      end
+      opml
+    end
+
     helpers do
       def search(words, options={})
         database = GroongaDatabase.new
