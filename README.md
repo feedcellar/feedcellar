@@ -45,17 +45,9 @@ Powered by [Groonga][] (via [Rroonga][]) with [Ruby][].
 
     $ feedcellar search WORD1 [WORD2...]
 
-### Show feeds in a web browser
+### Start web server and show feeds in a web browser
 
-    $ feedcellar web [--silent]
-
-Or
-
-    $ rackup
-
-#### Enable cache (using Racknga)
-
-    $ FEEDCELLAR_ENABLE_CACHE=true rackup
+[Feedcellar::Web](https://github.com/feedcellar/feedcellar-web)
 
 ### Show feeds on GUI window (experimental)
 
