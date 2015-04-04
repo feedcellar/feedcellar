@@ -64,14 +64,7 @@ Or
 
 ### Rich view by curses (experimental)
 
-    $ gem install curses  # for Ruby 2.1
-    $ feedcellar search ruby --curses
-
-    Keybind:
-      j: down
-      k: up
-      f, ENTER: open the link on Firefox
-      q: quit
+[Feedcellar::Curses](https://github.com/feedcellar/feedcellar-curses)
 
 ### Delete database
 
@@ -79,7 +72,7 @@ Or
 
 ## License
 
-Copyright (c) 2013-2014 Masafumi Yokoyama `<myokoym@gmail.com>`
+Copyright (c) 2013-2015 Masafumi Yokoyama `<myokoym@gmail.com>`
 
 LGPLv2.1 or later.
 

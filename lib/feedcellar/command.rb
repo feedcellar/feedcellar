@@ -1,6 +1,6 @@
 # class Feedcellar::Command
 #
-# Copyright (C) 2013-2014  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -139,7 +139,6 @@ module Feedcellar
     option :reverse, :type => :boolean, :aliases => "-r", :desc => "reverse order while sorting"
     option :mtime, :type => :numeric, :desc => "feed's data was last modified n*24 hours ago."
     option :resource, :type => :string, :desc => "search of partial match by feed's resource url"
-    option :curses, :type => :boolean, :desc => "rich view for easy web browse"
     option :grouping, :type => :boolean, :desc => "group by resource"
     def search(*words)
       if words.empty? &&
@@ -151,10 +150,7 @@ module Feedcellar
       GroongaDatabase.new.open(@database_dir) do |database|
         sorted_feeds = GroongaSearcher.search(database, words, options)
 
-        if options[:curses]
-          require "feedcellar/curses_view"
-          CursesView.run(sorted_feeds)
-        elsif options[:grouping]
+        if options[:grouping]
           sorted_feeds.group("resource").each do |group|
             puts "#{group.key.title} (#{group.n_sub_records})"
           end
