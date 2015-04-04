@@ -1,5 +1,16 @@
 # NEWS
 
+## 0.5.0: 2015-04-05
+
+Extract interfaces to the other projects.
+
+### Changes
+
+  * Improvements
+    * Extracted Web interface to feedcellar-web gem.
+    * Extracted GTK+ interface to feedcellar-gtk gem.
+    * Extracted Curses interface to feedcellar-curses gem.
+
 ## 0.4.1: 2015-04-04
 
 Support to paginate for Web interface!
