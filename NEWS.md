@@ -1,5 +1,17 @@
 # NEWS
 
+## 0.4.1: 2015-04-04
+
+Support to paginate!
+
+### Changes
+
+  * Improvements
+    * web: Added /register.opml root.
+    * web: Added %p to the feed list.
+    * Use Padrino::Helpers.
+    * Introduced to paginate.
+
 ## 0.4.0: 2014-08-29
 
 Browser and GUI support!
