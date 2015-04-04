@@ -18,10 +18,13 @@
 
 require "sinatra/base"
 require "haml"
+require "padrino-helpers"
 require "feedcellar/command"
 
 module Feedcellar
   class Web < Sinatra::Base
+    register Padrino::Helpers
+
     get "/" do
       haml :index
     end
@@ -59,9 +62,12 @@ module Feedcellar
         table.group(key).sort_by {|item| item.n_sub_records }.reverse
       end
 
-      def markup_drilled_item(resource)
-        link = url("/search?resource_id=#{resource._id}&word=#{params[:word]}")
-        "<a href=#{link}>#{resource.title} (#{resource.n_sub_records})</a>"
+      def drilled_url(resource)
+        url("/search?resource_id=#{resource._id}&word=#{params[:word]}")
+      end
+
+      def drilled_label(resource)
+        "#{resource.title} (#{resource.n_sub_records})"
       end
 
       def groonga_version

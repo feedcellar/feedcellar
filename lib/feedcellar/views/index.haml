@@ -6,9 +6,9 @@
 - if @feeds
   %p
     - grouping(@feeds).each do |resource|
-      = markup_drilled_item(resource)
+      = link_to(drilled_label(resource), drilled_url(resource))
   %ul
     - @feeds.each do |feed|
       %li
         %p
-          %a{:href => feed.link}= "#{feed.title} - #{feed.resource.title}"
+          = link_to("#{feed.title} - #{feed.resource.title}", feed.link)
