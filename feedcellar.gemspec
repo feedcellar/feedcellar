@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   #spec.add_runtime_dependency("gtk2")
   spec.add_runtime_dependency("sinatra")
   spec.add_runtime_dependency("padrino-helpers")
+  spec.add_runtime_dependency("kaminari")
   spec.add_runtime_dependency("haml")
   spec.add_runtime_dependency("launchy")
   spec.add_runtime_dependency("racknga")

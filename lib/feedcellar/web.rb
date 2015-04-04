@@ -1,6 +1,6 @@
 # class Feedcellar::Web
 #
-# Copyright (C) 2014  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2014-2015  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,11 +19,12 @@
 require "sinatra/base"
 require "haml"
 require "padrino-helpers"
+require "kaminari/sinatra"
 require "feedcellar/command"
 
 module Feedcellar
   class Web < Sinatra::Base
-    register Padrino::Helpers
+    helpers Kaminari::Helpers::SinatraHelpers
 
     get "/" do
       haml :index
@@ -38,6 +39,11 @@ module Feedcellar
       options ||= {}
       options[:resource_id] = params[:resource_id] if params[:resource_id]
       @feeds = search(words, options)
+      if @feeds
+        page = params[:page]
+        n_per_page = options[:n_per_page] || 50
+        @paginated_feeds = pagenate_feeds(@feeds, page, n_per_page)
+      end
       haml :index
     end
 
@@ -55,6 +61,10 @@ module Feedcellar
         database = GroongaDatabase.new
         database.open(Command.new.database_dir)
         GroongaSearcher.search(database, words, options)
+      end
+
+      def pagenate_feeds(feeds, page, n_per_page)
+        Kaminari.paginate_array(feeds.to_a).page(page).per(n_per_page)
       end
 
       def grouping(table)

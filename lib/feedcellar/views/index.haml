@@ -7,8 +7,10 @@
   %p
     - grouping(@feeds).each do |resource|
       = link_to(drilled_label(resource), drilled_url(resource))
+  = paginate(@paginated_feeds)
   %ul
-    - @feeds.each do |feed|
+    - @paginated_feeds.each do |feed|
       %li
         %p
           = link_to("#{feed.title} - #{feed.resource.title}", feed.link)
+  = paginate(@paginated_feeds)
