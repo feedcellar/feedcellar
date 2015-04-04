@@ -59,8 +59,7 @@ Or
 
 ### Show feeds on GUI window (experimental)
 
-    $ gem install gtk2
-    $ feedcellar show [--lines=N]
+[Feedcellar::Gtk](https://github.com/feedcellar/feedcellar-gtk)
 
 ### Rich view by curses (experimental)
 

@@ -2,7 +2,7 @@
 #
 # feedcellar.gemspec
 #
-# Copyright (C) 2013-2014  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,6 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency("rroonga", ">= 3.0.4")
   spec.add_runtime_dependency("thor")
-  #spec.add_runtime_dependency("gtk2")
   spec.add_runtime_dependency("sinatra")
   spec.add_runtime_dependency("padrino-helpers")
   spec.add_runtime_dependency("kaminari")

@@ -78,21 +78,6 @@ module Feedcellar
       end
     end
 
-    desc "show", "Show feeds on GUI."
-    option :lines, :type => :numeric, :aliases => "-n", :desc => "Number of lines"
-    def show
-      # TODO: Can we always require gtk2 gem?
-      begin
-        require "feedcellar/window"
-      rescue LoadError => e
-        $stderr.puts("#{e.class}: #{e.message}")
-        return false
-      end
-
-      window = Window.new(@database_dir, options)
-      window.run
-    end
-
     desc "list", "Show registered resources list of title and URL."
     def list
       GroongaDatabase.new.open(@database_dir) do |database|
