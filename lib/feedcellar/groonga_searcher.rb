@@ -58,7 +58,7 @@ module Feedcellar
           if (!words.nil? && !words.empty?)
             words.each do |word|
               expression_builder &= (feed.title =~ word) |
-                        (feed.description =~ word)
+                                      (feed.description =~ word)
             end
           end
 
