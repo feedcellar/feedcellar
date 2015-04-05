@@ -56,6 +56,7 @@ module Feedcellar
         :description => description,
         :date        => date,
       }
+      if date
       if feeds.have_column?(:year)
         columns[:year] = date.year
       end
@@ -67,6 +68,7 @@ module Feedcellar
       end
       if feeds.have_column?(:wday)
         columns[:wday] = Date.new(date.year, date.month, date.day).wday
+      end
       end
       feeds.add(link, columns)
     end
