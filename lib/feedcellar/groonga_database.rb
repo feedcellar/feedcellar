@@ -62,6 +62,9 @@ module Feedcellar
       if feeds.have_column?(:month)
         columns[:month] = date.month
       end
+      if feeds.have_column?(:day)
+        columns[:day] = date.day
+      end
       if feeds.have_column?(:wday)
         columns[:wday] = Date.new(date.year, date.month, date.day).wday
       end
@@ -159,6 +162,7 @@ module Feedcellar
           table.text("description")
           table.integer("year")
           table.integer("month")
+          table.integer("day")
           table.integer("wday")
           table.time("date")
         end

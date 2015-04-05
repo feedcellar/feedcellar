@@ -101,6 +101,10 @@ class GroongaDatabaseTest < Test::Unit::TestCase
       assert_equal(4, @database.__send__(:feeds).first.month)
     end
 
+    def test_day
+      assert_equal(5, @database.__send__(:feeds).first.day)
+    end
+
     def test_wday
       assert_equal(0, @database.__send__(:feeds).first.wday)
     end
