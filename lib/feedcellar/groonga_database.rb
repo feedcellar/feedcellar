@@ -57,18 +57,18 @@ module Feedcellar
         :date        => date,
       }
       if date
-      if feeds.have_column?(:year)
-        columns[:year] = date.year
-      end
-      if feeds.have_column?(:month)
-        columns[:month] = date.month
-      end
-      if feeds.have_column?(:day)
-        columns[:day] = date.day
-      end
-      if feeds.have_column?(:wday)
-        columns[:wday] = Date.new(date.year, date.month, date.day).wday
-      end
+        if feeds.have_column?(:year)
+          columns[:year] = date.year
+        end
+        if feeds.have_column?(:month)
+          columns[:month] = date.month
+        end
+        if feeds.have_column?(:day)
+          columns[:day] = date.day
+        end
+        if feeds.have_column?(:wday)
+          columns[:wday] = Date.new(date.year, date.month, date.day).wday
+        end
       end
       feeds.add(link, columns)
     end
