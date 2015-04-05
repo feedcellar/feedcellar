@@ -91,22 +91,23 @@ class GroongaDatabaseTest < Test::Unit::TestCase
                     "http://my.monthly/201504",
                     "April...f...",
                     Time.new(2015, 4, 5))
+      @feed = @database.__send__(:feeds).first
     end
 
     def test_year
-      assert_equal(2015, @database.__send__(:feeds).first.year)
+      assert_equal(2015, @feed.year)
     end
 
     def test_month
-      assert_equal(4, @database.__send__(:feeds).first.month)
+      assert_equal(4, @feed.month)
     end
 
     def test_day
-      assert_equal(5, @database.__send__(:feeds).first.day)
+      assert_equal(5, @feed.day)
     end
 
     def test_wday
-      assert_equal(0, @database.__send__(:feeds).first.wday)
+      assert_equal(0, @feed.wday)
     end
   end
 end
