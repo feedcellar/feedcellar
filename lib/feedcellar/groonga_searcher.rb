@@ -73,6 +73,10 @@ module Feedcellar
             feed &= feed.resource._id == options[:resource_id]
           end
 
+          if options[:year]
+            feed &= feed.year == options[:year]
+          end
+
           feed
         end
 

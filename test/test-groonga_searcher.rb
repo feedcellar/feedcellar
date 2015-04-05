@@ -43,7 +43,7 @@ class GroongaSearcherTest < Test::Unit::TestCase
       title = "Test"
       link = "http://null.myokoym.net/"
       description = "The site is fiction."
-      date = Time.now
+      date = Time.new(2014, 2, 5)
       @database.add(resource_key, title, link, description, date)
     end
 
@@ -57,6 +57,22 @@ class GroongaSearcherTest < Test::Unit::TestCase
       words << "fiction"
       feeds = Feedcellar::GroongaSearcher.search(@database, words)
       assert_equal(1, feeds.size)
+    end
+
+    def test_year_found
+      options = {
+        :year => 2014,
+      }
+      feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
+      assert_equal(1, feeds.size)
+    end
+
+    def test_year_not_found
+      options = {
+        :year => 2013,
+      }
+      feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
+      assert_equal(0, feeds.size)
     end
   end
 end
