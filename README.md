@@ -57,6 +57,16 @@ Powered by [Groonga][] (via [Rroonga][]) with [Ruby][].
 
 [Feedcellar::Curses](https://github.com/feedcellar/feedcellar-curses)
 
+### Delete feeds
+
+Delete a feed:
+
+    $ feedcellar delete URL
+
+Delete feeds related registered resource URL:
+
+    $ feedcellar delete --resource URL
+
 ### Delete database
 
     $ rm -r ~/.feedcellar
