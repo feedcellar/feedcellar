@@ -160,10 +160,10 @@ module Feedcellar
           table.short_text("title")
           table.short_text("link")
           table.text("description")
-          table.integer("year")
-          table.integer("month")
-          table.integer("day")
-          table.integer("wday")
+          table.integer16("year")
+          table.integer8("month")
+          table.integer8("day")
+          table.integer8("wday")
           table.time("date")
         end
 
