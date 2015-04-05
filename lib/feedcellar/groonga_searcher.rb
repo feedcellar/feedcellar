@@ -45,7 +45,10 @@ module Feedcellar
         end
 
         order = options[:reverse] ? "ascending" : "descending"
-        sorted_feeds = selected_feeds.sort([{:key => "date", :order => order}])
+        sorted_feeds = selected_feeds.sort([{
+                                              :key => "date",
+                                              :order => order,
+                                            }])
 
         sorted_feeds
       end
