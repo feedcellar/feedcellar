@@ -22,7 +22,7 @@ module Feedcellar
       def search(database, words, options={})
         feeds = database.feeds
 
-        feeds = feeds.select do |feed|
+        selected_feeds = database.feeds.select do |feed|
           if (!words.nil? && !words.empty?)
             words.each do |word|
               feed &= (feed.title =~ word) |
@@ -47,7 +47,7 @@ module Feedcellar
         end
 
         order = options[:reverse] ? "ascending" : "descending"
-        sorted_feeds = feeds.sort([{:key => "date", :order => order}])
+        sorted_feeds = selected_feeds.sort([{:key => "date", :order => order}])
 
         sorted_feeds
       end
