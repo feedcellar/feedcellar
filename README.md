@@ -1,7 +1,7 @@
 # feedcellar - a feed reader
 
 [![Gem Version](https://badge.fury.io/rb/feedcellar.svg)](http://badge.fury.io/rb/feedcellar)
-[![Build Status](https://secure.travis-ci.org/myokoym/feedcellar.png?branch=master)](http://travis-ci.org/myokoym/feedcellar)
+[![Build Status](https://secure.travis-ci.org/feedcellar/feedcellar.png?branch=master)](http://travis-ci.org/feedcellar/feedcellar)
 
 Feedcellar is a full-text searchable RSS feed reader and data store.
 
