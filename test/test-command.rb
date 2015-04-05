@@ -2,7 +2,7 @@
 #
 # class CommandTest
 #
-# Copyright (C) 2013-2014  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -126,6 +126,7 @@ class CommandTest < Test::Unit::TestCase
     $stdout = STDOUT
   end
 
+  private
   def fixtures_dir
     File.join(File.dirname(__FILE__), "fixtures")
   end
