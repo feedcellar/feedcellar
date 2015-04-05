@@ -52,16 +52,30 @@ class GroongaDatabaseTest < Test::Unit::TestCase
     assert_equal(0, @database.__send__(:resources).size)
   end
 
-  def test_delete
+  def test_delete_by_key
     @database = Feedcellar::GroongaDatabase.new
     @database.open(@tmpdir)
-    @database.add("key",
+    @database.add("resource",
                   "Today's lunch",
                   "http://my.nikki/123",
                   "So cute.",
                   Time.now)
     assert_equal(1, @database.__send__(:feeds).size)
     @database.delete("http://my.nikki/123")
+    assert_equal(0, @database.__send__(:feeds).size)
+  end
+
+  def test_delete_by_resource
+    @database = Feedcellar::GroongaDatabase.new
+    @database.open(@tmpdir)
+    @database.register("http://my.diary/rss", {:title => "My Diary"})
+    @database.add("http://my.diary/rss",
+                  "Today's dinnar",
+                  "http://my.diary/321",
+                  "So mad.",
+                  Time.now)
+    assert_equal(1, @database.__send__(:feeds).size)
+    @database.delete(:resource_key => "http://my.diary/rss")
     assert_equal(0, @database.__send__(:feeds).size)
   end
 end

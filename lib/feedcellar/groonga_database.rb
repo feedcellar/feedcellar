@@ -55,13 +55,28 @@ module Feedcellar
                       :date        => date)
     end
 
-    def delete(id_or_key)
-      if id_or_key.is_a?(Integer)
-        id = id_or_key
+    def delete(id_or_key_or_conditions)
+      if id_or_key_or_conditions.is_a?(Integer)
+        id = id_or_key_or_conditions
         feeds.delete(id, :id => true)
-      elsif id_or_key.is_a?(String)
-        key = id_or_key
+      elsif id_or_key_or_conditions.is_a?(String)
+        key = id_or_key_or_conditions
         feeds.delete(key)
+      elsif id_or_key_or_conditions.is_a?(Hash)
+        conditions = id_or_key_or_conditions
+        feeds.delete do |record|
+          expression_builder = nil
+          conditions.each do |key, value|
+            case key
+            when :resource_key
+              record &= (record.resource._key == value)
+            else
+              raise ArgumentError,
+                    "Not supported condition: <#{key}>"
+            end
+          end
+          record
+        end
       else
         raise ArgumentError,
               "Not supported type: <#{id_or_conditions.class}>"
