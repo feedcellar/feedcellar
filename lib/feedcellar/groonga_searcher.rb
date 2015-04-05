@@ -1,6 +1,6 @@
 # class Feedcellar::GroongaSearcher
 #
-# Copyright (C) 2013-2014  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,7 @@
 module Feedcellar
   class GroongaSearcher
     class << self
-      def search(database, words, options)
+      def search(database, words, options={})
         feeds = database.feeds
 
         if (!words.nil? && !words.empty?) || options[:resource_id]
