@@ -22,49 +22,28 @@ module Feedcellar
       def search(database, words, options={})
         feeds = database.feeds
 
-        if (!words.nil? && !words.empty?) || options[:resource_id]
-          feeds = feeds.select do |feed|
-            expression = nil
+        feeds = feeds.select do |feed|
+          if (!words.nil? && !words.empty?)
             words.each do |word|
-              sub_expression = (feed.title =~ word) |
-                               (feed.description =~ word)
-              if expression.nil?
-                expression = sub_expression
-              else
-                expression &= sub_expression
-              end
+              feed &= (feed.title =~ word) |
+                        (feed.description =~ word)
             end
+          end
 
             if options[:mtime]
               base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
-              mtime_expression = feed.date > base_date
-              if expression.nil?
-                expression = mtime_expression
-              else
-                expression &= mtime_expression
-              end
+              feed &= feed.date > base_date
             end
 
             if options[:resource]
-              resource_expression = feed.resource =~ options[:resource]
-              if expression.nil?
-                expression = resource_expression
-              else
-                expression &= resource_expression
-              end
+              feed &= feed.resource =~ options[:resource]
             end
 
             if options[:resource_id]
-              resource_expression = feed.resource._id == options[:resource_id]
-              if expression.nil?
-                expression = resource_expression
-              else
-                expression &= resource_expression
-              end
+              feed &= feed.resource._id == options[:resource_id]
             end
 
-            expression
-          end
+          feed
         end
 
         order = options[:reverse] ? "ascending" : "descending"
