@@ -60,7 +60,7 @@ module Feedcellar
         columns[:year] = date.year
       end
       if feeds.have_column?(:month)
-        columns[:month] = date.strftime("%Y%m")
+        columns[:month] = date.month
       end
       if feeds.have_column?(:wday)
         columns[:wday] = Date.new(date.year, date.month, date.day).wday
@@ -152,16 +152,13 @@ module Feedcellar
           table.short_text("language")
         end
 
-        schema.create_table("Months", :type => :hash) do |table|
-        end
-
         schema.create_table("Feeds", :type => :hash) do |table|
           table.reference("resource", "Resources")
           table.short_text("title")
           table.short_text("link")
           table.text("description")
           table.integer("year")
-          table.reference("month", "Months")
+          table.integer("month")
           table.integer("wday")
           table.time("date")
         end
