@@ -48,11 +48,14 @@ module Feedcellar
     end
 
     def add(resource_key, title, link, description, date)
-      feeds.add(link, :resource    => resources[resource_key],
-                      :title       => title,
-                      :link        => link,
-                      :description => description,
-                      :date        => date)
+      columns = {
+        :resource    => resources[resource_key],
+        :title       => title,
+        :link        => link,
+        :description => description,
+        :date        => date,
+      }
+      feeds.add(link, columns)
     end
 
     def delete(id_or_key_or_conditions)
