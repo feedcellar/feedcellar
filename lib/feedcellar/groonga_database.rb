@@ -55,8 +55,17 @@ module Feedcellar
                       :date        => date)
     end
 
-    def delete(id)
-      feeds.delete(id)
+    def delete(id_or_key)
+      if id_or_key.is_a?(Integer)
+        id = id_or_key
+        feeds.delete(id, :id => true)
+      elsif id_or_key.is_a?(String)
+        key = id_or_key
+        feeds.delete(key)
+      else
+        raise ArgumentError,
+              "Not supported type: <#{id_or_conditions.class}>"
+      end
     end
 
     def unregister(title_or_url)
