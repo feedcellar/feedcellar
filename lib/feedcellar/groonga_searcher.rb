@@ -20,8 +20,6 @@ module Feedcellar
   class GroongaSearcher
     class << self
       def search(database, words, options={})
-        feeds = database.feeds
-
         selected_feeds = database.feeds.select do |feed|
           if (!words.nil? && !words.empty?)
             words.each do |word|
