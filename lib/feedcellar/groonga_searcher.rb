@@ -30,18 +30,18 @@ module Feedcellar
             end
           end
 
-            if options[:mtime]
-              base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
-              feed &= feed.date > base_date
-            end
+          if options[:mtime]
+            base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
+            feed &= feed.date > base_date
+          end
 
-            if options[:resource]
-              feed &= feed.resource =~ options[:resource]
-            end
+          if options[:resource]
+            feed &= feed.resource =~ options[:resource]
+          end
 
-            if options[:resource_id]
-              feed &= feed.resource._id == options[:resource_id]
-            end
+          if options[:resource_id]
+            feed &= feed.resource._id == options[:resource_id]
+          end
 
           feed
         end
