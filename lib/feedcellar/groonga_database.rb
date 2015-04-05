@@ -56,6 +56,9 @@ module Feedcellar
         :description => description,
         :date        => date,
       }
+      if feeds.have_column?(:year)
+        columns[:year] = date.year
+      end
       if feeds.have_column?(:month)
         columns[:month] = date.strftime("%Y%m")
       end
@@ -157,6 +160,7 @@ module Feedcellar
           table.short_text("title")
           table.short_text("link")
           table.text("description")
+          table.integer("year")
           table.reference("month", "Months")
           table.integer("wday")
           table.time("date")
