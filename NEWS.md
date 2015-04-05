@@ -1,5 +1,25 @@
 # NEWS
 
+## 0.6.0: 2015-04-06
+
+Support date related columns such as month.
+
+### Changes
+
+#### Improvements
+
+  *  Supported to delete a feed by key.
+  *  Supported delete feeds by resource key.
+  *  Added delete command to delete feeds.
+  *  Added month column for drilldown.
+  *  Added wday column to Feed.
+  *  Added year column to Feed.
+  *  Added day column to Feeds table.
+  *  search: Supported year option.
+  *  search: Supported month option.
+  *  Use Rroonga 5.0.0 or later for multiple column drilldown.
+  *  Added reset command.
+
 ## 0.5.0: 2015-04-05
 
 Extract interfaces to the other projects.
