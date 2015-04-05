@@ -57,6 +57,13 @@ class CommandTest < Test::Unit::TestCase
     $stderr = STDERR
 
     # confirm register command
+    resources = nil
+    resources_path = File.join(fixtures_dir, "resources.dump")
+    File.open(resources_path, "rb") do |file|
+      resources = Marshal.load(file)
+    end
+    mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+    mock(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
     @command.register("http://myokoym.github.io/entries.rss")
     @command.register("https://rubygems.org/gems/mister_fairy/versions.atom")
     Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
