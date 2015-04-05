@@ -80,4 +80,17 @@ class GroongaDatabaseTest < Test::Unit::TestCase
     @database.delete(:resource_key => "http://my.diary/rss")
     assert_equal(0, @database.__send__(:feeds).size)
   end
+
+  class AddTest < self
+    def test_month
+      @database = Feedcellar::GroongaDatabase.new
+      @database.open(@tmpdir)
+      @database.add("http://my.monthly/atom",
+                    "What is month Today?",
+                    "http://my.monthly/201504",
+                    "April...f...",
+                    Time.new(2015, 4, 5))
+      assert_equal("201504", @database.__send__(:feeds).first.month.key)
+    end
+  end
 end

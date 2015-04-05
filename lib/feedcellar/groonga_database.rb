@@ -55,6 +55,9 @@ module Feedcellar
         :description => description,
         :date        => date,
       }
+      if feeds.have_column?(:month)
+        columns[:month] = date.strftime("%Y%m")
+      end
       feeds.add(link, columns)
     end
 
@@ -142,11 +145,15 @@ module Feedcellar
           table.short_text("language")
         end
 
+        schema.create_table("Months", :type => :hash) do |table|
+        end
+
         schema.create_table("Feeds", :type => :hash) do |table|
           table.reference("resource", "Resources")
           table.short_text("title")
           table.short_text("link")
           table.text("description")
+          table.reference("month", "Months")
           table.time("date")
         end
 
