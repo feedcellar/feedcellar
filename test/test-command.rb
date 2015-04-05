@@ -25,18 +25,18 @@ require "feedcellar/command"
 require "feedcellar/groonga_database"
 
 class CommandTest < Test::Unit::TestCase
-    def setup
-      @tmpdir = File.join(File.dirname(__FILE__), "tmp")
-      FileUtils.rm_rf(@tmpdir)
-      FileUtils.mkdir_p(@tmpdir)
-      ENV["FEEDCELLAR_HOME"] = @tmpdir
-      @command = Feedcellar::Command.new
-      @database_dir = @command.database_dir
-    end
+  def setup
+    @tmpdir = File.join(File.dirname(__FILE__), "tmp")
+    FileUtils.rm_rf(@tmpdir)
+    FileUtils.mkdir_p(@tmpdir)
+    ENV["FEEDCELLAR_HOME"] = @tmpdir
+    @command = Feedcellar::Command.new
+    @database_dir = @command.database_dir
+  end
 
-    def teardown
-      FileUtils.rm_rf(@tmpdir)
-    end
+  def teardown
+    FileUtils.rm_rf(@tmpdir)
+  end
 
   def test_version
     s = ""
