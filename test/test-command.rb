@@ -64,7 +64,7 @@ class CommandTest < Test::Unit::TestCase
     end
 
     # confirm import command
-    file = File.join(File.dirname(__FILE__), "fixtures", "subscriptions.xml")
+    file = File.join(fixtures_dir, "subscriptions.xml")
     @command.import(file)
     @command.collect
     Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
@@ -107,5 +107,9 @@ class CommandTest < Test::Unit::TestCase
     @command.latest
     assert_true(s.size > 0)
     $stdout = STDOUT
+  end
+
+  def fixtures_dir
+    File.join(File.dirname(__FILE__), "fixtures")
   end
 end
