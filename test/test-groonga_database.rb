@@ -82,7 +82,8 @@ class GroongaDatabaseTest < Test::Unit::TestCase
   end
 
   class AddTest < self
-    def test_month
+    def setup
+      super
       @database = Feedcellar::GroongaDatabase.new
       @database.open(@tmpdir)
       @database.add("http://my.monthly/atom",
@@ -90,7 +91,14 @@ class GroongaDatabaseTest < Test::Unit::TestCase
                     "http://my.monthly/201504",
                     "April...f...",
                     Time.new(2015, 4, 5))
+    end
+
+    def test_month
       assert_equal("201504", @database.__send__(:feeds).first.month.key)
+    end
+
+    def test_wday
+      assert_equal(0, @database.__send__(:feeds).first.wday)
     end
   end
 end

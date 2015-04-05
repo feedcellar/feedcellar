@@ -16,6 +16,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
+require "date"
 require "groonga"
 
 module Feedcellar
@@ -57,6 +58,9 @@ module Feedcellar
       }
       if feeds.have_column?(:month)
         columns[:month] = date.strftime("%Y%m")
+      end
+      if feeds.have_column?(:wday)
+        columns[:wday] = Date.new(date.year, date.month, date.day).wday
       end
       feeds.add(link, columns)
     end
@@ -154,6 +158,7 @@ module Feedcellar
           table.short_text("link")
           table.text("description")
           table.reference("month", "Months")
+          table.integer("wday")
           table.time("date")
         end
 
