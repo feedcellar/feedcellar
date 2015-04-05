@@ -20,7 +20,39 @@ module Feedcellar
   class GroongaSearcher
     class << self
       def search(database, words, options={})
-        selected_feeds = database.feeds.select do |feed|
+        feeds = database.feeds
+        selected_feeds = select_feeds(feeds, words, options)
+
+        order = options[:reverse] ? "ascending" : "descending"
+        sorted_feeds = selected_feeds.sort([{
+                                              :key => "date",
+                                              :order => order,
+                                            }])
+
+        sorted_feeds
+      end
+
+      def latest(database)
+        latest_feeds = []
+
+        feeds = database.feeds
+        feeds.group("resource.xmlUrl", :max_n_sub_records => 1).each do |group|
+          latest_feed = group.sub_records[0]
+          next unless latest_feed
+          next unless latest_feed.title
+          latest_feeds << latest_feed
+        end
+
+        latest_feeds
+      end
+
+      private
+      def select_feeds(feeds, words, options)
+        if (words.nil? || words.empty?) && options.empty?
+          return feeds
+        end
+
+        selected_feeds = feeds.select do |feed|
           if (!words.nil? && !words.empty?)
             words.each do |word|
               feed &= (feed.title =~ word) |
@@ -44,27 +76,7 @@ module Feedcellar
           feed
         end
 
-        order = options[:reverse] ? "ascending" : "descending"
-        sorted_feeds = selected_feeds.sort([{
-                                              :key => "date",
-                                              :order => order,
-                                            }])
-
-        sorted_feeds
-      end
-
-      def latest(database)
-        latest_feeds = []
-
-        feeds = database.feeds
-        feeds.group("resource.xmlUrl", :max_n_sub_records => 1).each do |group|
-          latest_feed = group.sub_records[0]
-          next unless latest_feed
-          next unless latest_feed.title
-          latest_feeds << latest_feed
-        end
-
-        latest_feeds
+        selected_feeds
       end
     end
   end

@@ -47,6 +47,11 @@ class GroongaSearcherTest < Test::Unit::TestCase
       @database.add(resource_key, title, link, description, date)
     end
 
+    def test_all_records
+      feeds = Feedcellar::GroongaSearcher.search(@database, [])
+      assert_equal(1, feeds.size)
+    end
+
     def test_found
       words = []
       words << "fiction"
