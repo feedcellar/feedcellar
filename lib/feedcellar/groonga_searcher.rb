@@ -77,6 +77,10 @@ module Feedcellar
             feed &= feed.year == options[:year]
           end
 
+          if options[:month]
+            feed &= feed.month == options[:month]
+          end
+
           feed
         end
 
