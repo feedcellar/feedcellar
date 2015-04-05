@@ -108,6 +108,20 @@ module Feedcellar
       end
     end
 
+    desc "reset", "Reset all feeds for adding columns."
+    def reset
+      GroongaDatabase.new.open(@database_dir) do |database|
+        feeds = GroongaSearcher.search(database, nil)
+        feeds.each do |feed|
+          database.add(feed.resource.key,
+                       feed.title,
+                       feed.link,
+                       feed.description,
+                       feed.date)
+        end
+      end
+    end
+
     desc "delete URL", "Delete feeds by URL."
     option :resource, :type => :boolean, :desc => "Delete registered URL related feeds"
     def delete(url)

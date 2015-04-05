@@ -126,6 +126,28 @@ class CommandTest < Test::Unit::TestCase
     $stdout = STDOUT
   end
 
+  def test_reset
+    @database = Feedcellar::GroongaDatabase.new
+    @database.open(@database_dir)
+    Groonga["Resources"].add("http://my.today/atom")
+    @database.add("http://my.today/atom",
+                  "What is Today?",
+                  "http://my.today/201501",
+                  "I don't know.",
+                  nil)
+    assert_equal(0, @database.__send__(:feeds).first.year)
+    Groonga["Feeds"].add("http://my.today/201501",
+                         {
+                           :resource => "http://my.today/atom",
+                           :title => "What is Today?",
+                           :link => "http://my.today/201501",
+                           :description => "January 1, 2015.",
+                           :date => Time.new(2015, 1, 1),
+                         })
+    @command.reset
+    assert_equal(2015, @database.__send__(:feeds).first.year)
+  end
+
   private
   def fixtures_dir
     File.join(File.dirname(__FILE__), "fixtures")
