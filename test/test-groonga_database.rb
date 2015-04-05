@@ -43,4 +43,12 @@ class GroongaDatabaseTest < Test::Unit::TestCase
     @database.open(@tmpdir)
     assert_not_nil(@database.instance_variable_get(:@database))
   end
+
+  def test_unregister
+    @database = Feedcellar::GroongaDatabase.new
+    @database.register("key", {:title => "Nikki"})
+    assert_equal(1, @database.__send__(:resources).size)
+    @database.unregister("Nikki")
+    assert_equal(0, @database.__send__(:resources).size)
+  end
 end
