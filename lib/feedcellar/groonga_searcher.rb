@@ -53,35 +53,37 @@ module Feedcellar
         end
 
         selected_feeds = feeds.select do |feed|
+          expression_builder = feed
+
           if (!words.nil? && !words.empty?)
             words.each do |word|
-              feed &= (feed.title =~ word) |
+              expression_builder &= (feed.title =~ word) |
                         (feed.description =~ word)
             end
           end
 
           if options[:mtime]
             base_date = (Time.now - (options[:mtime] * 60 * 60 * 24))
-            feed &= feed.date > base_date
+            expression_builder &= feed.date > base_date
           end
 
           if options[:resource]
-            feed &= feed.resource =~ options[:resource]
+            expression_builder &= feed.resource =~ options[:resource]
           end
 
           if options[:resource_id]
-            feed &= feed.resource._id == options[:resource_id]
+            expression_builder &= feed.resource._id == options[:resource_id]
           end
 
-          if options[:year]
-            feed &= feed.year == options[:year]
+          if options[:year] && feeds.have_column?(:year)
+            expression_builder &= feed.year == options[:year]
           end
 
-          if options[:month]
-            feed &= feed.month == options[:month]
+          if options[:month] && feeds.have_column?(:month)
+            expression_builder &= feed.month == options[:month]
           end
 
-          feed
+          expression_builder
         end
 
         selected_feeds

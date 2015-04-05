@@ -90,5 +90,14 @@ class GroongaSearcherTest < Test::Unit::TestCase
       feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
       assert_equal(0, feeds.size)
     end
+
+    def test_year_and_month
+      options = {
+        :year => 2014,
+        :month => 2,
+      }
+      feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
+      assert_equal(1, feeds.size)
+    end
   end
 end
