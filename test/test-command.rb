@@ -129,4 +129,63 @@ class CommandTest < Test::Unit::TestCase
   def fixtures_dir
     File.join(File.dirname(__FILE__), "fixtures")
   end
+
+  class DeleteTest < self
+    def setup
+      super
+      resources = nil
+      resources_path = File.join(fixtures_dir, "resources.dump")
+      File.open(resources_path, "rb") do |file|
+        resources = Marshal.load(file)
+      end
+      mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+      @command.register("http://myokoym.github.io/entries.rss")
+      feeds = nil
+      feeds_path = File.join(fixtures_dir, "feeds.dump")
+      File.open(feeds_path, "rb") do |file|
+        feeds = Marshal.load(file)
+      end
+      mock(Feedcellar::Feed).parse("http://myokoym.github.io/entries.rss") {feeds[0]}
+      @command.collect
+    end
+
+    def teardown
+      super
+      $stdout = STDOUT
+    end
+
+    def test_by_link
+      @str = ""
+      io = StringIO.new(@str)
+      $stdout = io
+      @command.search("ruby")
+      $stdout = STDOUT
+      assert_equal(13, @str.lines.size)
+
+      @command.delete("http://myokoym.github.com/entries/20131201/a0.html")
+
+      @str = ""
+      io = StringIO.new(@str)
+      $stdout = io
+      @command.search("ruby")
+      assert_equal(12, @str.lines.size)
+    end
+
+    def test_by_resource_key
+      @str = ""
+      io = StringIO.new(@str)
+      $stdout = io
+      @command.search("ruby")
+      $stdout = STDOUT
+      assert_equal(13, @str.lines.size)
+
+      @command.delete(:resource_key => "http://myokoym.github.io/entries.rss")
+
+      @str = ""
+      io = StringIO.new(@str)
+      $stdout = io
+      @command.search("ruby")
+      assert_equal(0, @str.lines.size)
+    end
+  end
 end

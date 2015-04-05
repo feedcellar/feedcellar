@@ -108,6 +108,18 @@ module Feedcellar
       end
     end
 
+    desc "delete URL", "Delete feeds by URL."
+    option :resource, :type => :boolean, :desc => "Delete registered URL related feeds"
+    def delete(url)
+      GroongaDatabase.new.open(@database_dir) do |database|
+        if options[:resource]
+          database.delete(:resource_key => url)
+        else
+          database.delete(url)
+        end
+      end
+    end
+
     desc "latest", "Show latest feeds by resources."
     def latest
       GroongaDatabase.new.open(@database_dir) do |database|
