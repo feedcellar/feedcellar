@@ -66,7 +66,17 @@ class CommandTest < Test::Unit::TestCase
     # confirm import command
     file = File.join(fixtures_dir, "subscriptions.xml")
     @command.import(file)
+
+    feeds = nil
+    feeds_path = File.join(fixtures_dir, "feeds.dump")
+    File.open(feeds_path, "rb") do |file|
+      feeds = Marshal.load(file)
+    end
+    mock(Feedcellar::Feed).parse("http://myokoym.github.io/entries.rss") {feeds[0]}
+    mock(Feedcellar::Feed).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {feeds[1]}
+    mock(Feedcellar::Feed).parse("http://blogs.yahoo.co.jp/mi807258/rss.xml") {feeds[2]}
     @command.collect
+
     Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
       # NOTE: a tag of outline is not register.
       assert_equal(3, database.resources.size)
