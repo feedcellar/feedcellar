@@ -2,7 +2,7 @@
 #
 # class CommandTest
 #
-# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2016  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,16 +47,20 @@ class CommandTest < Test::Unit::TestCase
     $stdout = STDOUT
   end
 
-  def test_command
-    # confirm register command if invalid URL
-    s = ""
-    io = StringIO.new(s)
-    $stderr = io
-    assert_equal(1, @command.register("hoge"))
-    assert_equal("ERROR: Invalid URL\n", s)
-    $stderr = STDERR
+  def test_command_register_single
+    resources = nil
+    resources_path = File.join(fixtures_dir, "resources.dump")
+    File.open(resources_path, "rb") do |file|
+      resources = Marshal.load(file)
+    end
+    mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+    @command.register("http://myokoym.github.io/entries.rss")
+    Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
+      assert_equal(1, database.resources.size)
+    end
+  end
 
-    # confirm register command
+  def test_command_register_multiple
     resources = nil
     resources_path = File.join(fixtures_dir, "resources.dump")
     File.open(resources_path, "rb") do |file|
@@ -64,12 +68,13 @@ class CommandTest < Test::Unit::TestCase
     end
     mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
     mock(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
-    @command.register("http://myokoym.github.io/entries.rss")
-    @command.register("https://rubygems.org/gems/mister_fairy/versions.atom")
+    @command.register("http://myokoym.github.io/entries.rss", "https://rubygems.org/gems/mister_fairy/versions.atom")
     Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
       assert_equal(2, database.resources.size)
     end
+  end
 
+  def test_command
     # confirm import command
     file = File.join(fixtures_dir, "subscriptions.xml")
     @command.import(file)

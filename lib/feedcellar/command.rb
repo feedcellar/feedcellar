@@ -1,6 +1,6 @@
 # class Feedcellar::Command
 #
-# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2016  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,14 +42,15 @@ module Feedcellar
       puts Feedcellar::VERSION
     end
 
-    desc "register URL", "Register a URL."
-    def register(url)
-      resource = Resource.parse(url)
-      return 1 unless resource
-      return 1 if resource["xmlUrl"].empty?
-
+    desc "register URL...", "Register URLs."
+    def register(*urls)
       GroongaDatabase.new.open(@database_dir) do |database|
-        database.register(resource["xmlUrl"], resource)
+        urls.each do |url|
+          resource = Resource.parse(url)
+          next unless resource
+          next if resource["xmlUrl"].empty?
+          database.register(resource["xmlUrl"], resource)
+        end
       end
     end
 
