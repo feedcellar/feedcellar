@@ -39,6 +39,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency("rroonga", ">= 5.0.0")
   spec.add_runtime_dependency("thor")
+  spec.add_runtime_dependency("parallel")
 
   spec.add_development_dependency("test-unit")
   spec.add_development_dependency("test-unit-notify")

@@ -17,6 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 require "thor"
+require "parallel"
 require "feedcellar/version"
 require "feedcellar/groonga_database"
 require "feedcellar/groonga_searcher"
@@ -91,7 +92,7 @@ module Feedcellar
     desc "collect", "Collect feeds from WWW."
     def collect
       GroongaDatabase.new.open(@database_dir) do |database|
-        database.resources.each do |record|
+        Parallel.each(database.resources) do |record|
           feed_url = record.xmlUrl
           next unless feed_url
 
