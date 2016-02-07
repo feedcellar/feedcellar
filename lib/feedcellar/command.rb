@@ -90,9 +90,11 @@ module Feedcellar
     end
 
     desc "collect", "Collect feeds from WWW."
+    option :parallel, :type => :boolean, :desc => "run on multiple processes"
     def collect
       GroongaDatabase.new.open(@database_dir) do |database|
-        Parallel.each(database.resources) do |record|
+        resources = database.resources
+        collect_proc = lambda do |record|
           feed_url = record.xmlUrl
           next unless feed_url
 
@@ -106,6 +108,13 @@ module Feedcellar
                          item.description,
                          item.date)
           end
+        end
+
+        if options[:parallel]
+          Parallel.each(resources,
+                        &collect_proc)
+        else
+          resources.each(&collect_proc)
         end
       end
     end
