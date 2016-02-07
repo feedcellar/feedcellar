@@ -132,13 +132,18 @@ class CommandTest < Test::Unit::TestCase
   end
 
   class RegisterTest < self
-    def test_single
+    def setup
+      super
       resources = nil
       resources_path = File.join(fixtures_dir, "resources.dump")
       File.open(resources_path, "rb") do |file|
         resources = Marshal.load(file)
       end
-      mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+      stub(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+      stub(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
+    end
+
+    def test_single
       @command.register("http://myokoym.github.io/entries.rss")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(1, database.resources.size)
@@ -146,13 +151,6 @@ class CommandTest < Test::Unit::TestCase
     end
 
     def test_multiple
-      resources = nil
-      resources_path = File.join(fixtures_dir, "resources.dump")
-      File.open(resources_path, "rb") do |file|
-        resources = Marshal.load(file)
-      end
-      mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
-      mock(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
       @command.register("http://myokoym.github.io/entries.rss", "https://rubygems.org/gems/mister_fairy/versions.atom")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(2, database.resources.size)
