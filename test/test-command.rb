@@ -47,33 +47,6 @@ class CommandTest < Test::Unit::TestCase
     $stdout = STDOUT
   end
 
-  def test_command_register_single
-    resources = nil
-    resources_path = File.join(fixtures_dir, "resources.dump")
-    File.open(resources_path, "rb") do |file|
-      resources = Marshal.load(file)
-    end
-    mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
-    @command.register("http://myokoym.github.io/entries.rss")
-    Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
-      assert_equal(1, database.resources.size)
-    end
-  end
-
-  def test_command_register_multiple
-    resources = nil
-    resources_path = File.join(fixtures_dir, "resources.dump")
-    File.open(resources_path, "rb") do |file|
-      resources = Marshal.load(file)
-    end
-    mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
-    mock(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
-    @command.register("http://myokoym.github.io/entries.rss", "https://rubygems.org/gems/mister_fairy/versions.atom")
-    Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
-      assert_equal(2, database.resources.size)
-    end
-  end
-
   def test_command
     # confirm import command
     file = File.join(fixtures_dir, "subscriptions.xml")
@@ -156,6 +129,35 @@ class CommandTest < Test::Unit::TestCase
   private
   def fixtures_dir
     File.join(File.dirname(__FILE__), "fixtures")
+  end
+
+  class RegisterTest < self
+    def test_single
+      resources = nil
+      resources_path = File.join(fixtures_dir, "resources.dump")
+      File.open(resources_path, "rb") do |file|
+        resources = Marshal.load(file)
+      end
+      mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+      @command.register("http://myokoym.github.io/entries.rss")
+      Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
+        assert_equal(1, database.resources.size)
+      end
+    end
+
+    def test_multiple
+      resources = nil
+      resources_path = File.join(fixtures_dir, "resources.dump")
+      File.open(resources_path, "rb") do |file|
+        resources = Marshal.load(file)
+      end
+      mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
+      mock(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
+      @command.register("http://myokoym.github.io/entries.rss", "https://rubygems.org/gems/mister_fairy/versions.atom")
+      Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
+        assert_equal(2, database.resources.size)
+      end
+    end
   end
 
   class DeleteTest < self
