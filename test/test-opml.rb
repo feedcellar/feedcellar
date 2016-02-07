@@ -25,6 +25,7 @@ class OpmlTest < Test::Unit::TestCase
   def test_parse
     file = File.join(File.dirname(__FILE__), "fixtures", "subscriptions.xml")
     outlines = Feedcellar::Opml.parse(file)
-    assert_equal(4, outlines.size) # FIXME (feed * 3) + (tag * 1)
+    # TODO: Support tag
+    assert_equal(1, outlines.size)
   end
 end

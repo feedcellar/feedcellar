@@ -23,6 +23,7 @@ require "stringio"
 require "feedcellar/version"
 require "feedcellar/command"
 require "feedcellar/groonga_database"
+require "feedcellar/test"
 
 class CommandTest < Test::Unit::TestCase
   def setup
@@ -32,10 +33,13 @@ class CommandTest < Test::Unit::TestCase
     ENV["FEEDCELLAR_HOME"] = @tmpdir
     @command = Feedcellar::Command.new
     @database_dir = @command.database_dir
+    @server = Feedcellar::Test::Server.new
+    @server.start
   end
 
   def teardown
     FileUtils.rm_rf(@tmpdir)
+    @server.stop
   end
 
   def test_version
@@ -51,21 +55,12 @@ class CommandTest < Test::Unit::TestCase
     # confirm import command
     file = File.join(fixtures_dir, "subscriptions.xml")
     @command.import(file)
-
-    feeds = nil
-    feeds_path = File.join(fixtures_dir, "feeds.dump")
-    File.open(feeds_path, "rb") do |file|
-      feeds = Marshal.load(file)
-    end
-    mock(Feedcellar::Feed).parse("http://myokoym.github.io/entries.rss") {feeds[0]}
-    mock(Feedcellar::Feed).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {feeds[1]}
-    mock(Feedcellar::Feed).parse("http://blogs.yahoo.co.jp/mi807258/rss.xml") {feeds[2]}
     @command.collect
 
     Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
       # NOTE: a tag of outline is not register.
-      assert_equal(3, database.resources.size)
-      assert_true(database.feeds.count > 0)
+      assert_equal(1, database.resources.size)
+      assert_equal(3, database.feeds.count)
     end
 
     # confirm export command
@@ -74,34 +69,36 @@ class CommandTest < Test::Unit::TestCase
     $stdout = io
     @command.export
     assert_equal(1, s.scan(/<opml/).size)
-    assert_equal(3, s.scan(/<outline/).size)
+    assert_equal(1, s.scan(/<outline/).size)
     $stdout = STDOUT
 
     # confirm search command
     s = ""
     io = StringIO.new(s)
     $stdout = io
-    @command.search("ruby")
-    assert_true(s.size > 100)
+    @command.search("Alice")
+    assert_equal(<<-RESULT, s)
+2016/02/03 Sample Article 3
+2016/02/02 Sample Article 2
+2016/02/01 Sample Article 1
+    RESULT
     $stdout = STDOUT
-
-    # confirm unregister command
-    @command.unregister("my_letter")
-    Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
-      assert_equal(2, database.resources.size)
-    end
-    @command.unregister("https://rubygems.org/gems/mister_fairy/versions.atom")
-    Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
-      assert_equal(1, database.resources.size)
-    end
 
     # confirm latest command
     s = ""
     io = StringIO.new(s)
     $stdout = io
     @command.latest
-    assert_true(s.size > 0)
+    assert_equal(<<-FEEDS, s)
+2016/02/01 Sample Article 1 - Feedcellar Test
+    FEEDS
     $stdout = STDOUT
+
+    # confirm unregister command
+    @command.unregister("Feedcellar Test")
+    Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
+      assert_equal(0, database.resources.size)
+    end
   end
 
   def test_reset
@@ -132,26 +129,15 @@ class CommandTest < Test::Unit::TestCase
   end
 
   class RegisterTest < self
-    def setup
-      super
-      resources = nil
-      resources_path = File.join(fixtures_dir, "resources.dump")
-      File.open(resources_path, "rb") do |file|
-        resources = Marshal.load(file)
-      end
-      stub(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
-      stub(Feedcellar::Resource).parse("https://rubygems.org/gems/mister_fairy/versions.atom") {resources[1]}
-    end
-
     def test_single
-      @command.register("http://myokoym.github.io/entries.rss")
+      @command.register("http://localhost:20075/feed.xml")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(1, database.resources.size)
       end
     end
 
     def test_multiple
-      @command.register("http://myokoym.github.io/entries.rss", "https://rubygems.org/gems/mister_fairy/versions.atom")
+      @command.register("http://myokoym.github.io/entries.rss", "http://localhost:20075/feed.xml")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(2, database.resources.size)
       end
@@ -161,19 +147,7 @@ class CommandTest < Test::Unit::TestCase
   class DeleteTest < self
     def setup
       super
-      resources = nil
-      resources_path = File.join(fixtures_dir, "resources.dump")
-      File.open(resources_path, "rb") do |file|
-        resources = Marshal.load(file)
-      end
-      mock(Feedcellar::Resource).parse("http://myokoym.github.io/entries.rss") {resources[0]}
-      @command.register("http://myokoym.github.io/entries.rss")
-      feeds = nil
-      feeds_path = File.join(fixtures_dir, "feeds.dump")
-      File.open(feeds_path, "rb") do |file|
-        feeds = Marshal.load(file)
-      end
-      mock(Feedcellar::Feed).parse("http://myokoym.github.io/entries.rss") {feeds[0]}
+      @command.register("http://localhost:20075/feed.xml")
       @command.collect
     end
 
@@ -186,28 +160,28 @@ class CommandTest < Test::Unit::TestCase
       @str = ""
       io = StringIO.new(@str)
       $stdout = io
-      @command.search("ruby")
+      @command.search("Alice")
       $stdout = STDOUT
-      assert_equal(13, @str.lines.size)
+      assert_equal(3, @str.lines.size)
 
-      @command.delete("http://myokoym.github.com/entries/20131201/a0.html")
+      @command.delete("http://localhost:20075/article2.html")
 
       @str = ""
       io = StringIO.new(@str)
       $stdout = io
-      @command.search("ruby")
-      assert_equal(12, @str.lines.size)
+      @command.search("Alice")
+      assert_equal(2, @str.lines.size)
     end
 
     def test_by_resource_key
       @str = ""
       io = StringIO.new(@str)
       $stdout = io
-      @command.search("ruby")
+      @command.search("Alice")
       $stdout = STDOUT
-      assert_equal(13, @str.lines.size)
+      assert_equal(3, @str.lines.size)
 
-      @command.delete(:resource_key => "http://myokoym.github.io/entries.rss")
+      @command.delete(:resource_key => "http://localhost:20075/feed.xml")
 
       @str = ""
       io = StringIO.new(@str)

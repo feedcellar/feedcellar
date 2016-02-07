@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <opml version="1.0">
     <head>
-        <title>M の リーダー登録フィード</title>
+        <title>Feedcellar Test Feeds</title>
     </head>
     <body>
-        <outline text="my_letter" title="my_letter" type="rss"
-            xmlUrl="http://myokoym.github.io/entries.rss" htmlUrl="http://myokoym.github.com/"/>
-        <outline text="Rubygems | Latest Versions for mister_fairy"
-            title="Rubygems | Latest Versions for mister_fairy" type="rss"
-            xmlUrl="https://rubygems.org/gems/mister_fairy/versions.atom" htmlUrl="https://rubygems.org/gems"/>
-        <outline title="shogi" text="shogi">
-            <outline text="函館将棋情報のブログ" title="函館将棋情報のブログ" type="rss"
-                xmlUrl="http://blogs.yahoo.co.jp/mi807258/rss.xml" htmlUrl="http://rd.yahoo.co.jp/rss/l/blog/myblog/rss2/url/*http://blogs.yahoo.co.jp/mi807258"/>
-        </outline>
+        <outline text="feedcellar-test" title="Feedcellar Test" type="rss"
+          xmlUrl="http://localhost:20075/feed.xml" htmlUrl="http://localhost:20075/"/>
     </body>
 </opml>
