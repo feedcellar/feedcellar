@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>Feedcellar Test</title>
+    <link>http://localhost:20075</link>
+    <description>Test Site</description>
+    <item>
+      <title>Sample Article 1</title>
+      <link>http://localhost:20075/article1.html</link>
+      <description>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, `and what is the use of a book,' thought Alice `without pictures or conversation?'
+
+So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.
+</description>
+      <pubDate>Mon, 01 Feb 2016 00:00:00 +0900</pubDate>
+      <dc:date>2016-02-01T00:00:00+09:00</dc:date>
+    </item>
+    <item>
+      <title>Sample Article 2</title>
+      <link>http://localhost:20075/article2.html</link>
+      <description>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, `and what is the use of a book,' thought Alice `without pictures or conversation?'
+
+So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.
+</description>
+      <pubDate>Tue, 02 Feb 2016 00:00:00 +0900</pubDate>
+      <dc:date>2016-02-02T00:00:00+09:00</dc:date>
+    </item>
+    <item>
+      <title>Sample Article 3</title>
+      <link>http://localhost:20075/article3.html</link>
+      <description>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, `and what is the use of a book,' thought Alice `without pictures or conversation?'
+
+So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.
+</description>
+      <pubDate>Wed, 03 Feb 2016 00:00:00 +0900</pubDate>
+      <dc:date>2016-02-03T00:00:00+09:00</dc:date>
+    </item>
+  </channel>
+</rss>

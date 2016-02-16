@@ -21,6 +21,7 @@
 require "test-unit"
 require "test/unit/notify"
 require "test/unit/rr"
+require "webmock/test_unit"
 
 base_dir = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 $LOAD_PATH.unshift(File.join(base_dir, "lib"))

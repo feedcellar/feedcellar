@@ -23,7 +23,6 @@ require "stringio"
 require "feedcellar/version"
 require "feedcellar/command"
 require "feedcellar/groonga_database"
-require "feedcellar/test"
 
 class CommandTest < Test::Unit::TestCase
   def setup
@@ -33,13 +32,14 @@ class CommandTest < Test::Unit::TestCase
     ENV["FEEDCELLAR_HOME"] = @tmpdir
     @command = Feedcellar::Command.new
     @database_dir = @command.database_dir
-    @server = Feedcellar::Test::Server.new
-    @server.start
+
+    rss = File.new(File.join(fixtures_dir, "feed.xml"))
+    stub_request(:get, "http://localhost:20075/feed.xml").
+      to_return(:status => 200, :body => rss, :headers => {})
   end
 
   def teardown
     FileUtils.rm_rf(@tmpdir)
-    @server.stop
   end
 
   def test_version
@@ -52,10 +52,6 @@ class CommandTest < Test::Unit::TestCase
   end
 
   def test_command
-    @server.stop
-    @server = Feedcellar::Test::Server.new(port: 20075)
-    @server.start
-
     # confirm import command
     file = File.join(fixtures_dir, "subscriptions.xml")
     @command.import(file)
@@ -134,14 +130,17 @@ class CommandTest < Test::Unit::TestCase
 
   class RegisterTest < self
     def test_single
-      @command.register("#{@server.base_url}/feed.xml")
+      @command.register("http://localhost:20075/feed.xml")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(1, database.resources.size)
       end
     end
 
     def test_multiple
-      @command.register("http://myokoym.github.io/entries.rss", "#{@server.base_url}/feed.xml")
+      rss = File.new(File.join(fixtures_dir, "feed.xml"))
+      stub_request(:get, "http://localhost:20076/feed.xml").
+        to_return(:status => 200, :body => rss, :headers => {})
+      @command.register("http://localhost:20075/feed.xml", "http://localhost:20076/feed.xml")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(2, database.resources.size)
       end
@@ -151,7 +150,7 @@ class CommandTest < Test::Unit::TestCase
   class DeleteTest < self
     def setup
       super
-      @command.register("#{@server.base_url}/feed.xml")
+      @command.register("http://localhost:20075/feed.xml")
       @command.collect
     end
 
@@ -168,7 +167,7 @@ class CommandTest < Test::Unit::TestCase
       $stdout = STDOUT
       assert_equal(3, @str.lines.size)
 
-      @command.delete("#{@server.base_url}/article2.html")
+      @command.delete("http://localhost:20075/article2.html")
 
       @str = ""
       io = StringIO.new(@str)
@@ -185,7 +184,7 @@ class CommandTest < Test::Unit::TestCase
       $stdout = STDOUT
       assert_equal(3, @str.lines.size)
 
-      @command.delete(:resource_key => "#{@server.base_url}/feed.xml")
+      @command.delete(:resource_key => "localhost:20075/feed.xml")
 
       @str = ""
       io = StringIO.new(@str)
