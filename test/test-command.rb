@@ -52,6 +52,10 @@ class CommandTest < Test::Unit::TestCase
   end
 
   def test_command
+    @server.stop
+    @server = Feedcellar::Test::Server.new(port: 20075)
+    @server.start
+
     # confirm import command
     file = File.join(fixtures_dir, "subscriptions.xml")
     @command.import(file)
@@ -130,14 +134,14 @@ class CommandTest < Test::Unit::TestCase
 
   class RegisterTest < self
     def test_single
-      @command.register("http://localhost:20075/feed.xml")
+      @command.register("#{@server.base_url}/feed.xml")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(1, database.resources.size)
       end
     end
 
     def test_multiple
-      @command.register("http://myokoym.github.io/entries.rss", "http://localhost:20075/feed.xml")
+      @command.register("http://myokoym.github.io/entries.rss", "#{@server.base_url}/feed.xml")
       Feedcellar::GroongaDatabase.new.open(@database_dir) do |database|
         assert_equal(2, database.resources.size)
       end
@@ -147,7 +151,7 @@ class CommandTest < Test::Unit::TestCase
   class DeleteTest < self
     def setup
       super
-      @command.register("http://localhost:20075/feed.xml")
+      @command.register("#{@server.base_url}/feed.xml")
       @command.collect
     end
 
@@ -164,7 +168,7 @@ class CommandTest < Test::Unit::TestCase
       $stdout = STDOUT
       assert_equal(3, @str.lines.size)
 
-      @command.delete("http://localhost:20075/article2.html")
+      @command.delete("#{@server.base_url}/article2.html")
 
       @str = ""
       io = StringIO.new(@str)
@@ -181,7 +185,7 @@ class CommandTest < Test::Unit::TestCase
       $stdout = STDOUT
       assert_equal(3, @str.lines.size)
 
-      @command.delete(:resource_key => "http://localhost:20075/feed.xml")
+      @command.delete(:resource_key => "#{@server.base_url}/feed.xml")
 
       @str = ""
       io = StringIO.new(@str)
