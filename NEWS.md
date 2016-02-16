@@ -1,5 +1,17 @@
 # NEWS
 
+## 0.6.1: 2016-02-16
+
+Speed up.
+
+### Changes
+
+#### Improvements
+
+  * Accepted multiple URLs for register command.
+  * Parallelized collect command.
+  * Added "parallel" option to "collect" command.
+
 ## 0.6.0: 2015-04-06
 
 Support date related columns such as month.
