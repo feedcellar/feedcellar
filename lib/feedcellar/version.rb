@@ -1,6 +1,6 @@
 # constant Feedcellar::VERSION
 #
-# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2016  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,5 +17,5 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 module Feedcellar
-  VERSION = "0.6.1"
+  VERSION = "0.7.0"
 end
