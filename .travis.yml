@@ -5,3 +5,6 @@ rvm:
 before_install:
   - curl --silent --location https://github.com/groonga/groonga/raw/master/data/travis/setup.sh | sh
   - gem update bundler
+  - date
+  - export TZ=Asia/Tokyo
+  - date
