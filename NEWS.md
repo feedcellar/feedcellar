@@ -1,5 +1,13 @@
 # NEWS
 
+## 0.7.1: 2016-02-17
+
+### Changes
+
+#### Improvements
+
+  * Supported "OR" operator.
+
 ## 0.7.0: 2016-02-17
 
 Speed up.
