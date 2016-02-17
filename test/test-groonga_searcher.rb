@@ -2,7 +2,7 @@
 #
 # class GroongaSearcherTest
 #
-# Copyright (C) 2015  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2015-2016  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,24 +39,44 @@ class GroongaSearcherTest < Test::Unit::TestCase
   class SearchTest < self
     def setup
       super
-      resource_key = "http://null.myokoym.net/rss"
       title = "Test"
-      link = "http://null.myokoym.net/"
+      link = "http://null.myokoym.net/1"
       description = "The site is fiction."
       date = Time.new(2014, 2, 5)
-      @database.add(resource_key, title, link, description, date)
+      @database.add(link, title, link, description, date)
+      link2 = "http://null.myokoym.net/2"
+      title2 = "Title2"
+      date2 = Time.new(2015, 3, 6)
+      @database.add(link2, title2, link2, description, date2)
     end
 
     def test_all_records
       feeds = Feedcellar::GroongaSearcher.search(@database, [])
-      assert_equal(1, feeds.size)
+      assert_equal(2, feeds.size)
     end
 
     def test_found
       words = []
       words << "fiction"
       feeds = Feedcellar::GroongaSearcher.search(@database, words)
-      assert_equal(1, feeds.size)
+      assert_equal(2, feeds.size)
+    end
+
+    def test_and
+      words = []
+      words << "fiction"
+      words << "Test"
+      feeds = Feedcellar::GroongaSearcher.search(@database, words)
+      assert_equal(["Test"], feeds.map(&:title))
+    end
+
+    def test_or
+      words = []
+      words << "Test"
+      words << "OR"
+      words << "Title2"
+      feeds = Feedcellar::GroongaSearcher.search(@database, words)
+      assert_equal(["Test", "Title2"], feeds.map(&:title).sort)
     end
 
     def test_year_found

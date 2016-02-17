@@ -1,6 +1,6 @@
 # class Feedcellar::GroongaSearcher
 #
-# Copyright (C) 2013-2015  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2016  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -56,9 +56,21 @@ module Feedcellar
           expression_builder = feed
 
           if (!words.nil? && !words.empty?)
+            or_flag = false
             words.each do |word|
-              expression_builder &= (feed.title =~ word) |
-                                      (feed.description =~ word)
+              if word == "OR"
+                or_flag = true
+                next
+              end
+
+              if or_flag
+                expression_builder |= (feed.title =~ word) |
+                                        (feed.description =~ word)
+                or_flag = false
+              else
+                expression_builder &= (feed.title =~ word) |
+                                        (feed.description =~ word)
+              end
             end
           end
 
