@@ -85,7 +85,7 @@ class GroongaSearcherTest < Test::Unit::TestCase
         :year => 2014,
       }
       feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
-      assert_equal(1, feeds.size)
+      assert_equal(["Title1"], feeds.map(&:title))
     end
 
     def test_year_not_found
@@ -94,6 +94,7 @@ class GroongaSearcherTest < Test::Unit::TestCase
       }
       feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
       assert_equal(0, feeds.size)
+      assert_equal([], feeds.map(&:title))
     end
 
     def test_month_found
@@ -102,6 +103,7 @@ class GroongaSearcherTest < Test::Unit::TestCase
       }
       feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
       assert_equal(1, feeds.size)
+      assert_equal(["Title1"], feeds.map(&:title))
     end
 
     def test_month_not_found
@@ -110,6 +112,7 @@ class GroongaSearcherTest < Test::Unit::TestCase
       }
       feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
       assert_equal(0, feeds.size)
+      assert_equal([], feeds.map(&:title))
     end
 
     def test_year_and_month
@@ -118,7 +121,7 @@ class GroongaSearcherTest < Test::Unit::TestCase
         :month => 2,
       }
       feeds = Feedcellar::GroongaSearcher.search(@database, [], options)
-      assert_equal(1, feeds.size)
+      assert_equal(["Title1"], feeds.map(&:title))
     end
   end
 end
