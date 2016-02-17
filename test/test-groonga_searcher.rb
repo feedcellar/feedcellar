@@ -39,15 +39,16 @@ class GroongaSearcherTest < Test::Unit::TestCase
   class SearchTest < self
     def setup
       super
-      title = "Test"
-      link = "http://null.myokoym.net/1"
-      description = "The site is fiction."
-      date = Time.new(2014, 2, 5)
-      @database.add(link, title, link, description, date)
-      link2 = "http://null.myokoym.net/2"
-      title2 = "Title2"
-      date2 = Time.new(2015, 3, 6)
-      @database.add(link2, title2, link2, description, date2)
+      @database.add("key1",
+                    "Title1",
+                    "http://null.myokoym.net/1",
+                    "The site is fiction.",
+                    Time.new(2014, 2, 5))
+      @database.add("key2",
+                    "Title2",
+                    "http://null.myokoym.net/2",
+                    "The site is fiction.",
+                    Time.new(2015, 3, 6))
     end
 
     def test_all_records
@@ -65,18 +66,18 @@ class GroongaSearcherTest < Test::Unit::TestCase
     def test_and
       words = []
       words << "fiction"
-      words << "Test"
+      words << "Title1"
       feeds = Feedcellar::GroongaSearcher.search(@database, words)
-      assert_equal(["Test"], feeds.map(&:title))
+      assert_equal(["Title1"], feeds.map(&:title))
     end
 
     def test_or
       words = []
-      words << "Test"
+      words << "Title1"
       words << "OR"
       words << "Title2"
       feeds = Feedcellar::GroongaSearcher.search(@database, words)
-      assert_equal(["Test", "Title2"], feeds.map(&:title).sort)
+      assert_equal(["Title1", "Title2"], feeds.map(&:title).sort)
     end
 
     def test_year_found
