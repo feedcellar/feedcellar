@@ -89,14 +89,19 @@ module Feedcellar
       end
     end
 
-    desc "collect", "Collect feeds from WWW."
+    desc "collect [FILTER_PATTERN]", "Collect feeds from WWW."
     option :parallel, :type => :boolean, :desc => "run on multiple processes"
-    def collect
+    def collect(filter_pattern=nil)
       GroongaDatabase.new.open(@database_dir) do |database|
         resources = database.resources
         collect_proc = lambda do |record|
           feed_url = record.xmlUrl
+
           next unless feed_url
+          if filter_pattern
+            regexp = Regexp.new(filter_pattern)
+            next unless regexp =~ feed_url
+          end
 
           items = Feed.parse(feed_url)
           next unless items
