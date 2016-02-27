@@ -1,5 +1,14 @@
 # NEWS
 
+## 0.7.2: 2016-02-27
+
+### Changes
+
+#### Improvements
+
+  * collect: Fixed parsing complex Atom feeds.
+  * collect: Accepted filter pattern.
+
 ## 0.7.1: 2016-02-17
 
 ### Changes
