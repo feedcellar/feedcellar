@@ -1,6 +1,6 @@
 # class Feedcellar::Feed
 #
-# Copyright (C) 2013-2014  Masafumi Yokoyama <myokoym@gmail.com>
+# Copyright (C) 2013-2016  Masafumi Yokoyama <myokoym@gmail.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -16,7 +16,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-require "rss"
+require "feedjira"
 
 module Feedcellar
   class Feed
@@ -32,32 +32,18 @@ module Feedcellar
       feeds = []
 
       begin
-        rss = RSS::Parser.parse(feed_url)
-      rescue RSS::InvalidRSSError
-        begin
-          rss = RSS::Parser.parse(feed_url, false)
-        rescue
-          $stderr.puts "WARNING: #{$!} (#{feed_url})"
-          return nil
-        end
+        rss = Feedjira::Feed.fetch_and_parse(feed_url)
       rescue
         $stderr.puts "WARNING: #{$!} (#{feed_url})"
         return nil
       end
       return nil unless rss
 
-      rss.items.each do |item|
-        if rss.is_a?(RSS::Atom::Feed)
-          title = item.title.content
-          link = item.link.href if item.link
-          description = item.summary.content if item.summary
-          date = item.updated.content if item.updated
-        else
-          title = item.title
-          link = item.link
-          description = item.description
-          date = item.date
-        end
+      rss.entries.each do |entry|
+        title = entry.title
+        link = entry.url
+        description = entry.summary || entry.content
+        date = entry.published || entry.updated
 
         next unless link
 
